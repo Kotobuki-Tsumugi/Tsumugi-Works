@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一章：数学基础学习计划 — 电气工程师自学路径</title>
+<style>
+  :root {
+    /* === Claude 官方品牌色 === */
+    --primary: #cc785c;
+    --primary-dark: #b56145;
+    --primary-light: #d99b7a;
+    --primary-soft: #fdf1ea;
+    --primary-soft2: #fef7f2;
+    --accent-blue: #6a9bcc;
+    --accent-green: #788c5d;
+    --accent-blue-soft: #e8f1f8;
+    --accent-green-soft: #edf2e5;
+    --success: #788c5d;
+    --error: #c0392b;
+
+    /* 背景 */
+    --bg: #faf9f5;
+    --bg-warm: #f5f4ef;
+    --card-bg: #ffffff;
+    --card-warm: #f5f4ef;
+
+    /* 公式/代码框（浅色） */
+    --panel-light: #f0eeea;
+    --panel-border: #cc785c;
+
+    /* 边框 */
+    --border: #e0ddd3;
+    --border-strong: #cbc7bc;
+
+    /* 文字 */
+    --text: #141413;
+    --text-light: #5a5a56;
+
+    /* 间距/尺寸 */
+    --radius: 0.625rem;
+    --radius-sm: 0.375rem;
+    --shadow: 0 0.125rem 0.5rem rgba(20,20,19,0.04);
+    --shadow-drop: drop-shadow(0 0.0625rem 0.1875rem rgba(0,0,0,0.04));
+    --glow-orange: 0 0 0 0.125em rgba(204,120,92,0.2);
+    --glow-blue: 0 0 0 0.125em rgba(106,155,204,0.2);
+    --transition: 0.2s ease;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; color-scheme: light; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  .page-wrapper { max-width: min(100%, 60rem); margin: 0 auto; padding: 0 clamp(1rem, 2vw, 1.5rem) 5rem; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(180deg, #f5ede6 0%, #faf9f5 100%);
+    color: var(--text);
+    padding: 3.75rem clamp(1.5rem, 3vw, 2rem) 3.25rem;
+    border-radius: 0 0 clamp(0.75rem, 1.5vw, 1.5rem) clamp(0.75rem, 1.5vw, 1.5rem);
+    margin: 0 clamp(-1rem, -2vw, -1.5rem) 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 0.0625em solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; left: 50%;
+    transform: translateX(-50%);
+    width: clamp(20rem, 40vw, 37.5rem);
+    height: clamp(14rem, 30vw, 25rem);
+    background: radial-gradient(circle, rgba(204,120,92,0.08) 0%, transparent 70%);
+    filter: blur(clamp(2rem, 5vw, 4rem));
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex; justify-content: center; gap: 1.75rem; flex-wrap: wrap;
+    font-size: 0.9em;
+    color: var(--text-light);
+    position: relative;
+  }
+  .hero-meta span strong { color: var(--primary); }
+
+  section { margin-bottom: 3rem; }
+
+  /* Section titles */
+  h2.section-title {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 0.625rem;
+  }
+  h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 3rem; height: 0.1875rem;
+    background: var(--primary);
+    border-radius: 0.125rem;
+  }
+  h3 {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    color: var(--primary);
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    line-height: 1.2;
+  }
+  h4 {
+    font-size: 1.05em;
+    color: var(--primary-dark);
+    font-weight: 600;
+    margin: 1.125rem 0 0.5rem;
+    line-height: 1.2;
+  }
+  p { margin-bottom: 0.75rem; color: var(--text); }
+  ul, ol { margin-left: 1.375rem; margin-bottom: 0.875rem; }
+  li { margin-bottom: 0.375rem; }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0.0625rem 0.1875rem rgba(0,0,0,0.04));
+    transition: box-shadow var(--transition), border-color var(--transition);
+  }
+  .card:hover {
+    box-shadow: var(--glow-orange);
+    border-color: rgba(204,120,92,0.35);
+  }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr)); gap: 0.875rem; }
+  .card-grid .card { margin-bottom: 0; }
+  .card .card-icon { font-size: 1.8em; margin-bottom: 0.375rem; display: block; }
+  .card h4 { margin-top: 0; }
+
+  /* EE note */
+  .ee-note {
+    background: var(--primary-soft2);
+    border-left: 0.1875em solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: clamp(0.75rem, 1.5vw, 1.25rem);
+    margin: 0.875rem 0;
+  }
+  .ee-note .ee-label {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.85em;
+    display: flex; align-items: center; gap: 0.375rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Math display: LIGHT #f0eeea bg */
+  .math-display {
+    background: var(--panel-light);
+    border-left: 0.25em solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.25rem 1.5rem;
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    text-align: left;
+    color: var(--text);
+  }
+  .math-display .math-label {
+    display: block;
+    font-size: 0.75em;
+    color: var(--accent-blue);
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+  .math-display .math-note {
+    text-align: left;
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-top: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    background: #eae7df;
+    border-radius: var(--radius-sm);
+    border-left: 0.125em solid var(--primary);
+  }
+  math.inline { font-size: 1.05em; color: var(--text); }
+  math { color: var(--text); }
+  math mtext { color: var(--text); }
+  math mi { color: var(--text); }
+  math mo { color: var(--text); }
+  math mn { color: var(--text); }
+  math .math-key { color: var(--primary); }
+  math .math-ee-label { color: var(--accent-green); }
+  .math-ee-label { color: var(--accent-green); font-weight: 600; font-style: normal; }
+  .math-key { color: var(--primary); font-weight: 600; font-style: normal; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.875rem 0;
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    filter: drop-shadow(0 0.0625rem 0.1875rem rgba(0,0,0,0.04));
+  }
+  th {
+    background: #f0ede7;
+    color: var(--primary-dark);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 0.125em solid var(--primary);
+  }
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 0.0625em solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+  tr:hover td { background: #faf8f3; }
+
+  /* Diagram */
+  .diagram {
+    background: var(--card-bg);
+    border: 0.0625em dashed var(--border-strong);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin: 0.875rem 0;
+    text-align: left;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 0.88em;
+    line-height: 1.6;
+    color: var(--text-light);
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; margin-left: 0; }
+  .checklist li {
+    padding: 0.625rem 0.875rem;
+    background: var(--card-bg);
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.375rem;
+    display: flex; align-items: flex-start; gap: 0.625rem;
+    transition: border-color 0.15s;
+  }
+  .checklist li:hover { border-color: rgba(204,120,92,0.3); }
+  .checklist li::before {
+    content: "☐";
+    font-size: 1.2em;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0.25em; margin-bottom: 0; }
+  .tab-btn {
+    padding: 0.625rem 1.125rem;
+    border: 0.0625em solid var(--border);
+    background: var(--bg-warm);
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    transition: all 0.15s ease;
+    color: var(--text-light);
+  }
+  .tab-btn:hover { color: var(--primary); border-color: rgba(204,120,92,0.3); }
+  .tab-btn.active {
+    background: var(--card-bg);
+    border-bottom-color: var(--card-bg);
+    color: var(--primary);
+    font-weight: 600;
+    box-shadow: 0 -0.125em 0 var(--primary) inset;
+  }
+  .tab-panel {
+    display: none;
+    border: 0.0625em solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    padding: 1.125rem 1.25rem;
+    background: var(--card-bg);
+    margin-bottom: 0.875rem;
+  }
+  .tab-panel.active { display: block; }
+
+  /* Quiz */
+  .quiz {
+    background: var(--primary-soft2);
+    border: 0.0625em solid rgba(204,120,92,0.2);
+    border-radius: var(--radius);
+    padding: 1.125rem 1.375rem;
+    margin: 0.875rem 0;
+  }
+  .quiz-title { font-weight: 700; color: var(--primary); margin-bottom: 0.625rem; }
+  .quiz-option {
+    display: block;
+    padding: 0.5rem 0.875rem;
+    margin: 0.25em 0;
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--card-bg);
+    transition: all 0.15s ease;
+  }
+  .quiz-option:hover { border-color: var(--primary); background: var(--primary-soft); }
+  .quiz-option.correct { background: var(--accent-green-soft); border-color: var(--success); color: var(--success); }
+  .quiz-option.wrong { background: #fde8e3; border-color: var(--error); color: var(--error); }
+  .quiz-answer {
+    display: none;
+    padding: 0.625rem 0.875rem;
+    margin-top: 0.5rem;
+    background: var(--accent-green-soft);
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+    color: var(--success);
+  }
+  .quiz-answer.show { display: block; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 1.75rem; margin: 0.875rem 0; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem; top: 0; bottom: 0;
+    width: 0.125em;
+    background: var(--border);
+  }
+  .timeline-item { position: relative; padding: 0.5rem 0 0.875rem; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem; top: 0.875rem;
+    width: 0.75rem; height: 0.75rem;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 0.125em solid #fff;
+    box-shadow: 0 0 0 0.125em rgba(204,120,92,0.3);
+  }
+  .timeline-item h4 { margin: 0 0 0.25rem; }
+  .timeline-item p { margin: 0; color: var(--text-light); font-size: 0.92em; }
+
+  /* Week blocks */
+  .week-block {
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.875rem;
+    overflow: hidden;
+    background: var(--card-bg);
+    filter: drop-shadow(0 0.0625rem 0.1875rem rgba(0,0,0,0.04));
+    transition: box-shadow var(--transition);
+  }
+  .week-block:hover { box-shadow: var(--glow-orange); }
+  .week-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 0.875rem 1.25rem;
+    font-weight: 700;
+    font-size: 1.05em;
+    display: flex; align-items: center; gap: 0.625rem;
+  }
+  .week-header .badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.125em 0.625em;
+    border-radius: 0.75em;
+    font-size: 0.75em;
+    color: #fff;
+  }
+  .week-body { padding: 1rem 1.25rem; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1.25rem;
+    color: var(--text-light);
+    font-size: 0.85em;
+    border-top: 0.0625em solid var(--border);
+    margin-top: 2.5rem;
+  }
+
+  .back-top {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    width: 2.75rem; height: 2.75rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.3em;
+    cursor: pointer;
+    display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 0.25rem 0.75rem rgba(204,120,92,0.4);
+    z-index: 99;
+    transition: all var(--transition);
+  }
+  .back-top.show { display: flex; }
+  .back-top:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 0.375rem 1rem rgba(204,120,92,0.5);
+    transform: translateY(-0.125rem);
+  }
+
+  @media print {
+    .back-top { display: none !important; }
+    .hero { padding: 1.5rem 1rem; }
+    .card { break-inside: avoid; }
+  }
+  @media (width < 37.5rem) {
+    .hero { padding: 2.25rem 1.125rem 2rem; margin: 0 clamp(-1.25rem, -2vw, -1.5rem) 1.75rem; }
+    .hero h1 { font-size: 1.5em; }
+    .hero-meta { gap: 0.75rem; flex-direction: column; align-items: center; }
+    .card-grid { grid-template-columns: 1fr; }
+    .tabs { flex-wrap: wrap; }
+    .tab-btn { flex: 1; min-width: 5rem; text-align: center; font-size: 0.82em; }
+    table { font-size: 0.82em; }
+    th, td { padding: 0.4375rem 0.5625rem; }
+    .math-display { font-size: 0.9em; padding: 0.875rem 0.625rem; }
+  }
+
+  /* === 基础概念卡 === */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr));
+    gap: 0.75rem;
+    margin: 0.875rem 0;
+  }
+  .concept-card {
+    background: var(--card-bg);
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.875rem 1.125rem;
+    filter: drop-shadow(0 0.0625rem 0.1875rem rgba(0,0,0,0.04));
+    transition: all 0.15s;
+  }
+  .concept-card:hover { box-shadow: var(--glow-orange); border-color: rgba(204,120,92,0.3); }
+  .concept-card h4 {
+    margin: 0 0 0.375rem;
+    color: var(--primary);
+    font-size: 1em;
+  }
+  .concept-card .analogy {
+    color: var(--text-light);
+    font-size: 0.88em;
+    margin-bottom: 0.375rem;
+  }
+  .concept-card .example {
+    background: var(--bg-warm);
+    border-left: 0.125em solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 0.375rem 0.625rem;
+    font-size: 0.85em;
+    margin-top: 0.375rem;
+  }
+
+  /* === 避坑指南 === */
+  .pitfall-box {
+    background: var(--bg-warm);
+    border: 0.0625em solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.125rem 1.375rem;
+    margin: 0.875rem 0;
+  }
+  .pitfall-box h4 {
+    color: var(--error);
+    margin: 0 0 0.625rem;
+    font-size: 1em;
+  }
+  .pitfall-item {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    border: 0.0625em solid var(--border);
+    align-items: flex-start;
+    font-size: 0.92em;
+    transition: border-color 0.15s;
+  }
+  .pitfall-item:hover { border-color: rgba(204,120,92,0.3); }
+  .pitfall-tag {
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 0.8em;
+    padding: 0.125em 0.5em;
+    border-radius: 0.25em;
+    margin-top: 0.125em;
+  }
+  .pitfall-tag.wrong { background: #fde8e3; color: var(--error); }
+  .pitfall-tag.correct { background: var(--accent-green-soft); color: var(--success); }
+  .pitfall-text { flex: 1; }
+
+  /* === 每周小结 === */
+  .week-summary {
+    background: var(--accent-blue-soft);
+    border: 0.0625em solid rgba(106,155,204,0.25);
+    border-radius: var(--radius);
+    padding: 1.125rem 1.375rem;
+    margin: 0.875rem 0;
+  }
+  .week-summary h4 {
+    color: var(--accent-blue);
+    margin: 0 0 0.625rem;
+    font-size: 1.05em;
+  }
+  .week-summary .key-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+  .week-summary .key-points .key-tag {
+    background: var(--card-bg);
+    padding: 0.25em 0.75em;
+    border-radius: 0.875em;
+    font-size: 0.85em;
+    border: 0.0625em solid rgba(106,155,204,0.3);
+    color: var(--accent-blue);
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .week-summary .key-points .key-tag:hover {
+    background: var(--accent-blue);
+    color: #fff;
+  }
+  .week-summary .connection {
+    background: var(--card-bg);
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+    margin-top: 0.5rem;
+    border-left: 0.125em solid var(--accent-blue);
+  }
+
+  /* === 例题精解 === */
+  .worked-example {
+    background: var(--card-bg);
+    border: 0.125em solid var(--primary);
+    border-radius: var(--radius);
+    padding: 1.125rem 1.375rem;
+    margin: 0.875rem 0;
+  }
+  .worked-example .example-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    font-size: 0.95em;
+  }
+  .worked-example .example-desc {
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-bottom: 0.625rem;
+  }
+  .worked-step {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0.5rem 0;
+    align-items: flex-start;
+  }
+  .worked-step .step-num {
+    flex-shrink: 0;
+    background: var(--primary);
+    color: #fff;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin-top: 0.125rem;
+  }
+  .worked-step .step-content {
+    flex: 1;
+    font-size: 0.92em;
+  }
+  .worked-step .step-content .why {
+    display: block;
+    color: var(--accent-green);
+    font-size: 0.85em;
+    margin-top: 0.125rem;
+    font-style: italic;
+  }
+  .worked-step .step-content .formula-line {
+    background: var(--panel-light);
+    color: var(--text);
+    padding: 0.25em 0.625em;
+    border-left: 0.125em solid var(--primary);
+    border-radius: var(--radius-sm);
+    margin: 0.25em 0;
+    font-size: 0.9em;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+  .worked-result {
+    margin-top: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    background: var(--accent-green-soft);
+    border-left: 0.1875em solid var(--success);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    color: var(--success);
+    font-size: 0.9em;
+  }
+
+  /* === 术语速查表 === */
+  .glossary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.875rem 0;
+    font-size: 0.88em;
+  }
+  .glossary-table th {
+    background: #f0ede7;
+    color: var(--primary-dark);
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 0.125em solid var(--primary);
+  }
+  .glossary-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 0.0625em solid var(--border);
+    vertical-align: top;
+  }
+  .glossary-table tr:nth-child(even) td {
+    background: var(--bg);
+  }
+  .glossary-table .term {
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  /* === 通用提示框 === */
+  .tip-box {
+    background: var(--primary-soft2);
+    border-left: 0.1875em solid var(--primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: clamp(0.75rem, 1.5vw, 1.5rem);
+    margin: 0.75rem 0;
+    font-size: 0.92em;
+  }
+  .tip-box .tip-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<button class="back-top" id="backTop" title="回到顶部" aria-label="回到顶部">↑</button>
+
+<div class="page-wrapper">
+
+<header class="hero">
+  <h1>📐 第一章：数学基础学习计划</h1>
+  <p class="subtitle">为电气工程师打造的自学数学体系 — 从初等数学到积分变换</p>
+  <div class="hero-meta">
+    <span>建议周期：<strong>4 周</strong></span>
+    <span>每天投入：<strong>2–3 小时</strong></span>
+    <span>面向：<strong>零基础 / 工程应用</strong></span>
+  </div>
+</header>
+
+<section>
+  <h2 class="section-title">📌 为什么电气工程师必须学好数学？</h2>
+  <p>电气工程看似在研究电路、电机和电磁场，但背后的"语言"全是数学。</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <h4>看懂变化规律</h4>
+      <p>电压电流随时间如何变化？<strong>微积分</strong>是描述这种"变化"的唯一语言。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📊</span>
+      <h4>解复杂电路</h4>
+      <p>面对几十条支路的电路，<strong>矩阵和线性方程组</strong>让你把一堆方程变成一道矩阵乘法。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔄</span>
+      <h4>分析交流信号</h4>
+      <p>正弦交流电的叠加和相位关系，用<strong>复数和相量法</strong>一算就明白。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌊</span>
+      <h4>频域分析系统</h4>
+      <p><strong>傅里叶变换、拉普拉斯变换</strong>，本质是把时间域的问题搬到频域，让难题变简单。</p>
+    </div>
+  </div>
+  <div class="ee-note">
+    <div class="ee-label">🔌 电气视角</div>
+    <p>数学不好做不了电气工程师吗？可以做，但天花板很低。学好了数学，你才能<strong>读懂论文、推演公式、创新设计</strong>。</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">🗺️ 本章知识架构总览</h2>
+  <div class="diagram">
+<span style="color:#e74c3c;">数学基础</span>
+│
+├── 1. 初等数学补强
+│     ├── 方程与不等式          →  解电路参数
+│     ├── 三角函数              →  交流电波形分析
+│     └── 指数与对数            →  电路暂态响应
+│
+├── 2. 高等数学 (微积分)
+│     ├── 函数、极限、连续       →  理解信号变化
+│     ├── 导数与微分             →  i = C·du/dt (电容电流)
+│     ├── 不定积分 / 定积分      →  能量、功率积分
+│     ├── 多元函数微积分          →  电磁场分析
+│     └── 常微分方程             →  RL/RC/RLC 电路暂态
+│
+├── 3. 线性代数
+│     ├── 行列式 / 矩阵运算       →  电路方程矩阵求解
+│     ├── 线性方程组              →  网孔/节点法矩阵形式
+│     └── 特征值与特征向量        →  系统稳定性分析
+│
+├── 4. 复变函数基础
+│     ├── 复数运算                →  交流电路计算
+│     ├── 复数的三角/指数形式      →  相量表示
+│     └── 复变函数概念            →  传输函数
+│
+└── 5. 积分变换入门
+      ├── 傅里叶变换              →  信号频谱分析
+      ├── 拉普拉斯变换            →  电路 s 域分析
+      └── Z 变换                 →  数字信号处理
+</div>
+</section>
+
+<section>
+  <h2 class="section-title">🧱 基础概念：从零讲起</h2>
+  <p>下面这些术语是后续所有内容的地基。如果任何一个你不熟悉，花 10 分钟在这里搞懂，比后面反复查要快得多。</p>
+
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <h4>📦 变量（Variable）</h4>
+      <p class="analogy">就像你家的电表：读数一直在变，所以我们用一个字母"u"来代表它。</p>
+      <div class="example">
+        <strong>数学写法：</strong>用字母表示会变化的量，如 u(t)、i(t)、x、y。<br>
+        <strong>电气对应：</strong>电压 u、电流 i 都是随时间变化的变量。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>🔒 常数（Constant）</h4>
+      <p class="analogy">就像重力加速度 g 永远≈9.8，不会变，所以用数字固定下来。</p>
+      <div class="example">
+        <strong>数学写法：</strong>用数字或特定字母表示不变的量，如 π≈3.14、e≈2.72。<br>
+        <strong>电气对应：</strong>电阻 R=100Ω（固定电阻）、电源电压 E=12V（稳压源）。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>📐 函数（Function）</h4>
+      <p class="analogy">就像 ATM 机：你输入密码和金额（输入），它吐出钱（输出）。同一个输入永远对应同一个输出。</p>
+      <div class="example">
+        <strong>数学写法：</strong>y = f(x)，读作"y 是 x 的函数"。<br>
+        <strong>电气对应：</strong>u(t) 表示"电压是时间的函数"——不同时间，电压不同。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>🧩 方程（Equation）</h4>
+      <p class="analogy">就像一个天平：左右两边必须一样重。方程就是"等号两边的值相等"。</p>
+      <div class="example">
+        <strong>数学写法：</strong>2x + 3 = 7（求 x 使等式成立）。<br>
+        <strong>电气对应：</strong>欧姆定律 I=U/R 本身就是一个方程——已知两个量，求第三个。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>📏 指数（Exponent）</h4>
+      <p class="analogy">就像细菌分裂：每过一代数量翻倍。2¹⁰ = 1024 比 2×10 大得多——这就是指数的威力。</p>
+      <div class="example">
+        <strong>数学写法：</strong>aⁿ 表示"a 自乘 n 次"。2³ = 2×2×2 = 8。<br>
+        <strong>电气对应：</strong>电容充电曲线 u(t) = E(1−e^(−t/RC)) 中的 e^(−t/RC)。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>📋 对数（Logarithm）</h4>
+      <p class="analogy">如果指数是"翻倍的魔法"，对数就是"这个魔法重复了多少次"。10³=1000 → 反过来 log₁₀(1000)=3。</p>
+      <div class="example">
+        <strong>数学写法：</strong>log<sub>a</sub>(b) = c 表示 a<sup>c</sup> = b。<br>
+        <strong>电气对应：</strong>分贝 dB = 10·log₁₀(P/P₀)，把巨大的功率比压缩成小数。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>🔄 弧度制（Radian）</h4>
+      <p class="analogy">角度制就像用"步数"量路，弧度制就像用"轮子滚过的距离"量路——弧度更自然，因为圆周长 = 2πr。</p>
+      <div class="example">
+        <strong>数学写法：</strong>360° = 2π rad，180° = π rad，90° = π/2 rad。<br>
+        <strong>电气对应：</strong>正弦波一个完整周期 = 2π 弧度 = 360°。
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h4>🔢 虚数单位 j</h4>
+      <p class="analogy">数学中 i²=−1 没有"正常"解，但电气里我们叫它 j（因为 i 已经表示电流）。它不是"假的"，而是"垂直方向的数"。</p>
+      <div class="example">
+        <strong>数学写法：</strong>j = √(−1)，j² = −1。<br>
+        <strong>电气对应：</strong>复数 z = a + jb，用来同时表示交流电的幅值和相位。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-title">💡 学习提示</div>
+    <p>如果你觉得上面某个概念已经熟悉，可以跳过；但如果你发现某个术语完全没听过，建议停下来，花 5 分钟在搜索框里搜一下它的"定义"，确保基础扎实再往下看。</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📅 第 1 周：初等数学补强 + 函数与极限</h2>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 1–3 · 方程、三角函数、指数对数 <span class="badge">基础</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 1：方程与不等式</h3>
+      <p>解方程是电气计算的第一基本功。欧姆定律</p>
+      <div class="math-display">
+        <math class="inline" display="inline">
+          <mi>I</mi><mo>=</mo><mfrac><mi>U</mi><mi>R</mi></mfrac>
+        </math>
+      </div>
+      <p>本身就是一个一元一次方程。</p>
+
+      <div class="math-display">
+        <span class="math-label">// 一元二次方程求根公式</span>
+        <math display="block">
+          <mrow>
+            <mi>x</mi>
+            <mo>=</mo>
+            <mfrac>
+              <mrow><mo>−</mo><mi>b</mi><mo>±</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow>
+              <mrow><mn>2</mn><mi>a</mi></mrow>
+            </mfrac>
+          </mrow>
+        </math>
+        <p class="math-note">
+          <span class="math-key">判别式：</span>Δ = b² − 4ac。Δ&gt;0 → 两个不等实根；Δ=0 → 一个重根；Δ&lt;0 → 无实根
+        </p>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p>RLC 串联电路的谐振频率公式推导，本质就是解一个关于角频率 ω 的一元二次方程。</p>
+      </div>
+
+      <h3>Day 2：三角函数</h3>
+
+      <div class="math-display">
+        <span class="math-label">// 交流电压的标准表达式</span>
+        <math display="block">
+          <mrow>
+            <mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo>
+            <mo>=</mo>
+            <msqrt><mn>2</mn></msqrt>
+            <mi>U</mi>
+            <mi>sin</mi><mo>(</mo><mi>ω</mi><mi>t</mi><mo>+</mo><mi>φ</mi><mo>)</mo>
+          </mrow>
+        </math>
+        <p class="math-note">
+          <span class="math-key">U</span> = 有效值；
+          <span class="math-key">ω</span> = 角频率 = 2πf（工频 f=50Hz → ω≈314 rad/s）；
+          <span class="math-key">φ</span> = 初相角
+        </p>
+      </div>
+
+      <h4>常用特殊角函数值</h4>
+      <table>
+        <tr><th>角度 θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+        <tr><td>sin θ</td>
+          <td>0</td>
+          <td><math><mfrac><mn>1</mn><mn>2</mn></mfrac></math></td>
+          <td><math><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></math></td>
+          <td><math><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac></math></td>
+          <td>1</td>
+        </tr>
+        <tr><td>cos θ</td>
+          <td>1</td>
+          <td><math><mfrac><msqrt><mn>3</mn></msqrt><mn>2</mn></mfrac></math></td>
+          <td><math><mfrac><mn>1</mn><msqrt><mn>2</mn></msqrt></mfrac></math></td>
+          <td><math><mfrac><mn>1</mn><mn>2</mn></mfrac></math></td>
+          <td>0</td>
+        </tr>
+      </table>
+
+      <h3>Day 3：指数与对数</h3>
+
+      <div class="math-display">
+        <span class="math-label">// 指数运算法则</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.25em">
+            <mtr><mtd><mtext>同底数相乘：</mtext></mtd><mtd><msup><mi>a</mi><mrow><mi>m</mi><mo>+</mo><mi>n</mi></mrow></msup><mo>=</mo><msup><mi>a</mi><mi>m</mi></msup><mo>⋅</mo><msup><mi>a</mi><mi>n</mi></msup></mtd></mtr>
+            <mtr><mtd><mtext>同底数相除：</mtext></mtd><mtd><mfrac><msup><mi>a</mi><mi>m</mi></msup><msup><mi>a</mi><mi>n</mi></msup></mfrac><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></msup></mtd></mtr>
+            <mtr><mtd><mtext>幂的乘方：</mtext></mtd><mtd><mrow><mo>(</mo><msup><mi>a</mi><mi>m</mi></msup><mo>)</mo><mi>n</mi></mrow><mo>=</mo><msup><mi>a</mi><mrow><mi>m</mi><mi>n</mi></mrow></msup></mtd></mtr>
+          </mtable>
+        </math>
+      </div>
+
+      <div class="math-display">
+        <span class="math-label">// 工程常用：分贝（dB）</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.5em">
+            <mtr><mtd><mtext>功率比：</mtext></mtd>
+              <mtd><msub><mi>P</mi><mtext>dB</mtext></msub><mo>=</mo><mn>10</mn><mo>⋅</mo><msub><mi>log</mi><mn>10</mn></msub><mrow><mo>(</mo><mfrac><mi>P</mi><msub><mi>P</mi><mn>0</mn></msub></mfrac><mo>)</mo></mrow></mtd></mtr>
+            <mtr><mtd><mtext>电压比：</mtext></mtd>
+              <mtd><msub><mi>V</mi><mtext>dB</mtext></msub><mo>=</mo><mn>20</mn><mo>⋅</mo><msub><mi>log</mi><mn>10</mn></msub><mrow><mo>(</mo><mfrac><mi>V</mi><msub><mi>V</mi><mn>0</mn></msub></mfrac><mo>)</mo></mrow></mtd></mtr>
+          </mtable>
+        </math>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p>分贝（dB）是电气工程师的语言。它把"倍乘关系"变成"加减关系"，串多个器件时只要把 dB 值相加即可。</p>
+      </div>
+
+      <div class="quiz" data-quiz="1">
+        <div class="quiz-title">📝 小测验：三角函数与电气</div>
+        <p>我国工频交流电的频率为 50 Hz，其角频率 ω 约为多少 rad/s？</p>
+        <label class="quiz-option" data-correct="false">A. 100 rad/s</label>
+        <label class="quiz-option" data-correct="true">B. 314 rad/s</label>
+        <label class="quiz-option" data-correct="false">C. 50 rad/s</label>
+        <label class="quiz-option" data-correct="false">D. 628 rad/s</label>
+        <div class="quiz-answer">✅ 正确答案：B。ω = 2πf = 2 × 3.1416 × 50 ≈ 314 rad/s。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 4–7 · 函数、极限与两个重要极限 <span class="badge">进阶</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 4：函数概念</h3>
+      <p>函数就是"输入→输出"的规则。在电气中，电压是时间的函数 u(t)，电流是时间的函数 i(t)。</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h4>函数的关键属性</h4>
+          <ul>
+            <li><strong>定义域</strong>：允许输入的范围（如电阻 R&gt;0）</li>
+            <li><strong>值域</strong>：输出的取值范围</li>
+            <li><strong>单调性</strong>：增大还是减小</li>
+            <li><strong>奇偶性</strong>：偶函数→波形关于 y 轴对称</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>电气中的常见函数</h4>
+          <ul>
+            <li>u(t) = Uₘ sin(ωt) — 正弦函数</li>
+            <li>u(t) = E(1 − e<sup>−t/RC</sup>) — 指数增长</li>
+            <li>i = k·e<sup>qV/kT</sup> — 二极管方程</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Day 5–6：两个重要极限</h3>
+
+      <div class="math-display">
+        <span class="math-label">// 两个必须掌握的重要极限</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.875em">
+            <mtr>
+              <mtd><mtext>极限 ①</mtext></mtd>
+              <mtd>
+                <munder><mo>lim</mo><mrow><mi>x</mi><mo>→</mo><mn>0</mn></mrow></munder>
+                <mfrac><mi>sin</mi><mi>x</mi></mfrac>
+                <mo>=</mo><mn>1</mn>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd><mtext>极限 ②</mtext></mtd>
+              <mtd>
+                <munder><mo>lim</mo><mrow><mi>x</mi><mo>→</mo><mi>∞</mi></mrow></munder>
+                <mrow><mo>(</mo><mn>1</mn><mo>+</mo><mfrac><mn>1</mn><mi>x</mi></mfrac><mo>)</mo><msup><mrow></mrow><mi>x</mi></msup></mrow>
+                <mo>=</mo><mi>e</mi><mo>≈</mo><mn>2.71828</mn>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+        <p class="math-note">
+          <span class="math-ee-label">电气意义：</span>
+          极限① → 小角度近似 sinθ≈θ（小信号分析）；
+          极限② → 自然常数 e 的来源（电容充放电 e<sup>−t/RC</sup>）
+        </p>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p>电容充电公式 <math class="inline"><mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>E</mi><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mi>t</mi><mi>RC</mi></mfrac></mrow></msup><mo>)</mo></mrow></math>，当 t→∞ 时 u→E（充满）。时间常数 τ=RC 决定充电快慢。</p>
+      </div>
+
+      <div class="quiz" data-quiz="2">
+        <div class="quiz-title">📝 小测验：极限与电路</div>
+        <p>RC 串联电路中，电容电压 <math class="inline"><mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>E</mi><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mi>t</mi><mi>RC</mi></mfrac></mrow></msup><mo>)</mo></mrow></math>。当 <math class="inline"><mi>t</mi><mo>→</mo><mi>∞</mi></math> 时，电容电压趋于？</p>
+        <label class="quiz-option" data-correct="false">A. 0</label>
+        <label class="quiz-option" data-correct="false">B. E/2</label>
+        <label class="quiz-option" data-correct="true">C. E（电源电压）</label>
+        <label class="quiz-option" data-correct="false">D. 无穷大</label>
+        <div class="quiz-answer">✅ 正确答案：C。当 t→∞ 时 e<sup>−t/RC</sup>→0，所以 u(t)→E。</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="example-title">📝 例题精解：解一个与电气相关的方程</div>
+        <div class="example-desc">已知一个串联电路的总电阻 R<sub>总</sub> = R<sub>1</sub> + R<sub>2</sub>，其中 R<sub>1</sub> = 2R<sub>2</sub>，且 R<sub>总</sub> = 60Ω。求 R<sub>1</sub> 和 R<sub>2</sub>。</div>
+        <div class="worked-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <span>列出已知条件：</span>
+            <span class="formula-line">R<sub>1</sub> + R<sub>2</sub> = 60　且　R<sub>1</sub> = 2R<sub>2</sub></span>
+            <span class="why">💡 把电路条件翻译成数学方程，这是最重要的一步。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <span>把 R<sub>1</sub> = 2R<sub>2</sub> 代入第一个方程：</span>
+            <span class="formula-line">2R<sub>2</sub> + R<sub>2</sub> = 60</span>
+            <span class="why">💡 这就是"代入消元法"——用第二个方程消掉 R<sub>1</sub>，只留下 R<sub>2</sub>。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <span>合并同类项：</span>
+            <span class="formula-line">3R<sub>2</sub> = 60</span>
+            <span class="why">💡 2R<sub>2</sub> + R<sub>2</sub> 就是 2 个 R<sub>2</sub> 加上 1 个 R<sub>2</sub>，一共 3 个。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <span>两边同除以 3：</span>
+            <span class="formula-line">R<sub>2</sub> = 60 ÷ 3 = 20Ω</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <span>回代求 R<sub>1</sub>：</span>
+            <span class="formula-line">R<sub>1</sub> = 2R<sub>2</sub> = 2 × 20 = 40Ω</span>
+          </div>
+        </div>
+        <div class="worked-result">✅ 验证：R<sub>1</sub> + R<sub>2</sub> = 40 + 20 = 60Ω ✓　且 R<sub>1</sub> = 2 × R<sub>2</sub> = 2 × 20 = 40 ✓</div>
+      </div>
+
+      <div class="pitfall-box">
+        <h4>⚠️ 常见错误 & 避坑指南</h4>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把弧度当角度：看到"50Hz"就直接用角度算 sin(50)，忘记 ω = 2πf。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">先算 ω = 2πf = 2π×50 ≈ 314 rad/s，再用弧度制算 sin(ωt)。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">认为 log(a+b) = log(a) + log(b)。（就像认为"2+3 的 log 等于 2 的 log 加 3 的 log"——不对！）</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">log 只对乘除有"展开"性质：log(a·b) = log(a) + log(b)。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把 sin²x 当成 sin(x²)。（sin²x = (sinx)²，是先把 x 求正弦，再平方）</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">算判别式 Δ = b²−4ac 时，把 c 的符号搞反。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">写方程时先把所有项移到一边，变成标准形式 ax²+bx+c=0，再套公式。</div>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <h4>📋 第 1 周小结</h4>
+        <div class="key-points">
+          <span class="key-tag">方程求解</span>
+          <span class="key-tag">三角函数</span>
+          <span class="key-tag">弧度制</span>
+          <span class="key-tag">指数对数</span>
+          <span class="key-tag">极限概念</span>
+        </div>
+        <div class="connection">
+          <strong>🔗 知识关联：</strong>三角函数 → 交流电波形；指数对数 → 电容充放电曲线；极限 → 导数的定义。这三条线将在后续几周汇合。
+        </div>
+      </div>
+
+      <h3>第 1 周产出清单</h3>
+      <ul class="checklist">
+        <li>一本数学笔记本（手写公式与例题）</li>
+        <li>20 道错题整理</li>
+        <li>自测成绩达到 70 分以上</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📅 第 2 周：导数与微分</h2>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 1–7 · 从变化率到导数应用 <span class="badge">核心</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 1：导数的物理意义</h3>
+      <p>导数 = 变化率。在电气中，它无处不在——</p>
+
+      <div class="math-display">
+        <span class="math-label">// 导数的定义</span>
+        <math display="block">
+          <msup><mi>f</mi><mo>′</mo></msup><mo>(</mo><mi>x</mi><mo>)</mo>
+          <mo>=</mo>
+          <munder><mo>lim</mo><mrow><mi>Δ</mi><mi>x</mi><mo>→</mo><mn>0</mn></mrow></munder>
+          <mfrac><mrow><mi>f</mi><mo>(</mo><mi>x</mi><mo>+</mo><mi>Δ</mi><mi>x</mi><mo>)</mo><mo>−</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><mrow><mi>Δ</mi><mi>x</mi></mrow></mfrac>
+        </math>
+        <p class="math-note"><span class="math-key">几何意义：</span>曲线在某点的切线斜率　<span class="math-key">物理意义：</span>瞬时变化率</p>
+      </div>
+
+      <div class="math-display">
+        <span class="math-label">// ⚡ 电气中最重要的导数关系</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.625em">
+            <mtr><mtd><mtext><span class="math-ee-label">电容电流：</span></mtext></mtd>
+              <mtd><mi>i</mi><mo>=</mo><mi>C</mi><mo>⋅</mo><mfrac><mrow><mi>d</mi><mi>u</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">电感电压：</span></mtext></mtd>
+              <mtd><mi>u</mi><mo>=</mo><mi>L</mi><mo>⋅</mo><mfrac><mrow><mi>d</mi><mi>i</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">电磁感应：</span></mtext></mtd>
+              <mtd><mi>ε</mi><mo>=</mo><mo>−</mo><mfrac><mrow><mi>d</mi><mi>Φ</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac></mtd></mtr>
+          </mtable>
+        </math>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p><strong>电容"通交流、隔直流"</strong>：直流电压下 du/dt=0，所以 i=0，电容相当于开路。交流电压下 du/dt 不断变化，电流随之变化，电容"导通"。</p>
+      </div>
+
+      <h3>Day 2：求导法则速查表</h3>
+      <table>
+        <tr><th>函数 f(x)</th><th>导数 f'(x)</th><th>电气关联</th></tr>
+        <tr><td>x<sup>n</sup></td><td>n·x<sup>n-1</sup></td><td>功率 P=I²R 对 I 求导 → 2IR</td></tr>
+        <tr><td>sin x</td><td>cos x</td><td>正弦电压求导 → 余弦 → 电容电流超前</td></tr>
+        <tr><td>cos x</td><td>−sin x</td><td>余弦电压求导 → 负正弦</td></tr>
+        <tr><td>e<sup>ax</sup></td><td>a·e<sup>ax</sup></td><td>指数充放电的导数</td></tr>
+        <tr><td>ln x</td><td>1/x</td><td>对数函数求导</td></tr>
+        <tr><td>(f·g)'</td><td>f'·g + f·g'</td><td>乘积法则（功率=U·I 求导）</td></tr>
+        <tr><td>(f/g)'</td><td>(f'·g − f·g')/g²</td><td>商法则（阻抗 Z=U/I）</td></tr>
+        <tr><td>[f(g(x))]'</td><td>f'(g)·g'(x)</td><td>链式法则（复合函数）</td></tr>
+      </table>
+
+      <h3>Day 3–4：微分 — 局部线性近似</h3>
+      <div class="math-display">
+        <span class="math-label">// 微分的几何意义</span>
+        <math display="block">
+          <mi>Δ</mi><mi>y</mi><mo>≈</mo><mi>d</mi><mi>y</mi><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo>(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>)</mo><mo>⋅</mo><mi>Δ</mi><mi>x</mi>
+        </math>
+        <p class="math-note"><span class="math-ee-label">电气应用：</span>把非线性器件在工作点附近用微分近似为线性电路，这是电子学分析的基础。</p>
+      </div>
+
+      <h3>Day 6：最大功率传输定理</h3>
+      <div class="math-display">
+        <span class="math-label">// 负载功率公式</span>
+        <math display="block">
+          <mi>P</mi><mo>=</mo>
+          <msup>
+            <mrow><mo>(</mo><mfrac><mi>E</mi><mrow><mi>r</mi><mo>+</mo><mi>R</mi></mrow></mfrac><mo>)</mo></mrow>
+            <mn>2</mn>
+          </msup>
+          <mo>⋅</mo>
+          <mi>R</mi>
+        </math>
+        <p class="math-note"><span class="math-key">结论：</span>对 R 求导令导数为零 → 当 <math class="inline"><mi>R</mi><mo>=</mo><mi>r</mi></math> 时，负载获得最大功率。</p>
+      </div>
+
+      <div class="quiz" data-quiz="3">
+        <div class="quiz-title">📝 小测验：导数与电容</div>
+        <p>已知电容两端电压 <math class="inline"><mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mn>10</mn><mi>sin</mi><mo>(</mo><mn>100</mn><mi>t</mi><mo>)</mo></math> V，电容 <math class="inline"><mi>C</mi><mo>=</mo><mn>100</mn><mi>μF</mi></math>。则流过电容的电流 i(t) 为？</p>
+        <label class="quiz-option" data-correct="false">A. 0.1 sin(100t) A</label>
+        <label class="quiz-option" data-correct="true">B. 0.1 cos(100t) A</label>
+        <label class="quiz-option" data-correct="false">C. 10 cos(100t) A</label>
+        <label class="quiz-option" data-correct="false">D. 0.1 sin(100t) A</label>
+        <div class="quiz-answer">✅ 正确答案：B。i = C·du/dt = 100×10⁻⁶ × 10×100×cos(100t) = 0.1 cos(100t) A。</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="example-title">📝 例题精解：求电容电流</div>
+        <div class="example-desc">已知一个电容 C = 50μF，其两端电压 u(t) = 6sin(100t + 30°) V。求流过电容的电流 i(t)。</div>
+        <div class="worked-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <span>写出公式：电容电流 = 电容 × 电压的变化率</span>
+            <span class="formula-line">i(t) = C · du/dt</span>
+            <span class="why">💡 这是电容的基本方程。导数 du/dt 就是"电压变化得多快"。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <span>对 u(t) = 6sin(100t + 30°) 求导：</span>
+            <span class="formula-line">du/dt = 6 · cos(100t + 30°) · 100 = 600cos(100t + 30°)</span>
+            <span class="why">💡 这里用了<strong>链式法则</strong>：外层是 sin()，内层是 (100t+30°)。sin 的导数是 cos，再乘以内层的导数 100。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <span>乘以 C（注意 50μF = 50×10⁻⁶ F）：</span>
+            <span class="formula-line">i(t) = 50×10⁻⁶ × 600cos(100t + 30°) = 0.03cos(100t + 30°) A</span>
+          </div>
+        </div>
+        <div class="worked-result">✅ i(t) = 30cos(100t + 30°) mA。注意电流比电压超前 90°（cos 比 sin 超前 90°），这正是电容的特性。</div>
+      </div>
+
+      <div class="pitfall-box">
+        <h4>⚠️ 常见错误 & 避坑指南</h4>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">对 sin(ωt) 求导时忘记链式法则：直接写 cos(ωt)，漏掉了 ω。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">[sin(ωt)]' = cos(ωt) · ω。先对 sin 求导得 cos，再乘以内层 ωt 的导数 ω。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把 (uv)' 当成 u'v'（两个函数的导数相乘）。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">乘积法则：(uv)' = u'v + uv'。注意中间的"+"号。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把 dy/dx 当成一个分数随意拆开：dy/dx = (dy)/(dx) 有时可行，但绝不能随意约分。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">商法则忘记负号：(f/g)' = (f'g − fg')/g²，分子是"f'g <strong>减</strong> fg'"。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">记口诀"<strong>上导下不导，减下导上不导，分母下下平方</strong>"—— (f/g)' = (f'g − fg')/g²。</div>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <h4>📋 第 2 周小结</h4>
+        <div class="key-points">
+          <span class="key-tag">导数定义</span>
+          <span class="key-tag">求导法则</span>
+          <span class="key-tag">链式法则</span>
+          <span class="key-tag">微分近似</span>
+          <span class="key-tag">极值应用</span>
+        </div>
+        <div class="connection">
+          <strong>🔗 知识关联：</strong>导数 → 电容电流 i=C·du/dt、电感电压 u=L·di/dt；导数 → 最大功率传输定理。数学工具直接服务于电路分析。
+        </div>
+      </div>
+
+      <h3>第 2 周产出清单</h3>
+      <ul class="checklist">
+        <li>求导公式速查表</li>
+        <li>20 道导数应用题（含电路题）</li>
+        <li>能用导数分析函数图像（极值、凹凸性）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📅 第 3 周：积分与常微分方程入门</h2>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 1–7 · 从面积到电路暂态 <span class="badge">核心</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 1–2：不定积分</h3>
+      <p>积分是求导的逆运算。如果 f'(x) = g(x)，那么 ∫g(x)dx = f(x) + C。</p>
+
+      <div class="math-display">
+        <span class="math-label">// 基本积分公式表</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.375em">
+            <mtr><mtd><mtext>幂函数：</mtext></mtd><mtd><mo>∫</mo><msup><mi>x</mi><mi>n</mi></msup><mi>dx</mi><mo>=</mo><mfrac><msup><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mo>+</mo><mi>C</mi><mtext> (n≠−1)</mtext></mtd></mtr>
+            <mtr><mtd><mtext>倒数：</mtext></mtd><mtd><mo>∫</mo><mfrac><mn>1</mn><mi>x</mi></mfrac><mi>dx</mi><mo>=</mo><mi>ln</mi><mo>|</mo><mi>x</mi><mo>|</mo><mo>+</mo><mi>C</mi></mtd></mtr>
+            <mtr><mtd><mtext>指数：</mtext></mtd><mtd><mo>∫</mo><msup><mi>e</mi><mi>x</mi></msup><mi>dx</mi><mo>=</mo><msup><mi>e</mi><mi>x</mi></msup><mo>+</mo><mi>C</mi></mtd></mtr>
+            <mtr><mtd><mtext>正弦：</mtext></mtd><mtd><mo>∫</mo><mi>sin</mi><mi>x</mi><mi>dx</mi><mo>=</mo><mo>−</mo><mi>cos</mi><mi>x</mi><mo>+</mo><mi>C</mi></mtd></mtr>
+            <mtr><mtd><mtext>余弦：</mtext></mtd><mtd><mo>∫</mo><mi>cos</mi><mi>x</mi><mi>dx</mi><mo>=</mo><mi>sin</mi><mi>x</mi><mo>+</mo><mi>C</mi></mtd></mtr>
+          </mtable>
+        </math>
+        <p class="math-note"><span class="math-key">电气注意：</span><mo>∫</mo> e<sup>−t/τ</sup> dt = −τ·e<sup>−t/τ</sup> + C（RC 电路暂态分析关键公式！）</p>
+      </div>
+
+      <h3>Day 3：换元积分 & 分部积分</h3>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="substitution">换元积分法</button>
+        <button class="tab-btn" data-tab="integration-by-parts">分部积分法</button>
+      </div>
+      <div class="tab-panel active" id="tab-substitution">
+        <h4>第一类换元（凑微分）</h4>
+        <p>把 ∫f(g(x))·g'(x)dx 看作 ∫f(u)du（令 u=g(x)）。</p>
+        <div class="math-display">
+          <span class="math-label">// 例题</span>
+          <math display="block">
+            <mo>∫</mo><mn>2</mn><mi>x</mi><mo>⋅</mo><mi>cos</mi><mo>(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>)</mo><mi>dx</mi>
+          </math>
+          <p class="math-note"><span class="math-key">令</span> u=x²,　du=2x·dx</p>
+          <math display="block">
+            <mo>=</mo><mo>∫</mo><mi>cos</mi><mo>(</mo><mi>u</mi><mo>)</mo><mi>du</mi><mo>=</mo><mi>sin</mi><mo>(</mo><mi>u</mi><mo>)</mo><mo>+</mo><mi>C</mi><mo>=</mo><mi>sin</mi><mo>(</mo><msup><mi>x</mi><mn>2</mn></msup><mo>)</mo><mo>+</mo><mi>C</mi>
+          </math>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-integration-by-parts">
+        <h4>分部积分法</h4>
+        <div class="math-display">
+          <span class="math-label">// 公式</span>
+          <math display="block">
+            <mo>∫</mo><mi>u</mi><mo>⋅</mo><mi>dv</mi><mo>=</mo><mi>uv</mi><mo>−</mo><mo>∫</mo><mi>v</mi><mo>⋅</mo><mi>du</mi>
+          </math>
+        </div>
+        <p><strong>口诀：</strong>"反对幂三指" — 反三角&gt;对数&gt;幂&gt;三角&gt;指数（选择 u 的优先级）</p>
+        <div class="math-display">
+          <span class="math-label">// 例题：∫x·eˣdx</span>
+          <math display="block">
+            <mrow><mo>=</mo><mi>x</mi><msup><mi>e</mi><mi>x</mi></msup><mo>−</mo><mo>∫</mo><msup><mi>e</mi><mi>x</mi></msup><mi>dx</mi><mo>=</mo><mi>x</mi><msup><mi>e</mi><mi>x</mi></msup><mo>−</mo><msup><mi>e</mi><mi>x</mi></msup><mo>+</mo><mi>C</mi></mrow>
+          </math>
+        </div>
+      </div>
+
+      <h3>Day 4–5：定积分与牛顿-莱布尼茨公式</h3>
+
+      <div class="math-display">
+        <span class="math-label">// ⚡ 电气中的积分应用</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.5em">
+            <mtr><mtd><mtext><span class="math-ee-label">能量：</span></mtext></mtd>
+              <mtd><mi>W</mi><mo>=</mo><munderover><mo>∫</mo><mn>0</mn><mi>T</mi></munderover><mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo><mi>i</mi><mo>(</mo><mi>t</mi><mo>)</mo><mi>dt</mi></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">有效值：</span></mtext></mtd>
+              <mtd><mi>U</mi><mo>=</mo><msqrt><mfrac><mn>1</mn><mi>T</mi></mfrac><munderover><mo>∫</mo><mn>0</mn><mi>T</mi></munderover><msup><mi>u</mi><mn>2</mn></msup><mo>(</mo><mi>t</mi><mo>)</mo><mi>dt</mi></msqrt></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">电荷量：</span></mtext></mtd>
+              <mtd><mi>q</mi><mo>=</mo><munderover><mo>∫</mo><mn>0</mn><mi>t</mi></munderover><mi>i</mi><mo>(</mo><mi>τ</mi><mo>)</mo><mi>dτ</mi></mtd></mtr>
+          </mtable>
+        </math>
+      </div>
+
+      <h3>Day 6：常微分方程 — RC 电路暂态分析</h3>
+
+      <div class="diagram">
+     ┌───[ R ]───┬─── 电容 C ───┐
+ E    电阻       │              │
+ ──┤              └──────────────┘
+     └────────────┴──────────────┘
+</div>
+
+      <p>由 KVL，i = C·du<sub>C</sub>/dt 代入：</p>
+
+      <div class="math-display">
+        <span class="math-label">// 一阶线性常微分方程</span>
+        <math display="block">
+          <mi>E</mi><mo>=</mo><mi>RC</mi><mo>⋅</mo><mfrac><mrow><mi>d</mi><msub><mi>u</mi><mi>C</mi></msub></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>+</mo><msub><mi>u</mi><mi>C</mi></msub>
+        </math>
+      </div>
+
+      <div class="math-display">
+        <span class="math-label">// 求解过程</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.5em">
+            <mtr><mtd><mtext><span class="math-ee-label">通解：</span></mtext></mtd>
+              <mtd><msub><mi>u</mi><mi>C</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>E</mi><mo>+</mo><mi>A</mi><mo>⋅</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mi>t</mi><mi>RC</mi></mfrac></mrow></msup></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">初始条件：</span></mtext></mtd>
+              <mtd><mi>t</mi><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="0.5em"/><msub><mi>u</mi><mi>C</mi></msub><mo>=</mo><mn>0</mn><mo>⇒</mo><mspace width="0.5em"/><mi>A</mi><mo>=</mo><mo>−</mo><mi>E</mi></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-key">最终结果：</span></mtext></mtd>
+              <mtd><msub><mi>u</mi><mi>C</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>E</mi><mo>⋅</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mi>t</mi><mi>RC</mi></mfrac></mrow></msup><mo>)</mo></mrow></mtd></mtr>
+          </mtable>
+        </math>
+        <p class="math-note"><span class="math-ee-label">时间常数：</span>τ = RC　→　t=τ 时充电 63.2%，t=5τ 时充电 99.3%</p>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p>这段推导是电气工程"微分方程"的入门经典。掌握了它，你就理解了：为什么电容不能突变电压、为什么时间常数 τ 决定电路响应速度、暂态分析和稳态分析的区别。</p>
+      </div>
+
+      <div class="quiz" data-quiz="4">
+        <div class="quiz-title">📝 小测验：RC 电路时间常数</div>
+        <p>一个 RC 充电电路中，R = 10kΩ，C = 100μF。时间常数 τ 为多少？</p>
+        <label class="quiz-option" data-correct="false">A. 0.1 s</label>
+        <label class="quiz-option" data-correct="true">B. 1 s</label>
+        <label class="quiz-option" data-correct="false">C. 10 s</label>
+        <label class="quiz-option" data-correct="false">D. 0.01 s</label>
+        <div class="quiz-answer">✅ 正确答案：B。τ = RC = 10×10³ × 100×10⁻⁶ = 1 s。</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="example-title">📝 例题精解：换元积分 + 定积分</div>
+        <div class="example-desc">计算 ∫₀^π sin²x dx。这是求正弦平方在一个周期内"平均面积"的问题。</div>
+        <div class="worked-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <span>直接用积分表找不到 sin²x。用三角恒等式降幂：</span>
+            <span class="formula-line">sin²x = (1 − cos2x) / 2</span>
+            <span class="why">💡 这是"凑"的技巧。我们把它变成 1/2 减去 cos2x/2，这两个都有积分公式。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <span>代入积分：</span>
+            <span class="formula-line">∫₀^π sin²x dx = ½∫₀^π (1 − cos2x) dx</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <span>逐项积分：</span>
+            <span class="formula-line">= ½ [x − (1/2)sin2x]₀^π</span>
+            <span class="why">💡 ∫1 dx = x；∫cos2x dx = (1/2)sin2x（链式法则反过来，除以内层导数）。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <span>代入上下限：</span>
+            <span class="formula-line">= ½ [(π − 0) − (0 − 0)] = π/2</span>
+          </div>
+        </div>
+        <div class="worked-result">✅ ∫₀^π sin²x dx = π/2 ≈ 1.57。这说明正弦平方的"平均面积"是 π/2，这个结果在功率计算中经常出现。</div>
+      </div>
+
+      <div class="pitfall-box">
+        <h4>⚠️ 常见错误 & 避坑指南</h4>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">不定积分忘记加 "+C"。∫f(x)dx = F(x) 不完整，应该是 F(x)+C。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把 ∫f(u)·du 当成 ∫f(u)·du 直接套公式，漏掉链式法则需要除以"内层的导数"。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">换元时，u=g(x)，du=g'(x)dx。如果 dx 前面没有 g'(x)，需要先"凑"出来。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">分部积分选 u 时乱选，导致越积越复杂。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">按"反对幂三指"优先级选 u：反三角 &gt; 对数 &gt; 幂 &gt; 三角 &gt; 指数。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">解微分方程时忘记代入初始条件确定常数 A。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">先求通解 u(t) = E + A·e^(−t/RC)，再代入 t=0, u=0 得 A=−E。</div>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <h4>📋 第 3 周小结</h4>
+        <div class="key-points">
+          <span class="key-tag">不定积分</span>
+          <span class="key-tag">换元积分</span>
+          <span class="key-tag">分部积分</span>
+          <span class="key-tag">定积分</span>
+          <span class="key-tag">RC 微分方程</span>
+        </div>
+        <div class="connection">
+          <strong>🔗 知识关联：</strong>积分 → 能量 W=∫uidt、有效值 U=√(1/T ∫u²dt)；微分方程 → RC 电路暂态。积分是求导的逆运算，微分方程是两者结合。
+        </div>
+      </div>
+
+      <h3>第 3 周产出清单</h3>
+      <ul class="checklist">
+        <li>积分公式速查表</li>
+        <li>能手推 RC 电路充电微分方程</li>
+        <li>理解时间常数 τ 的物理意义</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📅 第 4 周：线性代数 + 复数 + 积分变换</h2>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 1–3 · 线性代数 <span class="badge">工程工具</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 1：矩阵基础</h3>
+
+      <div class="math-display">
+        <span class="math-label">// 矩阵乘法</span>
+        <math display="block">
+          <msubsup><mi>C</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow><mrow></mrow></msubsup>
+          <mo>=</mo>
+          <msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup>
+          <msubsup><mi>A</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow><mrow></mrow></msubsup>
+          <mo>⋅</mo>
+          <msubsup><mi>B</mi><mrow><mi>k</mi><mo>,</mo><mi>j</mi></mrow><mrow></mrow></msubsup>
+        </math>
+        <p class="math-note"><span class="math-key">注意：</span>矩阵乘法不可交换！A·B ≠ B·A。电路方程 Ax=b 的解为 x=A⁻¹b</p>
+      </div>
+
+      <div class="ee-note">
+        <div class="ee-label">🔌 电气视角</div>
+        <p>网孔电流法、节点电压法最终都能写成矩阵方程。手写解 3×3 还行，但 10×10 的电路方程只能靠矩阵求逆。</p>
+      </div>
+
+      <h3>Day 2–3：线性方程组 & 高斯消元</h3>
+
+      <div class="diagram">
+<span style="color:#e74c3c;">例：</span> 解方程组
+  2x + y - z = 8
+ -3x - y + 2z = -11
+ -2x + 2y + z = -3
+
+<span style="color:#6a9bcc;">增广矩阵：</span>
+  [  2   1  -1 |  8 ]
+  [ -3  -1   2 | -11 ]
+  [ -2   2   1 |  -3 ]
+
+<span style="color:#27ae60;">高斯消元后：</span>
+  [  2   1  -1 |  8 ]
+  [  0  -0.5 0.5 | -0.5 ]
+  [  0   0   2 |  2 ]
+
+<span style="color:#6a9bcc;">回代得：</span> z=1, y=0, x=3
+</div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 4–5 · 复数与相量 <span class="badge">⚡ 电气核心</span>
+    </div>
+    <div class="week-body">
+
+      <h3>Day 4：复数运算</h3>
+
+      <div class="math-display">
+        <span class="math-label">// 复数的三种表示形式</span>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.5em">
+            <mtr><mtd><mtext><span class="math-ee-label">代数形式：</span></mtext></mtd><mtd><mi>z</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>j</mi><mi>b</mi></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">三角形式：</span></mtext></mtd><mtd><mi>z</mi><mo>=</mo><mi>r</mi><mo>⋅</mo><mrow><mo>(</mo><mi>cos</mi><mi>φ</mi><mo>+</mo><mi>j</mi><mi>sin</mi><mi>φ</mi><mo>)</mo></mrow></mtd></mtr>
+            <mtr><mtd><mtext><span class="math-ee-label">指数形式：</span></mtext></mtd><mtd><mi>z</mi><mo>=</mo><mi>r</mi><mo>⋅</mo><msup><mi>e</mi><mrow><mi>j</mi><mi>φ</mi></mrow></msup></mtd></mtr>
+          </mtable>
+        </math>
+        <p class="math-note"><span class="math-key">模：</span> r = √(a²+b²)　<span class="math-key">幅角：</span> φ = arctan(b/a)</p>
+      </div>
+
+      <div class="math-display">
+        <span class="math-label">// 欧拉公式 — 连接复数与三角函数的桥梁</span>
+        <math display="block">
+          <msup><mi>e</mi><mrow><mi>j</mi><mi>φ</mi></mrow></msup>
+          <mo>=</mo>
+          <mi>cos</mi><mi>φ</mi>
+          <mo>+</mo>
+          <mi>j</mi>
+          <mi>sin</mi><mi>φ</mi>
+        </math>
+      </div>
+
+      <h3>Day 5：相量法（Phasor）</h3>
+      <p>任何正弦量 <math class="inline"><mi>A</mi><mo>⋅</mo><mi>sin</mi><mo>(</mo><mi>ω</mi><mi>t</mi><mo>+</mo><mi>φ</mi><mo>)</mo></math> 都可以用一个复数 <math class="inline"><mi>A</mi><mo>∠</mo><mi>φ</mi></math>（相量）来表示。</p>
+
+      <div class="math-display">
+        <span class="math-label">// 相量变换</span>
+        <math display="block">
+          <mi>u</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msqrt><mn>2</mn></msqrt><mi>U</mi><mi>sin</mi><mo>(</mo><mi>ω</mi><mi>t</mi><mo>+</mo><mi>φ</mi><mo>)</mo>
+          <mspace width="1em"/>
+          <mo>→</mo>
+          <mspace width="1em"/>
+          <mover><mi>U</mi><mo>→</mo></mover>
+          <mo>=</mo><mi>U</mi><mo>∠</mo><mi>φ</mi>
+        </math>
+        <p class="math-note"><span class="math-key">阻抗（复数形式的欧姆定律）：</span></p>
+        <math display="block">
+          <mtable columnalign="left left" rowspacing="0.25em">
+            <mtr><mtd><mtext>电阻：</mtext></mtd><mtd><msub><mi>Z</mi><mi>R</mi></msub><mo>=</mo><mi>R</mi></mtd></mtr>
+            <mtr><mtd><mtext>电感：</mtext></mtd><mtd><msub><mi>Z</mi><mi>L</mi></msub><mo>=</mo><mi>j</mi><mi>ω</mi><mi>L</mi><mo>=</mo><mi>ω</mi><mi>L</mi><mo>∠</mo><mn>90</mn><mo>°</mo></mtd></mtr>
+            <mtr><mtd><mtext>电容：</mtext></mtd><mtd><msub><mi>Z</mi><mi>C</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi>j</mi><mi>ω</mi><mi>C</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mi>ω</mi><mi>C</mi></mrow></mfrac><mo>∠</mo><mo>−</mo><mn>90</mn><mo>°</mo></mtd></mtr>
+          </mtable>
+        </math>
+        <p class="math-note"><span class="math-key">欧姆定律（相量形式）：</span> U̇ = Z · Ĩ</p>
+      </div>
+
+      <div class="quiz" data-quiz="5">
+        <div class="quiz-title">📝 小测验：阻抗计算</div>
+        <p>在 f=50Hz 的交流电路中，L=0.1H 的电感阻抗 Z<sub>L</sub> 为？</p>
+        <label class="quiz-option" data-correct="false">A. 5 Ω</label>
+        <label class="quiz-option" data-correct="true">B. j31.4 Ω</label>
+        <label class="quiz-option" data-correct="false">C. −j31.4 Ω</label>
+        <label class="quiz-option" data-correct="false">D. 31.4 Ω</label>
+        <div class="quiz-answer">✅ 正确答案：B。Z<sub>L</sub> = jωL = j × 2π × 50 × 0.1 = j31.4 Ω。电感的阻抗是纯虚数（正虚部）。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      Day 6–7 · 积分变换入门 <span class="badge">拓展</span>
+    </div>
+    <div class="week-body">
+
+      <h3>三种积分变换的"地图"</h3>
+      <table>
+        <tr><th>变换</th><th>从 → 到</th><th>核心用途</th><th>电气关联</th></tr>
+        <tr><td><strong>傅里叶变换</strong></td><td>时域 → 频域</td><td>信号频谱分析</td><td>滤波器、噪声、通信</td></tr>
+        <tr><td><strong>拉普拉斯变换</strong></td><td>时域 → s 域</td><td>求解微分方程</td><td>电路分析、系统稳定性</td></tr>
+        <tr><td><strong>Z 变换</strong></td><td>离散时域 → z 域</td><td>离散系统分析</td><td>数字滤波器、DSP</td></tr>
+      </table>
+
+      <h4>傅里叶变换</h4>
+      <div class="math-display">
+        <span class="math-label">// 定义</span>
+        <math display="block">
+          <mi>F</mi><mo>(</mo><mi>ω</mi><mo>)</mo>
+          <mo>=</mo>
+          <munderover><mo>∫</mo><mrow><mo>−</mo><mi>∞</mi></mrow><mrow><mi>∞</mi></mrow></munderover>
+          <mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo>
+          <mo>⋅</mo>
+          <msup><mi>e</mi><mrow><mo>−</mo><mi>j</mi><mi>ω</mi><mi>t</mi></mrow></msup>
+          <mi>dt</mi>
+        </math>
+        <p class="math-note"><span class="math-key">物理意义：</span>把任意信号分解为无数个不同频率的正弦波之和</p>
+      </div>
+
+      <h4>拉普拉斯变换</h4>
+      <div class="math-display">
+        <span class="math-label">// 定义</span>
+        <math display="block">
+          <mi>F</mi><mo>(</mo><mi>s</mi><mo>)</mo>
+          <mo>=</mo>
+          <munderover><mo>∫</mo><mn>0</mn><mrow><mi>∞</mi></mrow></munderover>
+          <mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo>
+          <mo>⋅</mo>
+          <msup><mi>e</mi><mrow><mo>−</mo><mi>s</mi><mi>t</mi></mrow></msup>
+          <mi>dt</mi>
+          <mspace width="1em"/>
+          <mtext>（</mtext>
+          <mi>s</mi><mo>=</mo><mi>σ</mi><mo>+</mo><mi>j</mi><mi>ω</mi>
+          <mtext>）</mtext>
+        </math>
+        <p class="math-note"><span class="math-key">核心优势：</span>微分→乘以s；积分→除以s。把微分方程变成代数方程！</p>
+      </div>
+
+      <div class="worked-example">
+        <div class="example-title">📝 例题精解：相量法计算 RLC 串联电路总阻抗</div>
+        <div class="example-desc">一个 RLC 串联电路：R=3Ω，L=0.01H，C=100μF，信号频率 f=50Hz。求总阻抗 Z。</div>
+        <div class="worked-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <span>先算角频率 ω：</span>
+            <span class="formula-line">ω = 2πf = 2π×50 ≈ 314 rad/s</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <span>分别计算三种阻抗：</span>
+            <span class="formula-line">Z<sub>R</sub> = 3　|　Z<sub>L</sub> = jωL = j×314×0.01 = j3.14　|　Z<sub>C</sub> = 1/(jωC) = 1/(j×314×100×10⁻⁶) ≈ −j31.8</span>
+            <span class="why">💡 电感阻抗是正虚部（+j），电容阻抗是负虚部（−j）。这是最关键的区分！</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <span>串联总阻抗 = 各阻抗之和：</span>
+            <span class="formula-line">Z = Z<sub>R</sub> + Z<sub>L</sub> + Z<sub>C</sub> = 3 + j3.14 + (−j31.8) = 3 − j28.66</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <span>算模值（幅值）：</span>
+            <span class="formula-line">|Z| = √(3² + 28.66²) ≈ 28.8Ω</span>
+            <span class="why">💡 3²=9，28.66²≈821，加起来≈830，开根号≈28.8。</span>
+          </div>
+        </div>
+        <div class="worked-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <span>算相位角：</span>
+            <span class="formula-line">φ = arctan(−28.66/3) ≈ −84°</span>
+            <span class="why">💡 相位角为负，说明电容效应占主导，电流超前电压（容性电路）。</span>
+          </div>
+        </div>
+        <div class="worked-result">✅ Z ≈ 28.8∠−84° Ω。即阻抗大小约 28.8Ω，电流超前电压约 84°。</div>
+      </div>
+
+      <div class="pitfall-box">
+        <h4>⚠️ 常见错误 & 避坑指南</h4>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">矩阵乘法搞成"对应元素相乘"。C<sub>ij</sub> 不是 A<sub>ij</sub>×B<sub>ij</sub>，而是"行×列"的求和。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">C<sub>ij</sub> = Σ A<sub>ik</sub>·B<sub>kj</sub>。第一矩阵的第 i 行，乘以第二矩阵的第 j 列，对应元素相乘再求和。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">复数加减时用指数形式（e^(jφ)）。这样很难算。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">加减用<strong>代数形式</strong>（a+jb）：实部加实部，虚部加虚部。乘除才用指数形式。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">相量运算时忘了前提是"ω 相同"。只有同频率的正弦量才能用相量相加。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">先确认所有相量是同一 ω，再相加减。不同频率的信号不能用相量法合并。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag wrong">✗ 错</span>
+          <div class="pitfall-text">把拉普拉斯变换的积分下限从 0 写成 −∞（那是傅里叶变换的范围）。</div>
+        </div>
+        <div class="pitfall-item">
+          <span class="pitfall-tag correct">✓ 对</span>
+          <div class="pitfall-text">拉普拉斯变换从 0 到 ∞（因果系统），傅里叶变换从 −∞ 到 ∞（全时间轴）。</div>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <h4>📋 第 4 周小结</h4>
+        <div class="key-points">
+          <span class="key-tag">矩阵运算</span>
+          <span class="key-tag">线性方程组</span>
+          <span class="key-tag">复数运算</span>
+          <span class="key-tag">相量法</span>
+          <span class="key-tag">积分变换</span>
+        </div>
+        <div class="connection">
+          <strong>🔗 知识关联：</strong>矩阵 → 电路网络方程求解；复数+欧拉公式 → 相量法（交流电路核心）；积分变换 → 信号与系统（后续课程的基础）。第 4 周是"从数学到工程"的转折点。
+        </div>
+      </div>
+
+      <h3>第 4 周产出清单</h3>
+      <ul class="checklist">
+        <li>能完成复数四则运算和极坐标/指数形式转换</li>
+        <li>能用相量法分析简单 RLC 电路</li>
+        <li>了解三种积分变换分别解决什么问题</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">✅ 第一章自测清单</h2>
+  <p>完成第一章学习后，请自问以下问题（超过 2 项不熟练建议复习对应周内容）：</p>
+  <ul class="checklist">
+    <li>我能用极限理解"导数"是什么吗？</li>
+    <li>我能熟练求出常见初等函数的导数吗？</li>
+    <li>我能计算基本的不定积分和定积分吗？</li>
+    <li>我能用一阶微分方程描述 RC 电路的暂态过程吗？</li>
+    <li>我会进行复数的四则运算和极坐标/指数形式转换吗？</li>
+    <li>我理解为什么正弦交流电可以用相量表示吗？</li>
+    <li>我知道拉普拉斯变换在电路分析中有什么作用吗？</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="section-title">💡 学习建议</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>1. 先理解意义，再记公式</h4>
+      <p>微积分是研究"变化"的数学。<strong>导数就是变化率</strong>。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>2. 每天做题</h4>
+      <p>数学只看不做等于白学。每天至少 15–20 题。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>3. 建立错题本</h4>
+      <p>记录错误原因，定期回看。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>4. 联系电气场景</h4>
+      <p>每学一个数学概念，问自己：这在电气里对应什么？</p>
+      <table style="margin-top:0.5rem; max-width:min(100%,31.25rem);">
+        <tr><th>数学概念</th><th>电气对应</th></tr>
+        <tr><td>导数</td><td>电容电流 i=C·du/dt</td></tr>
+        <tr><td>微分方程</td><td>RL/RC 电路暂态过程</td></tr>
+        <tr><td>复数</td><td>交流电路相量法</td></tr>
+        <tr><td>矩阵</td><td>复杂电路网络求解</td></tr>
+        <tr><td>积分变换</td><td>信号与系统分析</td></tr>
+      </table>
+    </div>
+    <div class="timeline-item">
+      <h4>5. 不追求一次全会</h4>
+      <p>数学会在后续课程中反复用到。先学到"<strong>看得懂、会基本计算</strong>"即可。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">📖 术语速查表</h2>
+  <p>学习中遇到不熟悉的术语，快速查这里。建议打印或收藏。</p>
+  <table class="glossary-table">
+    <tr><th>术语</th><th>简明定义</th><th>电气关联</th></tr>
+    <tr><td class="term">变量</td><td>会变化的量，用字母表示</td><td>电压 u、电流 i 随时间变化</td></tr>
+    <tr><td class="term">常数</td><td>不变的量，用数字表示</td><td>电阻 R=100Ω、e≈2.72</td></tr>
+    <tr><td class="term">函数</td><td>输入→输出的规则，一个输入对应一个输出</td><td>u(t) 表示电压是时间的函数</td></tr>
+    <tr><td class="term">方程</td><td>含等号的等式，两边值相等</td><td>欧姆定律 I=U/R</td></tr>
+    <tr><td class="term">不等式</td><td>用 &gt;、&lt; 等连接的式子</td><td>功率约束 P&lt;P<sub>max</sub></td></tr>
+    <tr><td class="term">定义域</td><td>函数允许输入的 x 值范围</td><td>电阻 R&gt;0，不能为负</td></tr>
+    <tr><td class="term">值域</td><td>函数输出的 y 值范围</td><td>sin 的值域为 [−1, 1]</td></tr>
+    <tr><td class="term">极限</td><td>当 x 无限接近某值时函数的趋向</td><td>导数的定义基础</td></tr>
+    <tr><td class="term">连续</td><td>函数图像没有断点的性质</td><td>理想导线中电流连续</td></tr>
+    <tr><td class="term">导数</td><td>函数在某点的瞬时变化率</td><td>i=C·du/dt, u=L·di/dt</td></tr>
+    <tr><td class="term">微分</td><td>用切线近似曲线的一小段</td><td>小信号分析</td></tr>
+    <tr><td class="term">积分</td><td>求导的逆运算，"累加"效果</td><td>能量 W=∫uidt</td></tr>
+    <tr><td class="term">定积分</td><td>有上下限的积分，结果是数值</td><td>有效值 U=√(1/T ∫u²dt)</td></tr>
+    <tr><td class="term">不定积分</td><td>没有上下限的积分，结果含+C</td><td>求原函数</td></tr>
+    <tr><td class="term">微分方程</td><td>含未知函数及其导数的方程</td><td>RC 电路暂态方程</td></tr>
+    <tr><td class="term">时间常数 τ</td><td>暂态过程变化的快慢参数</td><td>τ=RC 或 τ=L/R</td></tr>
+    <tr><td class="term">矩阵</td><td>按行列排列的数字表</td><td>电路方程的紧凑表示</td></tr>
+    <tr><td class="term">行列式</td><td>从方阵算出的一个数值</td><td>判断矩阵是否可逆</td></tr>
+    <tr><td class="term">特征值</td><td>矩阵"缩放"某些方向的倍数</td><td>系统稳定性分析</td></tr>
+    <tr><td class="term">复数</td><td>实部 + j×虚部的数</td><td>同时表示幅值和相位</td></tr>
+    <tr><td class="term">模</td><td>复数的长度（距离原点的距离）</td><td>电压/电流的有效值</td></tr>
+    <tr><td class="term">幅角</td><td>复数与正实轴的夹角</td><td>电压/电流的相位差</td></tr>
+    <tr><td class="term">相量</td><td>用复数表示同频率正弦量</td><td>交流电路的核心工具</td></tr>
+    <tr><td class="term">阻抗 Z</td><td>交流电路对电流的阻碍（复数）</td><td>Z = R + jωL + 1/(jωC)</td></tr>
+    <tr><td class="term">傅里叶变换</td><td>把信号从时域转换到频域</td><td>信号频谱分析</td></tr>
+    <tr><td class="term">拉普拉斯变换</td><td>把微分方程变成代数方程</td><td>电路 s 域分析</td></tr>
+    <tr><td class="term">Z 变换</td><td>离散系统的分析工具</td><td>数字信号处理</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2 class="section-title">📚 推荐资源</h2>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="resources-books">教材</button>
+    <button class="tab-btn" data-tab="resources-video">视频</button>
+    <button class="tab-btn" data-tab="resources-tools">工具</button>
+  </div>
+  <div class="tab-panel active" id="tab-resources-books">
+    <table>
+      <tr><th>书名</th><th>作者</th><th>推荐指数</th></tr>
+      <tr><td>《高等数学》（上/下）</td><td>同济大学数学系</td><td>⭐⭐⭐⭐⭐ 经典教材</td></tr>
+      <tr><td>《线性代数》</td><td>同济大学数学系</td><td>⭐⭐⭐⭐⭐ 经典教材</td></tr>
+      <tr><td>《数学之美》</td><td>吴军</td><td>⭐⭐⭐⭐ 培养数学直觉</td></tr>
+    </table>
+  </div>
+  <div class="tab-panel" id="tab-resources-video">
+    <table>
+      <tr><th>视频课程</th><th>平台</th><th>特点</th></tr>
+      <tr><td>宋浩《高等数学》</td><td>B站</td><td>讲得细致，适合基础薄弱</td></tr>
+      <tr><td>3Blue1Brown《微积分的本质》</td><td>B站/YouTube</td><td>建立几何直觉，强烈推荐先看！</td></tr>
+      <tr><td>3Blue1Brown《线性代数的本质》</td><td>B站/YouTube</td><td>用动画理解矩阵</td></tr>
+    </table>
+  </div>
+  <div class="tab-panel" id="tab-resources-tools">
+    <table>
+      <tr><th>工具</th><th>用途</th><th>网址</th></tr>
+      <tr><td>WolframAlpha</td><td>验证计算、函数绘图</td><td>wolframalpha.com</td></tr>
+      <tr><td>Desmos</td><td>函数图像可视化</td><td>desmos.com</td></tr>
+      <tr><td>GeoGebra</td><td>矩阵与几何直观</td><td>geogebra.org</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">🚀 下一步预告</h2>
+  <div class="card">
+    <span class="card-icon">📖</span>
+    <h3>第二章：大学物理（电磁学基础）</h3>
+    <p>学完第一章数学基础后，就可以开始学习电磁学中的基本物理规律。</p>
+    <h4 style="margin-top:0.875rem;">主要内容：</h4>
+    <div class="card-grid">
+      <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
+        <h4>⚡ 静电场</h4><p>库仑定律、电场强度、电势、高斯定理</p>
+      </div>
+      <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
+        <h4>🧲 恒定磁场</h4><p>毕奥-萨伐尔定律、安培环路定理</p>
+      </div>
+      <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
+        <h4>🔄 电磁感应</h4><p>法拉第电磁感应定律、楞次定律</p>
+      </div>
+      <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
+        <h4>📐 麦克斯韦方程组</h4><p>电磁学的"四大天王"</p>
+      </div>
+    </div>
+    <div class="ee-note" style="margin-top:0.875rem;">
+      <div class="ee-label">💡 衔接提示</div>
+      <p>电场强度 E=F/q 需要极限概念；电势 V=−∫E·dl 需要积分；感应电动势 ε=−dΦ/dt 需要导数。<strong>数学基础越扎实，电磁学学得越轻松。</strong></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>📐 第一章：数学基础学习计划 — 电气工程师自学路径</p>
+  <p>学习路径：第 0 层 · 数学基础 → 第 1 层 · 大学物理 → 第 2 层 · 电路原理 → …</p>
+  <p style="margin-top:0.5rem; opacity:0.6;">Generated for self-study · All formulas rendered in MathML.</p>
+</footer>
+
+</div><!-- .page-wrapper -->
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var tabId = this.getAttribute('data-tab');
+    var panel = document.getElementById('tab-' + tabId);
+    if (!panel) return;
+    var tabsContainer = this.closest('.tabs');
+    tabsContainer.querySelectorAll('.tab-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    this.classList.add('active');
+    tabsContainer.nextElementSibling.classList.remove('active');
+    panel.classList.add('active');
+  });
+});
+
+// Quiz
+document.querySelectorAll('[data-quiz]').forEach(function(quiz) {
+  var options = quiz.querySelectorAll('.quiz-option');
+  var answer = quiz.querySelector('.quiz-answer');
+  var answered = false;
+  options.forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      if (answered) return;
+      answered = true;
+      options.forEach(function(o) {
+        o.style.pointerEvents = 'none';
+        if (o.getAttribute('data-correct') === 'true') {
+          o.classList.add('correct');
+        }
+      });
+      if (this.getAttribute('data-correct') !== 'true') {
+        this.classList.add('wrong');
+      }
+      answer.classList.add('show');
+    });
+  });
+});
+
+// Back to top
+var backTop = document.getElementById('backTop');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 400) {
+    backTop.classList.add('show');
+  } else {
+    backTop.classList.remove('show');
+  }
+});
+backTop.addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

@@ -8,9 +8,11 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23D97757'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='bold'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-clike.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-typescript.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-jsx.min.js"></script>
@@ -191,6 +193,23 @@
       color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       line-height: 1.75;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 16px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: #FFF;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
     }
 
     a {
@@ -424,8 +443,34 @@
     }
 
     .hero {
+      position: relative;
+      overflow: hidden;
       padding: 34px 0 48px;
       border-bottom: 1px solid var(--line);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .fx-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .fx-orb {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      filter: blur(64px);
+      opacity: 0.35;
+      will-change: transform;
     }
 
     .hero-eyebrow {
@@ -1655,6 +1700,10 @@
         opacity: 1 !important;
         transform: none !important;
       }
+
+      .fx-orb {
+        display: none;
+      }
     }
 
     @media print {
@@ -1713,6 +1762,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#mainContent">跳到正文</a>
   <noscript><div style="padding:14px 20px;background:#F9E9E0;color:#B95B3D;font-size:14px;text-align:center;">当前浏览器禁用了 JavaScript：交互功能（试玩、测验、章节切换）不可用，但全部正文仍可正常阅读。</div></noscript>
   <header class="site-header">
     <div class="header-inner">
@@ -1766,7 +1816,7 @@
       <a href="#js-basics"><span class="nav-num">17</span><span>变量、函数与事件</span></a>
       <a href="#js-dom"><span class="nav-num">18</span><span>DOM 操作</span></a>
     </nav>
-    <p class="sidebar-title">进阶路线</p>
+    <p class="sidebar-title">进阶预览（选读）</p>
     <nav>
       <a href="#jsx-intro"><span class="nav-num">19</span><span>JSX 入门</span></a>
       <a href="#ts-intro"><span class="nav-num">20</span><span>TypeScript</span></a>
@@ -1785,7 +1835,7 @@
     </nav>
   </aside>
 
-  <main class="main">
+  <main class="main" id="mainContent">
     <div class="viewer-toolbar">
       <div class="viewer-toolbar-left">
         <span class="toolbar-label">当前章节</span>
@@ -1805,14 +1855,19 @@
     </div>
 
     <section class="hero" id="overview" data-reveal>
+      <div class="fx-hero-bg" aria-hidden="true">
+        <span class="fx-orb" style="left:-80px; top:-70px; width:360px; height:360px; background:#F2B48F;"></span>
+        <span class="fx-orb" style="right:-100px; top:120px; width:300px; height:300px; background:#A9C6A8;"></span>
+        <span class="fx-orb" style="left:36%; bottom:-130px; width:380px; height:380px; background:#F4D9A0;"></span>
+      </div>
       <span class="hero-eyebrow">
         <i data-lucide="sparkles"></i>
-        零基础入门
+        第一章 · 零基础入门
       </span>
       <h1>从零开始，亲手做出第一个网页</h1>
       <p>HTML 是所有网页的基础。它不要求你会编程，也不要求你懂数学，只要认识文字、愿意动手，就能在半小时内写出自己的第一个网页。</p>
       <div class="hero-actions">
-        <a class="btn btn-accent" href="#what-is-html">
+        <a class="btn btn-accent" href="#setup">
           <i data-lucide="book-open"></i>
           开始学习
         </a>
@@ -1820,6 +1875,10 @@
           <i data-lucide="rocket"></i>
           直接看案例
         </a>
+      </div>
+      <div class="goal-box" style="margin-top: 26px;">
+        <strong>如何使用本教程</strong>
+        <p>核心主线是第 2～18 章（HTML → CSS → JavaScript），建议按顺序学，每章约 20～40 分钟；第 19～22 章是进阶预览，先读懂概念即可；第 23～29 章是实践与收尾。卡住时先看每章末尾的“自检”，再回到“常见疑问”和“调试与工具”。</p>
       </div>
       <div class="hero-stats">
         <div class="stat">
@@ -1842,7 +1901,7 @@
     </section>
 
     <section class="section" id="setup" data-reveal>
-      <p class="section-kicker">第一章</p>
+      <p class="section-kicker">第二章</p>
       <h2>学习前的准备：先认识网页文件</h2>
       <p class="lead">很多人第一次学 HTML 不是被代码难住，而是卡在“我该在哪里写、怎么写、怎么打开”。这一章不写复杂代码，只做一件事：亲手创建并打开你的第一个网页文件。</p>
 
@@ -1977,7 +2036,7 @@
     </section>
 
     <section class="section" id="what-is-html" data-reveal>
-      <p class="section-kicker">第二章</p>
+      <p class="section-kicker">第三章</p>
       <h2>HTML 是什么？</h2>
       <p class="lead">HTML 的全称是 HyperText Markup Language，中文叫“超文本标记语言”。你可以把它理解成网页的骨架：哪些地方是标题、哪些地方是段落、哪里放图片、哪里放链接，都由 HTML 决定。</p>
 
@@ -2084,7 +2143,7 @@
         </div>
         <div class="step">
           <h5><code>&lt;head&gt;</code> 与 <code>&lt;/head&gt;</code></h5>
-          <p>这是页面的“后台区”，放浏览器需要但用户看不到的信息，例如 <code>title</code>。</p>
+          <p>这是页面的“说明区”，放浏览器和搜索引擎需要的页面信息。其中 <code>title</code> 会显示在浏览器标签页上，但不会显示在网页正文区域。</p>
         </div>
         <div class="step">
           <h5><code>&lt;body&gt;</code> 与 <code>&lt;/body&gt;</code></h5>
@@ -2139,10 +2198,27 @@
           <li>回到你自己的 <code>index.html</code>，找出页面上的标题和段落各用了什么标签。</li>
         </ol>
       </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          如果你看到的源码是一长串挤在一行的代码，别慌：很多现代网站会先压缩或编译再发布。回到你自己的小页面观察即可，这里只需要熟悉 <code>body</code>、<code>h1</code>、<code>p</code> 这些基础标签。
+        </div>
+      </div>
+
+      <div class="self-check">
+        <strong><i data-lucide="check-circle"></i>完成本章前，请确认</strong>
+        <ul class="checklist">
+          <li>我知道 HTML 是用来描述网页结构的标记语言。</li>
+          <li>我知道标签、元素、属性三者的区别。</li>
+          <li>我知道 <code>title</code> 显示在浏览器标签页，不显示在网页正文。</li>
+          <li>我能看懂一个最简单的 HTML 文件每一行的作用。</li>
+        </ul>
+      </div>
     </section>
 
     <section class="section" id="skeleton" data-reveal>
-      <p class="section-kicker">第三章</p>
+      <p class="section-kicker">第四章</p>
       <h2>网页的基本骨架</h2>
       <p class="lead">几乎所有 HTML 页面都有同一个骨架。只要记住这四层结构，你以后看任何网页源码都不会陌生。</p>
 
@@ -2310,7 +2386,7 @@
     </section>
 
     <section class="section" id="tags" data-reveal>
-      <p class="section-kicker">第四章</p>
+      <p class="section-kicker">第五章</p>
       <h2>最常用的 HTML 标签</h2>
       <p class="lead">你不需要一次背完所有标签。下面这些是最常用的，先认识它们，用的时候回来查就行。</p>
 
@@ -2379,7 +2455,7 @@
         <div class="tag-card">
           <span class="tag-name">&lt;a&gt;</span>
           <h5>链接</h5>
-          <p><code>href</code> 写目标地址，<code>target="_blank"</code> 可在新标签页打开。</p>
+          <p><code>href</code> 写目标地址，<code>target="_blank" rel="noopener"</code> 可在新标签页打开。</p>
           <code>&lt;a href="https://example.com"&gt;点我&lt;/a&gt;</code>
         </div>
         <div class="tag-card">
@@ -2624,7 +2700,7 @@
     </section>
 
     <section class="section" id="attributes" data-reveal>
-      <p class="section-kicker">第五章</p>
+      <p class="section-kicker">第六章</p>
       <h2>属性：给标签补充信息</h2>
       <p class="lead">属性写在开始标签里，用来补充标签的行为或样式信息。最常见的格式是 <code>属性名="属性值"</code>。</p>
 
@@ -2690,7 +2766,7 @@
               <td><code>target</code></td>
               <td><code>&lt;a&gt;</code>, <code>&lt;form&gt;</code></td>
               <td>在哪里打开链接或提交结果</td>
-              <td><code>target="_blank"</code></td>
+              <td><code>target="_blank" rel="noopener"</code></td>
             </tr>
             <tr>
               <td><code>data-*</code></td>
@@ -2723,6 +2799,14 @@
 &lt;/script&gt;</code></pre>
         </div>
       </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          这段代码里的 <code>document.querySelector</code>、<code>addEventListener</code> 和 <code>dataset</code> 属于 JavaScript 内容，第 17 章会系统学习。本章你只需要知道：<code>data-*</code> 可以在标签上保存自定义数据，后续能用 JS 读取。
+        </div>
+      </div>
+
       <p>其他常用全局属性还有 <code>lang</code>（语言）、<code>hidden</code>（隐藏元素）、<code>tabindex</code>（键盘顺序）。它们几乎可以用在任意标签上。</p>
 
       <h3>路径：相对路径和绝对路径</h3>
@@ -2768,6 +2852,12 @@
           <strong>常见误区：</strong>文件名区分大小写。写了 <code>Cat.jpg</code>，但文件夹里叫 <code>cat.jpg</code>，在某些系统上可能找不到图片。
         </div>
       </div>
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          <strong>为什么本地练习推荐相对路径：</strong>你的页面和图片在同一个项目文件夹里，浏览器可以根据当前页面的位置去找文件。本地练习里绝对路径很容易写错“网站根目录”在哪，上传到服务器后也可能需要重新调整；所以先从相对路径练起最稳。
+        </div>
+      </div>
 
       <h3>怎么判断该用哪个属性？</h3>
       <p>最好的方法是看这个标签“需要什么信息”。链接需要地址，所以用 <code>href</code>；图片需要文件位置，所以用 <code>src</code>；多个元素想共用样式，就给他们同样的 <code>class</code>；一个元素想被精确定位，就给它唯一的 <code>id</code>。</p>
@@ -2798,7 +2888,7 @@
     </section>
 
     <section class="section" id="media" data-reveal>
-      <p class="section-kicker">第六章</p>
+      <p class="section-kicker">第七章</p>
       <h2>图片、链接与媒体</h2>
       <p class="lead">网页不只有文字。学会放图片、加链接、嵌入音频和视频，页面才真正丰富起来。</p>
 
@@ -2840,8 +2930,8 @@
         </div>
         <div class="card">
           <h4>新标签打开</h4>
-          <p>加上 <code>target="_blank"</code> 后，点击链接会在新标签页打开。</p>
-          <p><code>&lt;a href="https://example.com" target="_blank"&gt;外链&lt;/a&gt;</code></p>
+          <p>加上 <code>target="_blank" rel="noopener"</code> 后，点击链接会在新标签页打开，同时更安全。</p>
+          <p><code>&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;外链&lt;/a&gt;</code></p>
         </div>
         <div class="card">
           <h4>发邮件</h4>
@@ -2931,7 +3021,7 @@
   &lt;nav&gt;
     &lt;a href="#about"&gt;关于&lt;/a&gt; |
     &lt;a href="#gallery"&gt;相册&lt;/a&gt; |
-    &lt;a href="https://example.com" target="_blank"&gt;示例外链&lt;/a&gt;
+    &lt;a href="https://example.com" target="_blank" rel="noopener"&gt;示例外链&lt;/a&gt;
   &lt;/nav&gt;
 
   &lt;h2 id="about"&gt;关于这张页面&lt;/h2&gt;
@@ -2966,7 +3056,7 @@
         <li>文件真的存在吗？先打开项目文件夹确认图片在里面。</li>
         <li>文件名的大小写对吗？<code>cat.jpg</code> 和 <code>Cat.jpg</code> 可能不是同一个文件。</li>
         <li>路径写对了吗？图片在 <code>images</code> 文件夹里，就要写 <code>images/cat.jpg</code>。</li>
-        <li>保存并刷新了吗？浏览器打开的是旧文件时，要按 <code>Ctrl + R</code> 或 <code>F5</code> 刷新。</li>
+        <li>保存并刷新了吗？浏览器打开的是旧文件时，要按 <code>Ctrl + R</code> 或 <code>F5</code>（Mac 为 <code>Cmd + R</code>）刷新。</li>
       </ol>
 
       <div class="exercise">
@@ -2986,7 +3076,7 @@
         <strong><i data-lucide="check-circle"></i>完成本章前，请确认</strong>
         <ul class="checklist">
           <li>我知道 <code>alt</code> 是图片的替代文字，不能省略。</li>
-          <li>我知道 <code>target="_blank"</code> 会在新标签页打开链接。</li>
+          <li>我知道 <code>target="_blank"</code> 会在新标签页打开链接，也知道了 <code>rel="noopener"</code> 更安全。</li>
           <li>我知道图片路径错误时应该先检查文件名、大小写和文件夹位置。</li>
           <li>我知道 <code>audio</code>、<code>video</code> 需要 <code>controls</code> 才会显示播放控件。</li>
         </ul>
@@ -2994,7 +3084,7 @@
     </section>
 
     <section class="section" id="forms" data-reveal>
-      <p class="section-kicker">第七章</p>
+      <p class="section-kicker">第八章</p>
       <h2>表单：让用户和你互动</h2>
       <p class="lead">表单是网页收集信息的方式。搜索框、登录框、留言板，底层几乎都是 HTML 表单。</p>
 
@@ -3022,6 +3112,13 @@
 
   &lt;button type="submit"&gt;提交&lt;/button&gt;
 &lt;/form&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          <strong>为什么每个输入框都要写 <code>name</code>？</strong>提交表单时，浏览器会按照“字段名 = 用户输入的值”把数据交给后端。如果没有 <code>name</code>，后端就很难知道这一栏数据对应什么，所以它是表单和后端之间约定的“字段标签”。
         </div>
       </div>
 
@@ -3109,7 +3206,7 @@
       <div class="note">
         <i data-lucide="shield-check"></i>
         <div>
-          <strong>关于提交：</strong><code>action</code> 写服务器地址，<code>method</code> 决定用 GET 还是 POST 发送。现在你只需要知道：光靠 HTML 无法保存数据，数据需要后端程序接收。
+          <strong>关于提交：</strong><code>action</code> 写服务器地址，<code>method</code> 决定用 GET（信息放在网址里发送）还是 POST（信息放在请求体里发送）。现在你只需要知道：光靠 HTML 无法保存数据，数据需要后端程序接收。
         </div>
       </div>
 
@@ -3259,7 +3356,7 @@
     </section>
 
     <section class="section" id="form-validation" data-reveal>
-      <p class="section-kicker">第八章</p>
+      <p class="section-kicker">第九章</p>
       <h2>表单校验：让浏览器帮你把关</h2>
       <p class="lead">上一章的表单能提交了，但用户填错了怎么办？这一章用浏览器自带的校验属性，在提交前就把错误拦下来，不用写一行 JavaScript。</p>
 
@@ -3300,7 +3397,7 @@
           <pre><code id="fv-pattern" class="language-html">&lt;input type="text" name="phone" pattern="[0-9]{11}"&gt;</code></pre>
         </div>
       </div>
-      <p>正则 <code>[0-9]{11}</code> 的意思是“11 个 0 到 9 的数字”。pattern 只要匹配到就能通过，想要求整段完全匹配，首尾通常加 <code>^</code> 和 <code>$</code>，写成 <code>^[0-9]{11}$</code>。</p>
+      <p>正则 <code>[0-9]{11}</code> 的意思是“11 个 0 到 9 的数字”。HTML 的 <code>pattern</code> 会检查整个输入值，所以 <code>[0-9]{11}</code> 本身就表示“整段必须是 11 位数字”，不需要再加 <code>^</code> 和 <code>$</code>，加了也不会错。</p>
 
       <h3>长度与范围：minlength / maxlength / min / max</h3>
       <div class="grid">
@@ -3326,7 +3423,7 @@
 &lt;input type="number" name="age" min="1" max="120" required&gt;</code></pre>
         </div>
       </div>
-      <p>提示：<code>maxlength</code> 会直接阻止继续输入，而 <code>minlength</code> 只在提交时提示；两者配合 <code>required</code> 使用效果最好。</p>
+      <p>提示：在大多数浏览器里，<code>maxlength</code> 会阻止用户继续输入，而 <code>minlength</code> 只在提交时提示；两者配合 <code>required</code> 使用效果最好。</p>
 
       <h3>在线试玩：改一改校验规则</h3>
       <p>下面是一张注册表单。试试把手机号的 <code>pattern</code> 改成 <code>[0-9]{8}</code>，或者给邮箱加一个 <code>minlength</code>，然后点“注册”，观察浏览器的提示有什么变化。</p>
@@ -3449,7 +3546,7 @@
     </section>
 
     <section class="section" id="semantic" data-reveal>
-      <p class="section-kicker">第九章</p>
+      <p class="section-kicker">第十章</p>
       <h2>语义化：让结构表达意义</h2>
       <p class="lead">除了 <code>&lt;div&gt;</code>，HTML 还提供了很多“有名字”的容器。它们不仅方便你阅读代码，也帮助搜索引擎和无障碍工具理解页面。</p>
 
@@ -3526,7 +3623,7 @@
     </section>
 
     <section class="section" id="seo" data-reveal>
-      <p class="section-kicker">第十章</p>
+      <p class="section-kicker">第十一章</p>
       <h2>SEO 与分享：让别人找到你的网页</h2>
       <p class="lead">页面写好了，怎么让别人搜得到、分享出去更好看？这一章讲搜索引擎和社交平台真正会读的那几行代码。</p>
 
@@ -3646,7 +3743,7 @@
     </section>
 
     <section class="section" id="css" data-reveal>
-      <p class="section-kicker">第十一章</p>
+      <p class="section-kicker">第十二章</p>
       <h2>初见 CSS：让页面变好看</h2>
       <p class="lead">HTML 负责结构，CSS 负责外观。颜色、字体、间距、居中，全都是 CSS 的工作。</p>
 
@@ -3675,16 +3772,17 @@
       </div>
 
       <h3>一个最简单的样式示例</h3>
+      <p>请新建两个文件：<code>index.html</code> 和 <code>style.css</code>，分别放入下面的内容。</p>
       <div class="code-shell">
         <div class="code-head">
-          <span class="code-lang">index.html + style.css</span>
-          <button class="copy-btn" type="button" data-copy="css-code">
+          <span class="code-lang">index.html</span>
+          <button class="copy-btn" type="button" data-copy="css-html-code">
             <i data-lucide="copy"></i>
             复制
           </button>
         </div>
         <div class="code-body">
-          <pre><code id="css-code" class="language-html">&lt;!DOCTYPE html&gt;
+          <pre><code id="css-html-code" class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="zh-CN"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -3695,10 +3793,19 @@
     &lt;h1 class="title"&gt;你好，CSS&lt;/h1&gt;
     &lt;p&gt;这段文字会变成深灰色。&lt;/p&gt;
   &lt;/body&gt;
-&lt;/html&gt;
-
-/* style.css */
-.title {
+&lt;/html&gt;</code></pre>
+        </div>
+      </div>
+      <div class="code-shell">
+        <div class="code-head">
+          <span class="code-lang">style.css</span>
+          <button class="copy-btn" type="button" data-copy="css-style-code">
+            <i data-lucide="copy"></i>
+            复制
+          </button>
+        </div>
+        <div class="code-body">
+          <pre><code id="css-style-code" class="language-css">.title {
   color: #D97757;
   font-size: 36px;
 }
@@ -3747,7 +3854,7 @@ h1 {
 }</code></pre>
         </div>
       </div>
-      <p>选择器负责“找到元素”，花括号里的每一行是一个“声明”。每行声明都由“属性 : 值 ;”组成，结尾的分号不能漏。</p>
+      <p>选择器负责“找到元素”，花括号里的每一行是一个“声明”。每行声明都由“属性 : 值 ;”组成。建议每条声明后都加分号，避免以后新增一行时忘记加而出错。</p>
 
       <div class="exercise">
         <div class="exercise-title">
@@ -3774,7 +3881,7 @@ h1 {
     </section>
 
     <section class="section" id="css-selectors" data-reveal>
-      <p class="section-kicker">第十二章</p>
+      <p class="section-kicker">第十三章</p>
       <h2>选择器与颜色</h2>
       <p class="lead">CSS 规则由“选择器”和“声明”组成。选择器负责找到元素，声明负责改变它的外观。</p>
 
@@ -4004,7 +4111,7 @@ input[type="email"] {
     </section>
 
     <section class="section" id="css-layout" data-reveal>
-      <p class="section-kicker">第十三章</p>
+      <p class="section-kicker">第十四章</p>
       <h2>盒模型与布局</h2>
       <p class="lead">网页里每个元素都可以看成一个小盒子。理解盒模型和 Flexbox，排版就不会再靠“猜”了。</p>
 
@@ -4312,7 +4419,7 @@ input[type="email"] {
     </section>
 
     <section class="section" id="responsive" data-reveal>
-      <p class="section-kicker">第十四章</p>
+      <p class="section-kicker">第十五章</p>
       <h2>响应式设计：一个页面适配所有屏幕</h2>
       <p class="lead">同一个页面，在手机、平板和电脑上都要好看。响应式设计的目标就是：不用做多个网页，也能自适应各种屏幕宽度。</p>
 
@@ -4503,7 +4610,7 @@ input[type="email"] {
     </section>
 
     <section class="section" id="js-intro" data-reveal>
-      <p class="section-kicker">第十五章</p>
+      <p class="section-kicker">第十六章</p>
       <h2>初识 JavaScript</h2>
       <p class="lead">HTML 是骨架，CSS 是外观，JavaScript 则是让页面“动起来”的肌肉：点击按钮、提交表单、切换内容，背后都靠它。</p>
 
@@ -4550,6 +4657,13 @@ function handleClick() {
 document
   .querySelector("#myButton")
   .addEventListener("click", handleClick);</code></pre>
+        </div>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          <strong>新手最容易踩的坑：</strong>上面的 JavaScript 要放在 <code>&lt;script&gt;...&lt;/script&gt;</code> 里，并且建议放在 <code>&lt;/body&gt;</code> 前面。如果放在 <code>&lt;head&gt;</code> 里，浏览器可能还没读到按钮就执行代码，导致找不到元素。
         </div>
       </div>
 
@@ -4610,7 +4724,7 @@ console.log("HTML" + " 很好学");</code></pre>
     </section>
 
     <section class="section" id="js-basics" data-reveal>
-      <p class="section-kicker">第十六章</p>
+      <p class="section-kicker">第十七章</p>
       <h2>变量、函数与事件</h2>
       <p class="lead">三个概念一旦理解，你就能读懂绝大多数 JavaScript 入门代码。</p>
 
@@ -4628,7 +4742,7 @@ console.log("HTML" + " 很好学");</code></pre>
         </div>
         <div class="card">
           <h4>const</h4>
-          <p>声明后不能再重新赋值。适合不变的数据。</p>
+          <p>声明后不能再重新赋值；但数组、对象内部的内容仍可以修改。适合不变的数据。</p>
           <p><code>const name = "小林";</code></p>
         </div>
         <div class="card">
@@ -4732,7 +4846,7 @@ document
     </section>
 
     <section class="section" id="js-dom" data-reveal>
-      <p class="section-kicker">第十七章</p>
+      <p class="section-kicker">第十八章</p>
       <h2>DOM 操作：修改页面内容</h2>
       <p class="lead">DOM（Document Object Model）是浏览器给 HTML 生成的一棵“对象树”。JavaScript 通过 DOM 找到元素、读取内容、修改样式。</p>
 
@@ -4911,13 +5025,20 @@ button.addEventListener("click", function () {
     </section>
 
     <section class="section" id="jsx-intro" data-reveal>
-      <p class="section-kicker">第十八章</p>
+      <p class="section-kicker">第十九章</p>
       <h2>JSX：在 JavaScript 里写界面</h2>
       <p class="lead">JSX 不是一门新语言，也不是模板字符串。它是 JavaScript 的一种语法扩展：让你在一个函数里，用接近 HTML 的写法直接描述界面。React 组件之所以看起来像“代码里长出了网页”，就是因为 JSX。</p>
 
       <div class="goal-box">
         <strong>本章目标</strong>
         <p>能看懂 JSX 的基本写法，理解 <code>{}</code> 表达式、组件、列表渲染和条件渲染，并且全程不接触 TypeScript。</p>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          <strong>先别急着运行：</strong>JSX / React 代码需要 Node.js 和构建工具（如 Vite）才能运行，不能像前面的 HTML 文件一样直接双击打开。这一章的目标是先“看懂”，环境搭建等进阶课程再专门学习。
+        </div>
       </div>
 
       <h3>JSX 长什么样？</h3>
@@ -4967,7 +5088,7 @@ export default Greeting;</code></pre>
               <td>点击事件</td>
               <td><code>onclick="..."</code></td>
               <td><code>onClick={() =&gt; ...}</code></td>
-              <td>JSX 属性名使用小驼峰，值可以传函数</td>
+              <td>JSX 属性名使用小驼峰（第一个单词小写、后面单词首字母大写，如 <code>onClick</code>），值可以传函数</td>
             </tr>
             <tr>
               <td>样式</td>
@@ -5105,7 +5226,7 @@ export default App;</code></pre>
       <ol>
         <li>一个组件函数只能返回一个根元素，想返回多个内容就用一个 <code>div</code> 包住。</li>
         <li>所有标签都必须闭合：<code>&lt;img /&gt;</code>、<code>&lt;input /&gt;</code>。</li>
-        <li>属性名使用小驼峰：<code>className</code>、<code>onClick</code>、<code>htmlFor</code>。</li>
+        <li>属性名使用小驼峰（第一个单词小写、后面单词首字母大写）：<code>className</code>、<code>onClick</code>、<code>htmlFor</code>。</li>
         <li>花括号 <code>{}</code> 里写 JavaScript 表达式。</li>
         <li>style 是对象：<code>style={{ fontSize: 18 }}</code>。</li>
         <li>注释写在花括号里：<code>{/* 这是注释 */}</code>。</li>
@@ -5145,13 +5266,20 @@ export default App;</code></pre>
     </section>
 
     <section class="section" id="ts-intro" data-reveal>
-      <p class="section-kicker">第十九章</p>
+      <p class="section-kicker">第二十章</p>
       <h2>TypeScript：给 JavaScript 加上类型</h2>
       <p class="lead">TypeScript 是 JavaScript 的“超集”：它增加了一套类型系统，在写代码时就帮你发现很多低级错误。TypeScript 最终会编译成浏览器能运行的 JavaScript。</p>
 
       <div class="goal-box">
         <strong>本章目标</strong>
         <p>理解类型的作用，能读懂 <code>string</code>、<code>number</code>、<code>boolean</code> 和 <code>interface</code>，并知道 TS 如何变成 JS。</p>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          本章属于进阶预览：目标是先读懂“类型”这个概念，无需立刻搭建环境或运行代码。
+        </div>
       </div>
 
       <h3>为什么要用类型？</h3>
@@ -5291,13 +5419,20 @@ function greet(user: User): string {
     </section>
 
     <section class="section" id="react-tsx" data-reveal>
-      <p class="section-kicker">第二十章</p>
+      <p class="section-kicker">第二十一章</p>
       <h2>TSX 与 React：组件化开发</h2>
       <p class="lead">React 是目前最流行的前端组件库之一。它把界面拆成一个个可复用组件；TSX 则是 TypeScript 与 JSX 的组合，让组件代码既有类型安全，又能在函数里直接写界面。</p>
 
       <div class="goal-box">
         <strong>本章目标</strong>
         <p>理解 TSX 是“JSX + 类型”，能读懂一个 React 组件里的 Props、State 和 Hooks。</p>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          本章属于进阶预览：目标是读懂“组件化”的思路，先不必急着运行 React 项目。
+        </div>
       </div>
 
       <h3>一个最简单的 React 组件</h3>
@@ -5408,13 +5543,20 @@ function UserCard({ name, city }: UserCardProps) {
     </section>
 
     <section class="section" id="react-native" data-reveal>
-      <p class="section-kicker">第二十一章</p>
+      <p class="section-kicker">第二十二章</p>
       <h2>React Native：用 React 开发移动 App</h2>
       <p class="lead">React Native 让你用 JavaScript、React 和 TypeScript 开发真正的 iOS 与 Android 应用，而不是网页。手机上的按钮、文字、列表都来自 React Native 提供的组件。</p>
 
       <div class="goal-box">
         <strong>本章目标</strong>
         <p>理解 React Native 与网页 React 的相同点和不同点，并读懂一个最小移动端组件。</p>
+      </div>
+
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          本章属于进阶预览：目标是了解“用前端技能开发 App”的可能性，先不必安装 Expo 或移动端工具链。
+        </div>
       </div>
 
       <h3>网页组件和移动组件的区别</h3>
@@ -5515,7 +5657,7 @@ const styles = StyleSheet.create({
     </section>
 
     <section class="section" id="debug" data-reveal>
-      <p class="section-kicker">第二十二章</p>
+      <p class="section-kicker">第二十三章</p>
       <h2>调试与工具</h2>
       <p class="lead">写错一点代码并不可怕，可怕的是不知道去哪里看错误。下面几个方法能帮你快速找到问题。</p>
 
@@ -5604,7 +5746,7 @@ const styles = StyleSheet.create({
     </section>
 
     <section class="section" id="mistakes" data-reveal>
-      <p class="section-kicker">第二十三章</p>
+      <p class="section-kicker">第二十四章</p>
       <h2>初学者最容易犯的 8 个错误</h2>
       <p class="lead">提前知道这些坑，你就能少走很多弯路。</p>
 
@@ -5707,7 +5849,7 @@ flex、grid、margin、padding</pre>
     </section>
 
     <section class="section" id="project" data-reveal>
-      <p class="section-kicker">第二十四章</p>
+      <p class="section-kicker">第二十五章</p>
       <h2>完整案例：做一个个人介绍页</h2>
       <p class="lead">把前面学到的内容合在一起。左边的代码可以随意修改，右边会实时预览。改完代码，点击“运行预览”更新。</p>
 
@@ -5855,7 +5997,7 @@ flex、grid、margin、padding</pre>
     </section>
 
     <section class="section" id="deploy" data-reveal>
-      <p class="section-kicker">第二十五章</p>
+      <p class="section-kicker">第二十六章</p>
       <h2>部署上线：让全世界都能访问</h2>
       <p class="lead">用浏览器打开本地文件，只有你自己能看见。部署（deploy）就是把网页放到服务器上，让它变成一个所有人都能打开的网址。</p>
 
@@ -5875,9 +6017,15 @@ flex、grid、margin、padding</pre>
           <p>地址栏以 <code>https://</code> 开头，页面存放在服务器上，任何联网的人都能打开。</p>
         </div>
       </div>
-      <p>另外，部分浏览器功能（如某些 API）在 <code>file://</code> 下不可用，部署后才会正常。</p>
+      <p>另外，部分浏览器功能（如某些 API，也就是程序之间约定好的接口）在 <code>file://</code> 下不可用，部署后才会正常。</p>
 
-      <h3>方案一：GitHub Pages（推荐）</h3>
+      <h3>方案一：GitHub Pages（需要先了解 Git）</h3>
+      <div class="note">
+        <i data-lucide="info"></i>
+        <div>
+          如果你还没学过 Git 和 GitHub，建议先使用下面的 Netlify Drop 方案；GitHub Pages 需要先了解“仓库、提交、分支”等概念。
+        </div>
+      </div>
       <div class="steps">
         <div class="step">
           <h5>第一步：注册并新建仓库</h5>
@@ -5946,7 +6094,7 @@ flex、grid、margin、padding</pre>
     </section>
 
     <section class="section" id="faq" data-reveal>
-      <p class="section-kicker">第二十六章</p>
+      <p class="section-kicker">第二十七章</p>
       <h2>常见疑问</h2>
       <p class="lead">新手经常问的问题，这里先替你回答一遍。</p>
 
@@ -6005,11 +6153,11 @@ flex、grid、margin、padding</pre>
     </section>
 
     <section class="section" id="quiz" data-reveal>
-      <p class="section-kicker">第二十七章</p>
+      <p class="section-kicker">第二十八章</p>
       <h2>小测验</h2>
       <p class="lead">一共 15 题。点击选项后会立刻显示对错，答完后看看自己能拿多少分。</p>
       <div id="quizRoot" aria-live="polite"></div>
-      <div class="quiz-result" id="quizResult" hidden></div>
+      <div class="quiz-result" id="quizResult" role="status" hidden></div>
       <button class="btn btn-ghost" type="button" id="quizRetry" style="margin-top: 14px;" hidden>
         <i data-lucide="rotate-ccw"></i>
         重新测验
@@ -6017,7 +6165,7 @@ flex、grid、margin、padding</pre>
     </section>
 
     <section class="section" id="next" data-reveal>
-      <p class="section-kicker">第二十八章</p>
+      <p class="section-kicker">第二十九章</p>
       <h2>学完这个教程之后，下一步做什么？</h2>
       <p class="lead">从 HTML 一路走到 CSS、JavaScript 和 JSX 后，下面这条路会帮你继续前进。</p>
 
@@ -6160,6 +6308,10 @@ flex、grid、margin、padding</pre>
       return typeof window.gsap !== "undefined";
     }
 
+    function hasAnime() {
+      return typeof window.anime !== "undefined";
+    }
+
     var deckSections = Array.prototype.slice.call(document.querySelectorAll("main > section"));
     var sidebarLinks = Array.prototype.slice.call(document.querySelectorAll(".sidebar a"));
     var chapterSelect = document.getElementById("chapterSelect");
@@ -6192,22 +6344,240 @@ flex、grid、margin、padding</pre>
       });
     }
 
+    var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function getFxItems(section) {
+      var selector = [
+        ".section-kicker",
+        "h2",
+        ".lead",
+        ".goal-box",
+        ".grid > .card",
+        ".grid > .tag-card",
+        ".grid-3 > *",
+        ".steps > .step",
+        ".code-shell",
+        ".table-wrap",
+        ".browser",
+        ".exercise",
+        ".self-check",
+        ".note",
+        ".success",
+        ".quiz-question",
+        ".mistake",
+        ".timeline-item",
+        ".editor-grid",
+        ".demo-widget",
+        ".resource-list",
+        ".form-demo",
+        ".schema-box",
+        ".split > *"
+      ].join(",");
+      var items = [];
+      section.querySelectorAll(selector).forEach(function (el) { items.push(el); });
+      return Array.from(new Set(items));
+    }
+
+    function initHeroBackground(section) {
+      var orbs = section.querySelectorAll(".fx-orb");
+      if (!orbs.length || prefersReducedMotion) return;
+      orbs.forEach(function (orb, i) {
+        var x = (i % 2 === 0 ? 1 : -1) * (34 + i * 14);
+        var y = (i % 3 === 0 ? -1 : 1) * (26 + i * 10);
+        if (hasAnime()) {
+          anime.remove(orb);
+          anime({
+            targets: orb,
+            translateX: [0, x],
+            translateY: [0, y],
+            duration: 2400 + i * 700,
+            direction: "alternate",
+            loop: true,
+            easing: "easeInOutSine"
+          });
+          return;
+        }
+        if (hasGsap()) {
+          gsap.killTweensOf(orb);
+          gsap.to(orb, {
+            x: x,
+            y: y,
+            duration: 5.5 + i * 1.3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          });
+        }
+      });
+    }
+
+    function animateHeroEntrance(section) {
+      if (prefersReducedMotion) return;
+      if (hasGsap()) {
+        var top = section.querySelectorAll(".hero-eyebrow, h1, .hero p, .hero-actions");
+        var stats = section.querySelectorAll(".hero-stats .stat");
+        gsap.killTweensOf(top);
+        gsap.killTweensOf(stats);
+        var tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+        tl.fromTo(top, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 })
+          .fromTo(stats, { autoAlpha: 0, y: 16, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.06 }, "-=0.15");
+      }
+      initHeroBackground(section);
+      if (hasAnime()) {
+        var heroIcon = section.querySelector(".hero-eyebrow svg, .hero-eyebrow i");
+        if (heroIcon) {
+          anime({
+            targets: heroIcon,
+            rotate: [0, 12, -6, 0],
+            scale: [1, 1.15, 1],
+            duration: 900,
+            delay: 350,
+            easing: "easeOutElastic(1, .5)"
+          });
+        }
+      }
+    }
+
+    function setupSectionReveals(section) {
+      if (prefersReducedMotion || !hasGsap()) return;
+      var items = getFxItems(section);
+      if (!items.length) return;
+      if (typeof ScrollTrigger === "undefined") {
+        gsap.fromTo(items, { autoAlpha: 0, y: 24 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: "power2.out",
+          overwrite: "auto"
+        });
+        return;
+      }
+      if (gsap.registerPlugin) gsap.registerPlugin(ScrollTrigger);
+      gsap.killTweensOf(items);
+      gsap.set(items, { autoAlpha: 0, y: 24 });
+      items.forEach(function (item) {
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 88%",
+          once: true,
+          onEnter: function () {
+            gsap.to(item, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", overwrite: "auto" });
+          }
+        });
+      });
+      ScrollTrigger.refresh();
+    }
+
+    function initHoverFx() {
+      if (!hasGsap() || prefersReducedMotion) return;
+      document.querySelectorAll(".card, .tag-card, .resource-list a").forEach(function (el) {
+        el.addEventListener("mouseenter", function () {
+          gsap.to(el, { y: -4, duration: 0.25, ease: "power2.out", overwrite: "auto" });
+        });
+        el.addEventListener("mouseleave", function () {
+          gsap.to(el, { y: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+        });
+      });
+    }
+
+    var animeHeadingObserver = null;
+
+    function setupAnimeSectionHeadings(section) {
+      if (!hasAnime() || prefersReducedMotion) return;
+      if (animeHeadingObserver) {
+        animeHeadingObserver.disconnect();
+        animeHeadingObserver = null;
+      }
+      if (!("IntersectionObserver" in window)) return;
+      var headings = section.querySelectorAll("h3");
+      if (!headings.length) return;
+      headings.forEach(function (h) {
+        h.style.opacity = "0";
+        h.style.transform = "translateX(-18px)";
+      });
+      animeHeadingObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          anime({
+            targets: el,
+            opacity: [0, 1],
+            translateX: [-18, 0],
+            duration: 550,
+            easing: "easeOutCubic"
+          });
+          animeHeadingObserver.unobserve(el);
+        });
+      }, { threshold: 0.15 });
+      headings.forEach(function (h) { animeHeadingObserver.observe(h); });
+    }
+
+    function initAnimeInteractions() {
+      if (!hasAnime() || prefersReducedMotion) return;
+      document.querySelectorAll(".btn").forEach(function (btn) {
+        btn.addEventListener("mouseenter", function () {
+          anime.remove(btn);
+          anime({ targets: btn, scale: 1.04, duration: 220, easing: "easeOutQuad" });
+        });
+        btn.addEventListener("mouseleave", function () {
+          anime.remove(btn);
+          anime({ targets: btn, scale: 1, duration: 260, easing: "easeOutQuad" });
+        });
+      });
+      document.querySelectorAll("[data-copy]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          anime.remove(btn);
+          anime({ targets: btn, scale: [1, 1.18, 1], duration: 450, easing: "easeOutElastic(1, .5)" });
+        });
+      });
+      var backTop = document.getElementById("backTop");
+      if (backTop && "MutationObserver" in window) {
+        var observer = new MutationObserver(function () {
+          if (backTop.classList.contains("show")) {
+            anime.remove(backTop);
+            anime({ targets: backTop, scale: [0.8, 1], duration: 350, easing: "easeOutElastic(1, .5)" });
+          } else {
+            anime.remove(backTop);
+            backTop.style.transform = "";
+          }
+        });
+        observer.observe(backTop, { attributes: true, attributeFilter: ["class"] });
+      }
+    }
+
     function animateStats() {
       var counters = document.querySelectorAll(".stat-num");
       counters.forEach(function (counter) {
         var target = parseInt(counter.dataset.target, 10);
-        var start = 0;
-        var duration = 900;
-        var startTime = null;
-        function step(timestamp) {
-          if (!startTime) startTime = timestamp;
-          var progress = Math.min((timestamp - startTime) / duration, 1);
-          counter.textContent = Math.round(start + (target - start) * progress);
-          if (progress < 1) {
-            window.requestAnimationFrame(step);
-          }
+        if (prefersReducedMotion) {
+          counter.textContent = target;
+          return;
         }
-        window.requestAnimationFrame(step);
+        if (hasGsap()) {
+          var state = { value: 0 };
+          gsap.to(state, {
+            value: target,
+            duration: 1.1,
+            ease: "power2.out",
+            onUpdate: function () {
+              counter.textContent = Math.round(state.value);
+            }
+          });
+        } else {
+          var start = 0;
+          var duration = 900;
+          var startTime = null;
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var progress = Math.min((timestamp - startTime) / duration, 1);
+            counter.textContent = Math.round(start + (target - start) * progress);
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            }
+          }
+          window.requestAnimationFrame(step);
+        }
       });
     }
 
@@ -6253,16 +6623,31 @@ flex、grid、margin、padding</pre>
     }
 
     function animateDeckEntrance(section) {
-      if (hasGsap()) {
+      if (hasGsap() && !prefersReducedMotion) {
+        if (window.ScrollTrigger) {
+          ScrollTrigger.getAll().forEach(function (trigger) { trigger.kill(); });
+        }
+        gsap.killTweensOf(section);
         gsap.fromTo(section, { opacity: 0, y: 18 }, {
           opacity: 1,
           y: 0,
-          duration: 0.42,
+          duration: 0.35,
           ease: "power2.out",
           overwrite: "auto"
         });
+        if (section.classList.contains("hero")) {
+          animateHeroEntrance(section);
+        } else {
+          setupSectionReveals(section);
+          setupAnimeSectionHeadings(section);
+        }
       } else {
         section.style.opacity = 1;
+        if (section.classList.contains("hero")) {
+          animateHeroEntrance(section);
+        } else {
+          setupAnimeSectionHeadings(section);
+        }
       }
     }
 
@@ -6279,8 +6664,17 @@ flex、grid、margin、padding</pre>
         updateDeckUI();
         window.scrollTo({ top: 0, behavior: "auto" });
         animateDeckEntrance(next);
+        try {
+          var focusTarget = next.querySelector("h1, h2");
+          if (focusTarget) {
+            focusTarget.setAttribute("tabindex", "-1");
+            focusTarget.focus({ preventScroll: true });
+          }
+        } catch (e) {
+          // 焦点切换不是必需功能，失败不影响阅读。
+        }
       }
-      if (animate && hasGsap()) {
+      if (animate && hasGsap() && !prefersReducedMotion) {
         gsap.to(current, {
           opacity: 0,
           y: -12,
@@ -6293,10 +6687,33 @@ flex、grid、margin、padding</pre>
       }
     }
 
+    var fxReady = false;
+    function bootPageFx() {
+      if (fxReady) return;
+      fxReady = true;
+      animateDeckEntrance(deckSections[0]);
+      animateStats();
+      initHoverFx();
+      initAnimeInteractions();
+      if (window.Prism) {
+        try {
+          Prism.highlightAll();
+        } catch (error) {
+          // 高亮不是必需功能，失败时页面仍可正常阅读。
+        }
+      }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
     buildChapterSelect();
     updateDeckUI();
-    animateDeckEntrance(deckSections[0]);
-    animateStats();
+    if (hasGsap()) {
+      bootPageFx();
+    } else {
+      document.addEventListener("DOMContentLoaded", bootPageFx);
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       link.addEventListener("click", function (event) {
@@ -6552,19 +6969,19 @@ flex、grid、margin、padding</pre>
         explain: "article、header、main、footer 等标签能表达内容含义，div 和 span 只是通用容器。"
       },
       {
-        question: "9. JSX 是什么？",
+        question: "9.【进阶】JSX 是什么？",
         options: ["一种数据库语言", "JavaScript 的语法扩展，用来描述界面", "一种图片格式", "一种 CSS 框架"],
         answer: 1,
         explain: "JSX 是 JavaScript 的语法扩展，让你在函数里用类似 HTML 的写法描述界面。"
       },
       {
-        question: "10. JSX 里 CSS 类名应该怎么写？",
+        question: "10.【进阶】JSX 里 CSS 类名应该怎么写？",
         options: ["class=\"card\"", "css=\"card\"", "className=\"card\"", "styleclass=\"card\""],
         answer: 2,
         explain: "因为 class 是 JavaScript 的保留词，JSX 里要用 className。"
       },
       {
-        question: "11. 在 JSX 里渲染一个列表，通常使用什么？",
+        question: "11.【进阶】在 JSX 里渲染一个列表，通常使用什么？",
         options: ["for 循环加 innerHTML", "数组的 map 方法，并给每一项加 key", "复制粘贴所有标签", "用 CSS 显示列表"],
         answer: 1,
         explain: "JSX 列表渲染常用数组的 map 方法，每个列表项要加 key 帮助 React 识别。"
@@ -6577,7 +6994,7 @@ flex、grid、margin、padding</pre>
         explain: "required 表示必填，不填就提交时浏览器会提示并阻止提交。"
       },
       {
-        question: "13. 想校验手机号必须是 11 位数字，用哪个属性？",
+        question: "13.【进阶】想校验手机号必须是 11 位数字，用哪个属性？",
         options: ["type=\"number\"", "maxlength=\"11\"", "pattern=\"[0-9]{11}\"", "min=\"11\""],
         answer: 2,
         explain: "pattern 接受正则表达式，[0-9]{11} 表示 11 位数字；maxlength 只能限制输入长度，不能限制必须是数字。"
@@ -6633,6 +7050,13 @@ flex、grid、margin、padding</pre>
               correctCount += 1;
             } else {
               button.classList.add("wrong");
+            }
+            if (hasAnime() && !prefersReducedMotion) {
+              if (optionIndex === item.answer) {
+                anime({ targets: button, scale: [1, 1.06, 1], duration: 500, easing: "easeOutElastic(1, .5)" });
+              } else {
+                anime({ targets: button, translateX: [0, -6, 6, -3, 3, 0], duration: 420, easing: "easeInOutQuad" });
+              }
             }
             var explain = document.createElement("p");
             explain.style.cssText = "font-size: 13px; color: #6F6B61; margin: 10px 0 0;";
