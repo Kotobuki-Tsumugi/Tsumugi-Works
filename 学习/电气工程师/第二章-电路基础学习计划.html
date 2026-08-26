@@ -671,6 +671,82 @@
 </header>
 
 <section>
+  <h2 class="section-title">&#x1F9D2; 零基础起步指南：给电路新手</h2>
+  <div class="ee-note">
+    <div class="ee-label">&#x1F4AC; 写给第一次碰电路的你</div>
+    <p>如果你从未画过电路图、分不清电阻和电容，甚至不知道电流到底是什么——<strong>这一章就是你从门外汉到能上手的入场券</strong>。我们不急着让你算复杂电路，而是先从认识元件、看懂图开始。</p>
+  </div>
+
+  <h3>一、电路到底是什么？一个生活化的理解</h3>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <h4>&#x1F4A7; 电路 = 水管系统</h4>
+      <p class="analogy">电压 = 水压，电流 = 水流，电阻 = 水管粗细。这个比喻能帮你理解 80% 的电路直觉。</p>
+      <div class="example"><strong>延伸：</strong>水泵→电源，阀门→开关，三通接头→电路节点，储水罐→电容。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x26A1; 电流其实很慢</h4>
+      <p class="analogy">电子在导线里的移动速度大约只有每秒几厘米——但信号传播速度接近光速。就像水管里推水，水分子移动很慢，但压力波瞬间传到另一端。</p>
+      <div class="example"><strong>结论：</strong>开灯的瞬间灯就亮，不是因为电子从开关跑到灯泡那么快，而是电场信号几乎瞬间建立了。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x1F50B; 电池不是产生电流</h4>
+      <p class="analogy">电池只是推电流的泵，电子一直在导线里循环。电池提供的是<b>能量</b>，不是电子本身。</p>
+      <div class="example"><strong>理解：</strong>就像水泵推水循环，水管里的水一直在，水泵只是提供推动力。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x1F501; 直流 vs 交流</h4>
+      <p class="analogy">直流 = 水往一个方向流（电池供电）；交流 = 水来回振荡（市电 50Hz，每秒来回 50 次）。</p>
+      <div class="example"><strong>为什么用交流：</strong>交流电容易通过变压器升压降压，适合长距离输电。直流更适合电子设备内部。</div>
+    </div>
+  </div>
+
+  <h3>二、看懂电路图的三个前提</h3>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <h4>&#x1F4D0; 所有线条都是导线</h4>
+      <p class="analogy">电路图中每条线都是一根理想导线——电阻为零，电压处处相等。</p>
+      <div class="example"><strong>关键：</strong>同一个节点（线的交点）上的所有点，电压相同。这是 KCL 的基础。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x231A; 参考方向是约定</h4>
+      <p class="analogy">电流的参考方向是人为画的箭头，不代表电子实际运动方向。算出来是负数，说明实际方向与参考方向相反——这完全正常。</p>
+      <div class="example"><strong>理解：</strong>就像地图上上北下南是约定，不代表地球真的分上下。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x1F50C; 每个元件都是二端</h4>
+      <p class="analogy">电阻、电容、电感、电压源、电流源——每个都有两个端子。两个端子之间的电压差就是它的电压。</p>
+      <div class="example"><strong>重要：</strong>说某个元件的电压时，一定是指它<b>两个端子之间</b>的电压，不是对地电压。</div>
+    </div>
+    <div class="concept-card">
+      <h4>&#x1F4CF; 单位必须统一</h4>
+      <p class="analogy">电压用 V、电流用 A、电阻用欧姆、功率用 W。混用单位是初学者最容易犯的错误。</p>
+      <div class="example"><strong>常见坑：</strong>电阻用 kΩ、电流用 mA 时，欧姆定律算出的电压单位是 V，但要小心数量级（1kΩ × 1mA = 1V，不是 1000V）。</div>
+    </div>
+  </div>
+
+  <h3>三、这一章的 4 周路线图</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>第 1 周：认识元件 + 基尔霍夫定律</h4>
+      <p>先认识电阻、电容、电感这三巨头，再学会用 KVL 和 KCL 列方程。这是整个电路分析的字母 + 语法。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>第 2 周：直流电路分析方法</h4>
+      <p>学会节点电压法、网孔电流法、戴维南定理。从硬算进化到系统化求解。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>第 3 周：交流电路与相量法</h4>
+      <p>正弦交流电、阻抗、功率、谐振。引入复数运算，让 AC 电路分析变得和 DC 一样简单。</p>
+    </div>
+    <div class="timeline-item">
+      <h4>第 4 周：暂态分析与磁路</h4>
+      <p>电路从一种稳态切换到另一种稳态的过程（暂态）。这是理解开关、滤波、保护电路的关键。</p>
+    </div>
+  </div>
+</section>
+
+<section>
   <h2 class="section-title">📌 为什么电气工程师必须学好电路基础？</h2>
   <div class="card">
     <p>电路分析是电气工程的<b>"第一门语言"</b>。无论后来你从事电力系统、电机控制、信号处理、电力电子还是微电子设计，所有分析工具本质上都是对<b>基尔霍夫定律 + 元件 VCR（伏安关系）</b>的反复应用。</p>
@@ -1804,6 +1880,48 @@
   <div class="tip-box">
     <span class="tip-title">🎯 掌握标准</span>
     以上 12 项全部达到"已掌握" → <b>进入第三章</b>。有任意 3 项及以上为"未掌握" → <b>建议回到对应周次重新学习</b>。
+  </div>
+<section>
+  <h2 class="section-title">&#x1F9D2; 小白专属：每日打卡计划</h2>
+  <p>电路学习最怕看会了但手不会。下面是一份边学边练的 4 周打卡计划。</p>
+
+  <h3>Week 1：认识元件 + 基尔霍夫定律</h3>
+  <ul class="checklist">
+    <li>在纸上画出电阻、电容、电感的电路符号</li>
+    <li>用欧姆定律算 5 道题：已知 R、U，求 I</li>
+    <li>对串联电路列 KVL 方程</li>
+    <li>对并联电路列 KCL 方程</li>
+  </ul>
+
+  <h3>Week 2：直流电路分析方法</h3>
+  <ul class="checklist">
+    <li>手算 2 道电阻串并联等效电路</li>
+    <li>用节点电压法解一个 2 节点电路</li>
+    <li>求戴维南等效电路</li>
+  </ul>
+
+  <h3>Week 3：交流电路与相量法</h3>
+  <ul class="checklist">
+    <li>把正弦电压转化为相量</li>
+    <li>计算 RLC 串联电路的总阻抗</li>
+    <li>计算有功功率、无功功率和视在功率</li>
+  </ul>
+
+  <h3>Week 4：暂态分析与综合</h3>
+  <ul class="checklist">
+    <li>理解换路定律</li>
+    <li>推导 RC 充电方程</li>
+    <li>推导 RL 接通方程</li>
+    <li>默写本章全部核心公式</li>
+  </ul>
+
+  <div class="week-summary">
+    <h4>&#x1F4CB; 电路小白必备好习惯</h4>
+    <div class="connection">
+      <p>&#x1F4AA; <strong>先画图再算数：</strong>做任何电路题，第一步永远是画电路图、标参考方向。</p>
+      <p>&#x1F4AA; <strong>单位必须写：</strong>每个计算结果后面写上单位（V、A、欧姆、W）。</p>
+      <p>&#x1F4AA; <strong>错题本：</strong>把做错的题抄下来，旁边用红笔写上我错在哪。</p>
+    </div>
   </div>
 </section>
 
