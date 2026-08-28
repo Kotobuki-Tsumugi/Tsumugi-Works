@@ -18,7 +18,13 @@ export function legacyHtml(html: string): string {
   root.querySelectorAll('script, style, noscript, iframe, object, embed, header.site-header, .sidebar, nav.study-nav, .skip-link, #themeToggle, #printPlan, #backTop, .theme-toggle, .print-plan, .back-top, .print, .top').forEach((node) => node.remove())
   root.querySelectorAll<HTMLElement>('*').forEach((element) => {
     for (const attribute of [...element.attributes]) {
-      if (/^on/i.test(attribute.name) || attribute.name === 'style') element.removeAttribute(attribute.name)
+      if (/^on/i.test(attribute.name) || attribute.name === 'style') {
+        element.removeAttribute(attribute.name)
+        continue
+      }
+      if (/^(?:href|src|action|formaction|xlink:href)$/i.test(attribute.name) && /^(?:javascript|vbscript|data:text\/html):/i.test(attribute.value.trim())) {
+        element.removeAttribute(attribute.name)
+      }
     }
   })
 

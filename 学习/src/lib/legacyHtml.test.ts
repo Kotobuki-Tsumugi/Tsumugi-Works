@@ -7,10 +7,11 @@ describe('legacyHtml', () => {
       <header class="site-header"><button id="themeToggle">主题</button></header>
       <aside class="sidebar">旧侧栏</aside><nav class="study-nav">旧导航</nav>
       <button id="printPlan">打印本章</button><script>alert('x')</script>
-      <main><h1>正文</h1><p>内容</p></main>
+      <main><h1>正文</h1><p>内容</p><a href="javascript:alert(1)" onclick="alert(2)">链接</a></main>
     </body></html>`)
     expect(result).toContain('<h1>正文</h1>')
     expect(result).not.toMatch(/site-header|sidebar|study-nav|themeToggle|printPlan|<script|<style/i)
+    expect(result).not.toMatch(/javascript:|onclick=/i)
   })
 
   it('annotates legacy quiz and copy controls for React delegation', () => {
