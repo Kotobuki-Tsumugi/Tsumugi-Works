@@ -37,7 +37,7 @@ describe('CodeBlock', () => {
     render(<CodeBlock code="const x = 1" language="ts" />)
     fireEvent.click(screen.getByRole('button', { name: /复制代码/ }))
     await vi.waitFor(() => expect(writeText).toHaveBeenCalledWith('const x = 1'))
-    expect(screen.getByText('已复制')).toBeInTheDocument()
+    expect(await screen.findByText('已复制')).toBeInTheDocument()
   })
 
   it('clears copy status after two seconds', async () => {
