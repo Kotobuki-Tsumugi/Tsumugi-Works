@@ -2033,6 +2033,14 @@
           <li>我已经独立完成了一次“修改文字 → 保存 → 刷新浏览器”的循环。</li>
         </ul>
       </div>
+      <h3>基础巩固：把 HTML、CSS、JavaScript 分开思考</h3>
+      <p>HTML 负责内容和结构，CSS 负责外观与布局，JavaScript 负责行为。遇到问题时先判断属于哪一层，再修改对应文件，能避免把所有代码堆在一个标签里。</p>
+      <div class="card-grid">
+        <div class="card"><h4>可访问 HTML</h4><p>优先使用真实语义标签；表单控件必须有 <code>label</code>，交互控件使用 <code>button</code> 或 <code>a</code>，不要只用可点击的 <code>div</code>。</p></div>
+        <div class="card"><h4>可维护 CSS</h4><p>先检查层叠、继承和选择器优先级，再调整间距。把重复颜色和尺寸提取为自定义属性，减少散落的行内样式。</p></div>
+        <div class="card"><h4>渐进式 JavaScript</h4><p>先用原生 DOM 和 <code>addEventListener</code> 完成一个小功能，再学习模块、<code>fetch</code> 和异步流程；框架不是 HTML 的前置条件。</p></div>
+      </div>
+      <div class="exercise"><div class="exercise-title"><i data-lucide="pencil"></i>练习：拆分个人介绍页</div><ol><li>把页面结构保留在 <code>index.html</code>。</li><li>把颜色、布局和响应式规则移到 <code>style.css</code>。</li><li>用 <code>main.js</code> 实现一个“显示更多”按钮，并确保键盘可以操作。</li><li>关闭 JavaScript 后，页面的正文仍然可读。</li></ol></div>
     </section>
 
     <section class="section" id="what-is-html" data-reveal>
@@ -6157,6 +6165,7 @@ flex、grid、margin、padding</pre>
       <h2>小测验</h2>
       <p class="lead">一共 15 题。点击选项后会立刻显示对错，答完后看看自己能拿多少分。</p>
       <div id="quizRoot" aria-live="polite"></div>
+      <noscript><div class="note">小测验需要启用 JavaScript；你也可以按本章自测清单逐项手写答案。</div></noscript>
       <div class="quiz-result" id="quizResult" role="status" hidden></div>
       <button class="btn btn-ghost" type="button" id="quizRetry" style="margin-top: 14px;" hidden>
         <i data-lucide="rotate-ccw"></i>

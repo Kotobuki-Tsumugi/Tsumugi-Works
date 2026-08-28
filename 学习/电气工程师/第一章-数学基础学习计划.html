@@ -424,6 +424,14 @@
     box-shadow: 0 0.375rem 1rem rgba(204,120,92,0.5);
     transform: translateY(-0.125rem);
   }
+  .print-plan { position: fixed; top: 1rem; right: 1rem; z-index: 20; border: 0.0625em solid var(--border); border-radius: var(--radius); background: var(--card-bg); color: var(--text); padding: 0.5rem 0.875rem; cursor: pointer; }
+  .print-plan:hover, button:focus-visible, a:focus-visible { outline: 0.125em solid var(--primary); outline-offset: 0.125em; }
+  .skip-link { position: fixed; left: 1rem; top: -4rem; z-index: 30; background: var(--primary); color: #fff; padding: 0.5rem 0.875rem; border-radius: var(--radius); }
+  .skip-link:focus { top: 1rem; }
+  .study-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; padding: 0.75rem; background: var(--card-warm); border: 0.0625em solid var(--border); border-radius: var(--radius); }
+  .study-nav a { color: var(--primary-dark); text-decoration: none; padding: 0.35rem 0.625rem; border-radius: 0.25rem; }
+  .study-nav a:hover { background: var(--primary-soft); }
+  @media print { .back-top, .print-plan, .skip-link { display: none !important; } .page-wrapper { max-width: none; } }
 
   @media print {
     .back-top { display: none !important; }
@@ -675,9 +683,11 @@
 </head>
 <body>
 
+<a class="skip-link" href="#mainContent">跳到正文</a>
 <button class="back-top" id="backTop" title="回到顶部" aria-label="回到顶部">↑</button>
+<button class="print-plan" id="printPlan" type="button">打印本章</button>
 
-<div class="page-wrapper">
+<div class="page-wrapper" id="mainContent">
 
 <header class="hero">
   <h1>📐 第一章：数学基础学习计划</h1>
@@ -688,7 +698,10 @@
     <span>面向：<strong>零基础 / 工程应用</strong></span>
   </div>
 </header>
-<section>
+<nav class="study-nav" aria-label="章节导航">
+  <a href="#math-overview">概览</a><a href="#math-week1">第 1 周</a><a href="#math-week2">第 2 周</a><a href="#math-week3">第 3 周</a><a href="#math-week4">第 4 周</a><a href="#math-check">自测</a>
+</nav>
+<section id="math-overview">
   <h2 class="section-title">🧒 零基础起步指南：给完全小白的你</h2>
   <div class="ee-note">
     <div class="ee-label">💬 写给正在犹豫的你</div>
@@ -912,7 +925,7 @@
   </div>
 </section>
 
-<section>
+<section id="math-week1">
   <h2 class="section-title">📅 第 1 周：初等数学补强 + 函数与极限</h2>
 
   <div class="week-block">
@@ -1208,7 +1221,7 @@
   </div>
 </section>
 
-<section>
+<section id="math-week2">
   <h2 class="section-title">📅 第 2 周：导数与微分</h2>
 
   <div class="week-block">
@@ -1270,6 +1283,11 @@
           <mi>Δ</mi><mi>y</mi><mo>≈</mo><mi>d</mi><mi>y</mi><mo>=</mo><msup><mi>f</mi><mo>′</mo></msup><mo>(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>)</mo><mo>⋅</mo><mi>Δ</mi><mi>x</mi>
         </math>
         <p class="math-note"><span class="math-ee-label">电气应用：</span>把非线性器件在工作点附近用微分近似为线性电路，这是电子学分析的基础。</p>
+      </div>
+
+      <h3>Day 5：导数综合练习与误差估计</h3>
+      <div class="ee-note">
+        <p>用导数估算电阻功耗和测量误差：先写出目标量对输入量的函数，再用 <math class="inline"><mi>Δ</mi><mi>y</mi><mo>≈</mo><mi>f</mi><mo>′</mo><mo>(</mo><mi>x</mi><mo>)</mo><mi>Δ</mi><mi>x</mi></math> 做一阶近似。完成 3 道练习，并说明近似在哪些条件下有效。</p>
       </div>
 
       <h3>Day 6：最大功率传输定理</h3>
@@ -1382,7 +1400,7 @@
   </div>
 </section>
 
-<section>
+<section id="math-week3">
   <h2 class="section-title">📅 第 3 周：积分与常微分方程入门</h2>
 
   <div class="week-block">
@@ -1600,7 +1618,7 @@
   </div>
 </section>
 
-<section>
+<section id="math-week4">
   <h2 class="section-title">📅 第 4 周：线性代数 + 复数 + 积分变换</h2>
 
   <div class="week-block">
@@ -1873,6 +1891,23 @@
 </section>
 
 <section>
+  <h2 class="section-title">🧭 工程数学补充：向量、误差与数值方法</h2>
+  <p>前四周足够进入电路基础，但电磁场、控制和测量还会反复用到向量、近似和数值计算。下面先建立一张“够用就好”的工具卡。</p>
+  <div class="card-grid">
+    <div class="card"><h4>向量与点积</h4><p>向量有大小和方向；点积 <code>a·b=|a||b|cosθ</code> 用来计算投影和功率。电磁场中的通量、功率流都离不开它。</p></div>
+    <div class="card"><h4>量纲检查</h4><p>等式两边必须具有相同单位。若把电阻、电容和时间代入 <code>τ=RC</code>，单位应化为 Ω·F=s，这能快速抓住数量级错误。</p></div>
+    <div class="card"><h4>数值近似</h4><p>计算器给出的是近似值。保留有效数字，写清误差来源，并用极限或导数判断近似是否合理。</p></div>
+  </div>
+  <div class="worked-example">
+    <div class="example-title">📝 小练习：测量误差的一阶估计</div>
+    <div class="example-desc">电阻 R=U/I，电压误差 ΔU=0.1V，电流误差 ΔI=0.01A。先写出 R 对 U、I 的偏导，再估算误差方向。</div>
+    <div class="worked-step"><div class="step-num">1</div><div class="step-content"><span class="formula-line">∂R/∂U = 1/I，　∂R/∂I = −U/I²</span></div></div>
+    <div class="worked-step"><div class="step-num">2</div><div class="step-content"><span class="formula-line">ΔR ≈ (1/I)ΔU − (U/I²)ΔI</span><span class="why">实际报告时可取绝对误差上界，并注明 U、I 的测量范围。</span></div></div>
+  </div>
+  <div class="exercise"><div class="exercise-title">✏️ 练习：用工具验证而不是代替思考</div><ol><li>在 GeoGebra 或 Desmos 中画出 <code>e^-t</code>、<code>sin(t)</code>。</li><li>分别标记导数为零和函数过零的位置。</li><li>把图像观察写成 3 句工程语言。</li></ol></div>
+</section>
+
+<section id="math-check">
   <h2 class="section-title">✅ 第一章自测清单</h2>
   <p>完成第一章学习后，请自问以下问题（超过 2 项不熟练建议复习对应周内容）：</p>
   <ul class="checklist">
@@ -1987,6 +2022,7 @@
     </table>
   </div>
 
+</section>
 <section>
   <h2 class="section-title">&#x1F9D2; 小白专属：每日打卡计划</h2>
   <p>零基础不可怕，可怕的是三天打鱼两天晒网。下面是一份<b>每天 30 分钟就能完成</b>的打卡计划，帮你养成学习习惯。</p>
@@ -2040,33 +2076,33 @@
   <h2 class="section-title">&#x1F680; 下一步预告</h2>
   <div class="card">
     <span class="card-icon">📖</span>
-    <h3>第二章：大学物理（电磁学基础）</h3>
-    <p>学完第一章数学基础后，就可以开始学习电磁学中的基本物理规律。</p>
+    <h3>第二章：电路基础</h3>
+    <p>学完第一章数学基础后，进入电气工程最常用的工作语言：从欧姆定律、基尔霍夫定律开始，逐步分析直流、交流和暂态电路。</p>
     <h4 style="margin-top:0.875rem;">主要内容：</h4>
     <div class="card-grid">
       <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
-        <h4>⚡ 静电场</h4><p>库仑定律、电场强度、电势、高斯定理</p>
+        <h4>🔌 直流电路</h4><p>元件伏安关系、KCL/KVL、节点法、戴维南等效</p>
       </div>
       <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
-        <h4>🧲 恒定磁场</h4><p>毕奥-萨伐尔定律、安培环路定理</p>
+        <h4>〰️ 交流电路</h4><p>正弦量、相量、阻抗、功率与谐振</p>
       </div>
       <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
-        <h4>🔄 电磁感应</h4><p>法拉第电磁感应定律、楞次定律</p>
+        <h4>⏱️ 暂态分析</h4><p>RC/RL 换路、时间常数和一阶响应</p>
       </div>
       <div class="card" style="box-shadow:none; border:0.0625em solid var(--border);">
-        <h4>📐 麦克斯韦方程组</h4><p>电磁学的"四大天王"</p>
+        <h4>🧲 磁路与变压器</h4><p>磁阻类比、互感和理想变压器基础</p>
       </div>
     </div>
     <div class="ee-note" style="margin-top:0.875rem;">
       <div class="ee-label">💡 衔接提示</div>
-      <p>电场强度 E=F/q 需要极限概念；电势 V=−∫E·dl 需要积分；感应电动势 ε=−dΦ/dt 需要导数。<strong>数学基础越扎实，电磁学学得越轻松。</strong></p>
+      <p>节点电压法会用到线性方程组，RC/RL 暂态会用到指数和微分，相量法会用到复数。遇到计算困难时，回到第一章对应工具复习即可。</p>
     </div>
   </div>
 </section>
 
 <footer>
   <p>📐 第一章：数学基础学习计划 — 电气工程师自学路径</p>
-  <p>学习路径：第 0 层 · 数学基础 → 第 1 层 · 大学物理 → 第 2 层 · 电路原理 → …</p>
+  <p>学习路径：第 1 章 · 数学基础 → 第 2 章 · 电路基础 → 第 3 章 · 信号与系统 → …</p>
   <p style="margin-top:0.5rem; opacity:0.6;">Generated for self-study · All formulas rendered in MathML.</p>
 </footer>
 
@@ -2095,6 +2131,14 @@ document.querySelectorAll('[data-quiz]').forEach(function(quiz) {
   var answer = quiz.querySelector('.quiz-answer');
   var answered = false;
   options.forEach(function(opt) {
+    opt.setAttribute('role', 'button');
+    opt.setAttribute('tabindex', '0');
+    opt.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        opt.click();
+      }
+    });
     opt.addEventListener('click', function() {
       if (answered) return;
       answered = true;
@@ -2123,6 +2167,9 @@ window.addEventListener('scroll', function() {
 });
 backTop.addEventListener('click', function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.getElementById('printPlan').addEventListener('click', function() {
+  window.print();
 });
 </script>
 </body>

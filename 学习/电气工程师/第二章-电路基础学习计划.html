@@ -406,6 +406,14 @@
     box-shadow: 0 0.375rem 1rem rgba(204,120,92,0.5);
     transform: translateY(-0.125rem);
   }
+  .print-plan { position: fixed; top: 1rem; right: 1rem; z-index: 20; border: 0.0625em solid var(--border); border-radius: var(--radius); background: var(--card-bg); color: var(--text); padding: 0.5rem 0.875rem; cursor: pointer; }
+  .print-plan:hover, button:focus-visible, a:focus-visible { outline: 0.125em solid var(--primary); outline-offset: 0.125em; }
+  .skip-link { position: fixed; left: 1rem; top: -4rem; z-index: 30; background: var(--primary); color: #fff; padding: 0.5rem 0.875rem; border-radius: var(--radius); }
+  .skip-link:focus { top: 1rem; }
+  .study-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; padding: 0.75rem; background: var(--card-warm); border: 0.0625em solid var(--border); border-radius: var(--radius); }
+  .study-nav a { color: var(--primary-dark); text-decoration: none; padding: 0.35rem 0.625rem; border-radius: 0.25rem; }
+  .study-nav a:hover { background: var(--primary-soft); }
+  @media print { .back-top, .print-plan, .skip-link { display: none !important; } .page-wrapper { max-width: none; } }
 
   @media print {
     .back-top { display: none !important; }
@@ -656,9 +664,11 @@
 </head>
 <body>
 
+<a class="skip-link" href="#mainContent">跳到正文</a>
 <button class="back-top" id="backTop" title="回到顶部" aria-label="回到顶部">↑</button>
+<button class="print-plan" id="printPlan" type="button">打印本章</button>
 
-<div class="page-wrapper">
+<div class="page-wrapper" id="mainContent">
 
 <header class="hero">
   <h1>⚡ 第二章：电路基础学习计划</h1>
@@ -669,8 +679,11 @@
     <span>面向：<strong>已有第一章数学基础</strong></span>
   </div>
 </header>
+<nav class="study-nav" aria-label="章节导航">
+  <a href="#circuit-overview">概览</a><a href="#circuit-week1">第 1 周</a><a href="#circuit-week2">第 2 周</a><a href="#circuit-week3">第 3 周</a><a href="#circuit-week4">第 4 周</a><a href="#circuit-check">自测</a>
+</nav>
 
-<section>
+<section id="circuit-overview">
   <h2 class="section-title">&#x1F9D2; 零基础起步指南：给电路新手</h2>
   <div class="ee-note">
     <div class="ee-label">&#x1F4AC; 写给第一次碰电路的你</div>
@@ -838,7 +851,7 @@
   </div>
 </section>
 
-<section>
+<section id="circuit-week1">
   <h2 class="section-title">📅 第 1 周：电路基本元件与定律</h2>
 
   <div class="week-block">
@@ -960,12 +973,12 @@
       <div class="quiz" id="quiz-kvl">
         <div class="quiz-title">🧠 快速自测：KVL</div>
         <p style="margin-bottom:0.5rem;">一个串联回路有 2 个电压源（6 V 和 3 V，方向相反）和一个电阻 R = 9 Ω。流过电路的电流是？</p>
-        <span class="quiz-option" data-quiz="quiz-kvl" data-correct="1" data-wrong="0">A. 1 A</span>
-        <span class="quiz-option" data-quiz="quiz-kvl" data-correct="0" data-wrong="1">B. 1/3 A</span>
+        <span class="quiz-option" data-quiz="quiz-kvl" data-correct="0" data-wrong="1">A. 1 A</span>
+        <span class="quiz-option" data-quiz="quiz-kvl" data-correct="1" data-wrong="0">B. 1/3 A</span>
         <span class="quiz-option" data-quiz="quiz-kvl" data-correct="0" data-wrong="1">C. 3 A</span>
         <span class="quiz-option" data-quiz="quiz-kvl" data-correct="0" data-wrong="1">D. 无法确定</span>
         <div class="quiz-answer" id="quiz-kvl-answer">
-          ✅ 选 A。净电压 = 6 − 3 = 3 V，I = 3/9 = 1/3 A... 等等！正确答案是 <b>1/3 A</b>。选 B 才对——注意两个电源方向相反时相减，I = (6−3)/9 = 1/3 A。
+          ✅ 选 B。净电压 = 6 − 3 = 3 V，I = 3/9 = 1/3 A。两个电源方向相反时相减，电流为 <b>1/3 A</b>。
         </div>
       </div>
 
@@ -990,7 +1003,7 @@
   </div>
 </section>
 
-<section>
+<section id="circuit-week2">
   <h2 class="section-title">📅 第 2 周：直流电路分析方法</h2>
 
   <div class="week-block">
@@ -1140,7 +1153,7 @@
   </div>
 </section>
 
-<section>
+<section id="circuit-week3">
   <h2 class="section-title">📅 第 3 周：交流电路与相量法</h2>
 
   <div class="week-block">
@@ -1297,7 +1310,7 @@
   </div>
 </section>
 
-<section>
+<section id="circuit-week4">
   <h2 class="section-title">📅 第 4 周：动态电路暂态分析与磁路</h2>
 
   <div class="week-block">
@@ -1438,6 +1451,21 @@
 </section>
 
 <section>
+  <h2 class="section-title">🧪 工程实践：仿真、测量与安全边界</h2>
+  <p>纸笔分析用于建立模型，仿真用于验证趋势，实测用于发现寄生参数和误差。三者顺序不要颠倒，也不要把低压练习直接迁移到市电。</p>
+  <div class="card-grid">
+    <div class="card"><h4>仿真三步</h4><p>先画理想电路，再设置初始条件和扫频范围，最后把关键节点的电压、电流与手算值对照。</p></div>
+    <div class="card"><h4>测量三问</h4><p>万用表档位是否正确？表笔是否并联/串联在正确位置？测量结果是否符合数量级和功率约束？</p></div>
+    <div class="card"><h4>安全底线</h4><p>只使用隔离后的安全低压电源练习；接线、改线前断电；电容放电后再触摸；不在没有防护和指导时操作市电。</p></div>
+  </div>
+  <div class="worked-example">
+    <div class="example-title">🔬 实验：验证 RC 时间常数</div>
+    <ol><li>选 R=10kΩ、C=100μF，计算理论值 <code>τ=1s</code>。</li><li>每隔 0.5s 记录电容电压，至少记录到 5τ。</li><li>在表格中计算 <code>u/U<sub>s</sub></code>，观察 63.2%、86.5%、95.0%、98.2%、99.3% 五个节点。</li><li>解释实测曲线与理想曲线不一致的原因（内阻、漏电、采样误差）。</li></ol>
+  </div>
+  <div class="exercise"><div class="exercise-title">✏️ 练习：从电路图到可复现报告</div><ol><li>画出含元件值、参考方向和测量点的电路图。</li><li>列出理论公式、输入参数和单位。</li><li>记录仿真/实测结果，并写出误差百分比。</li><li>最后给出“模型何时失效”的一句话结论。</li></ol></div>
+</section>
+
+<section id="circuit-check">
   <h2 class="section-title">✅ 第二章自测清单</h2>
   <ul class="checklist">
     <li><b>电阻、电容、电感</b>的 VCR 方程及其数学本质（代数/微分）</li>
@@ -1881,6 +1909,7 @@
     <span class="tip-title">🎯 掌握标准</span>
     以上 12 项全部达到"已掌握" → <b>进入第三章</b>。有任意 3 项及以上为"未掌握" → <b>建议回到对应周次重新学习</b>。
   </div>
+</section>
 <section>
   <h2 class="section-title">&#x1F9D2; 小白专属：每日打卡计划</h2>
   <p>电路学习最怕看会了但手不会。下面是一份边学边练的 4 周打卡计划。</p>
@@ -1947,6 +1976,14 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 // Quiz logic
 document.querySelectorAll('.quiz-option').forEach(opt => {
+  opt.setAttribute('role', 'button');
+  opt.setAttribute('tabindex', '0');
+  opt.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      opt.click();
+    }
+  });
   opt.addEventListener('click', function() {
     const quizId = this.dataset.quiz;
     const answerEl = document.querySelector('#' + quizId + '-answer');
@@ -1977,6 +2014,9 @@ window.addEventListener('scroll', function() {
 });
 backTop.addEventListener('click', function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.getElementById('printPlan').addEventListener('click', function() {
+  window.print();
 });
 </script>
 

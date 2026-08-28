@@ -6121,6 +6121,14 @@ func main() {
           <li>我知道 go.mod 和 go.sum 都要提交。</li>
         </ul>
       </div>
+      <h3>工程化补充：包设计、错误与并发安全</h3>
+      <p>能运行只是起点。把代码拆成小包、保留错误上下文，并明确谁负责修改共享数据，项目才容易测试和维护。</p>
+      <div class="grid">
+        <div class="card"><h4>包边界</h4><p>把领域逻辑放在独立包中，<code>main</code> 只负责组装依赖和处理命令行。对外暴露的标识符才用大写开头。</p></div>
+        <div class="card"><h4>错误链</h4><p>用 <code>%w</code> 保留原始错误，再用 <code>errors.Is</code> 或 <code>errors.As</code> 判断类型，不要依赖字符串比较。</p></div>
+        <div class="card"><h4>并发边界</h4><p>共享状态优先用 <code>sync.Mutex</code> 保护；任务需要停止时用 <code>context.Context</code> 传递取消信号，并运行 <code>go test -race ./...</code>。</p></div>
+      </div>
+      <div class="exercise"><div class="exercise-title"><i data-lucide="pencil"></i>练习：把待办项目拆包</div><ol><li>把文件读写函数移到 <code>storage</code> 包。</li><li>让命令层只调用接口，不直接操作 JSON 文件。</li><li>为“任务不存在”定义一个可用 <code>errors.Is</code> 判断的错误。</li><li>运行 <code>go test -race ./...</code>，确认并发访问没有数据竞争。</li></ol></div>
     </section>
 
     <section class="section" id="mistakes" data-reveal>
@@ -6762,6 +6770,7 @@ ENTRYPOINT ["/todo"]</code></pre>
       <h2>小测验</h2>
       <p class="lead">一共 16 题。点击选项后会立刻显示对错，答完后看看自己能拿多少分。</p>
       <div id="quizRoot" aria-live="polite"></div>
+      <noscript><div class="note">小测验需要启用 JavaScript；你也可以按本章自测清单逐项手写答案。</div></noscript>
       <div class="quiz-result" id="quizResult" hidden></div>
       <button class="btn btn-ghost" type="button" id="quizRetry" style="margin-top: 14px;" hidden>
         <i data-lucide="rotate-ccw"></i>
