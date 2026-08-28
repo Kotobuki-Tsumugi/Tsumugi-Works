@@ -15,7 +15,11 @@ export function LegacyHtmlContent({ html, className = '' }: { html: string; clas
       if (copyButton && container.contains(copyButton)) {
         const sourceId = copyButton.dataset.reactCopy
         const source = sourceId ? container.querySelector<HTMLElement>(`#${escapeSelector(sourceId)}`) : null
-        if (!source || !navigator.clipboard?.writeText) return
+        if (!source || !navigator.clipboard?.writeText) {
+          copyButton.dataset.copyStatus = 'error'
+          copyButton.textContent = '复制失败'
+          return
+        }
         try {
           await navigator.clipboard.writeText(source.textContent ?? '')
           copyButton.dataset.copyStatus = 'success'
