@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第三章：信号与系统基础学习计划 — 电气工程师自学路径</title>
+<style>
+  :root {
+    --primary:#cc785c; --primary-dark:#b56145; --primary-soft:#fdf1ea;
+    --accent-blue:#6a9bcc; --accent-green:#788c5d; --success:#788c5d; --error:#c0392b;
+    --bg:#faf9f5; --bg-warm:#f5f4ef; --card:#fff; --panel:#f0eeea;
+    --border:#e0ddd3; --text:#141413; --muted:#5a5a56;
+    --radius:.625rem; --shadow:0 .125rem .5rem rgba(20,20,19,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;font-size:1rem}
+  .page{max-width:min(100%,60rem);margin:0 auto;padding:0 clamp(1rem,2vw,1.5rem) 4rem}
+  .skip-link{position:fixed;left:1rem;top:-4rem;z-index:20;background:var(--primary);color:#fff;padding:.5rem .875rem;border-radius:var(--radius)}
+  .skip-link:focus{top:1rem}
+  .hero{margin:0 clamp(-1.5rem,-2vw,-1rem) 2rem;padding:3.5rem clamp(1.5rem,4vw,3rem) 3rem;text-align:center;background:linear-gradient(180deg,#f5ede6,#faf9f5);border-bottom:.0625em solid var(--border);border-radius:0 0 1.5rem 1.5rem}
+  h1{font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.2;margin-bottom:.75rem}
+  .subtitle{color:var(--muted);font-size:clamp(.95rem,1.5vw,1.1rem);margin-bottom:1.25rem}
+  .meta{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;color:var(--muted);font-size:.9em}.meta strong{color:var(--primary)}
+  .print{position:fixed;right:1rem;top:1rem;z-index:10;padding:.5rem .875rem;border:.0625em solid var(--border);border-radius:var(--radius);background:var(--card);cursor:pointer;color:var(--text)}
+  .print:focus-visible,a:focus-visible,button:focus-visible,.quiz-option:focus-visible{outline:.125em solid var(--primary);outline-offset:.125em}
+  .nav{display:flex;flex-wrap:wrap;gap:.4rem;padding:.75rem;margin-bottom:2.25rem;background:var(--bg-warm);border:.0625em solid var(--border);border-radius:var(--radius)}
+  .nav a{color:var(--primary-dark);text-decoration:none;padding:.35rem .625rem;border-radius:.25rem}.nav a:hover{background:var(--primary-soft)}
+  section{margin-bottom:3rem} h2{font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.2;margin-bottom:1.25rem;padding-bottom:.625rem;position:relative} h2:after{content:"";position:absolute;left:0;bottom:0;width:3rem;height:.1875rem;background:var(--primary);border-radius:.125rem}
+  h3{color:var(--primary);font-size:clamp(1.1rem,2vw,1.35rem);margin:1.5rem 0 .7rem} h4{color:var(--primary-dark);margin:1rem 0 .4rem} p{margin-bottom:.7rem} ul,ol{margin:0 0 .875rem 1.35rem} li{margin-bottom:.35rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.875rem}.card{background:var(--card);border:.0625em solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;box-shadow:var(--shadow);margin-bottom:.875rem}.card h3,.card h4{margin-top:0}.card:hover{border-color:rgba(204,120,92,.4)}
+  .note,.tip{background:#fef7f2;border-left:.1875em solid var(--primary);border-radius:0 var(--radius) var(--radius) 0;padding:.85rem 1rem;margin:.875rem 0}.note strong,.tip strong{color:var(--primary)}
+  .blue{background:#e8f1f8;border-left-color:var(--accent-blue)}.green{background:#edf2e5;border-left-color:var(--accent-green)}
+  .formula{background:var(--panel);border-left:.25em solid var(--primary);border-radius:0 var(--radius) var(--radius) 0;padding:1rem 1.25rem;margin:.75rem 0;overflow:auto;font-family:"JetBrains Mono","Fira Code",monospace;color:var(--text)}.formula small{display:block;color:var(--accent-blue);font-family:inherit;margin-bottom:.35rem}
+  .diagram{white-space:pre-wrap;background:var(--card);border:.0625em dashed var(--border);border-radius:var(--radius);padding:1rem;font-family:"JetBrains Mono","Fira Code",monospace;color:var(--muted);overflow:auto;margin:.75rem 0}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin:.875rem 0;font-size:.92em}th{background:#f0ede7;color:var(--primary-dark);text-align:left;padding:.7rem .8rem;border-bottom:.125em solid var(--primary)}td{padding:.65rem .8rem;border-bottom:.0625em solid var(--border);vertical-align:top}tr:last-child td{border-bottom:0}tr:nth-child(even) td{background:var(--bg)}
+  .week{background:var(--card);border:.0625em solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:.875rem;box-shadow:var(--shadow)}.week-title{background:var(--primary);color:#fff;font-weight:700;padding:.75rem 1rem}.week-body{padding:1rem 1.2rem}.badge{display:inline-block;background:rgba(255,255,255,.2);padding:.1rem .5rem;border-radius:1rem;font-size:.8em;margin-left:.35rem}
+  .checklist{list-style:none;margin-left:0}.checklist li{background:var(--card);border:.0625em solid var(--border);border-radius:.375rem;padding:.5rem .75rem}.checklist li:before{content:"☐";color:var(--primary);font-size:1.15em;margin-right:.5rem}
+  .pitfall{background:var(--bg-warm);border:.0625em solid var(--border);border-radius:var(--radius);padding:1rem;margin:.875rem 0}.pitfall h4{color:var(--error);margin-top:0}.pitfall p{background:var(--card);padding:.5rem .7rem;border-radius:.375rem;margin:.4rem 0}
+  .quiz{background:#fef7f2;border:.0625em solid rgba(204,120,92,.25);border-radius:var(--radius);padding:1rem 1.2rem;margin:.875rem 0}.quiz-title{font-weight:700;color:var(--primary);margin-bottom:.45rem}.quiz-option{display:block;background:var(--card);border:.0625em solid var(--border);border-radius:.375rem;padding:.45rem .7rem;margin:.25rem 0;cursor:pointer}.quiz-option:hover{border-color:var(--primary);background:var(--primary-soft)}.quiz-option.correct{background:#edf2e5;border-color:var(--success);color:var(--success)}.quiz-option.wrong{background:#fde8e3;border-color:var(--error);color:var(--error)}.answer{display:none;background:#edf2e5;color:var(--success);border-radius:.375rem;padding:.55rem .7rem;margin-top:.5rem;font-size:.9em}.answer.show{display:block}
+  .project{border:.125em solid var(--primary);background:var(--card);border-radius:var(--radius);padding:1.1rem 1.25rem;margin:.875rem 0}.project h3{margin-top:0}.footer{text-align:center;color:var(--muted);border-top:.0625em solid var(--border);padding:2rem 1rem;margin-top:2.5rem;font-size:.85em}
+  .top{position:fixed;right:1rem;bottom:1rem;width:2.75rem;height:2.75rem;border:0;border-radius:50%;background:var(--primary);color:#fff;font-size:1.25em;cursor:pointer;display:none}.top.show{display:block}
+  @media print{.print,.top,.skip-link{display:none!important}.page{max-width:none}.card,.week,.quiz{break-inside:avoid}}
+  @media (width < 37.5rem){.hero{padding:2.25rem 1.1rem 2rem}.meta{flex-direction:column;gap:.35rem}.nav a{font-size:.9em}.page{padding-left:1rem;padding-right:1rem}table{font-size:.82em}th,td{padding:.45rem .5rem}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#mainContent">跳到正文</a>
+<button class="print" id="printPlan" type="button">打印本章</button>
+<button class="top" id="backTop" type="button" aria-label="回到顶部">↑</button>
+<main class="page" id="mainContent">
+  <header class="hero">
+    <h1>⚡ 第三章：信号与系统基础</h1>
+    <p class="subtitle">用“信号—系统—变换—响应”连接电路分析、滤波与控制</p>
+    <div class="meta"><span>建议周期：<strong>6 周</strong></span><span>每天：<strong>1.5–2 小时</strong></span><span>难度：<strong>进阶</strong></span></div>
+  </header>
+
+  <nav class="nav" aria-label="章节导航">
+    <a href="第一章-数学基础学习计划.html">← 第一章</a><a href="第二章-电路基础学习计划.html">← 第二章</a>
+    <a href="#goals">学习目标</a><a href="#roadmap">六周路线</a><a href="#signals">信号</a><a href="#systems">系统</a><a href="#convolution">卷积</a><a href="#fourier">傅里叶</a><a href="#laplace">拉普拉斯</a><a href="#frequency">频率响应</a><a href="#project">综合项目</a><a href="#quiz">自测</a>
+  </nav>
+
+  <section id="goals">
+    <h2>🎯 本章定位与学习目标</h2>
+    <div class="note"><strong>为什么现在学：</strong>第二章已经能写出 RC/RL 电路方程，本章把这些方程放进统一的系统框架，之后才能自然进入数字信号处理、控制系统和通信分析。</div>
+    <div class="grid">
+      <div class="card"><h3>先修检查</h3><ul><li>复数与相量运算</li><li>一阶、二阶常微分方程</li><li>RC/RL 暂态和正弦稳态</li><li>阻抗与基本电路定理</li></ul></div>
+      <div class="card"><h3>完成后能做什么</h3><ul><li>分类并绘制常见信号</li><li>判断系统的线性、时不变、因果和稳定性</li><li>计算简单连续/离散卷积</li><li>由电路方程得到传递函数</li></ul></div>
+      <div class="card"><h3>工程连接</h3><ul><li>用频谱理解噪声和带宽</li><li>用拉普拉斯域分析暂态</li><li>用极点位置判断稳定性</li><li>用仿真验证滤波器设计</li></ul></div>
+    </div>
+    <div class="tip blue"><strong>先修自测：</strong>如果下面 5 题有 3 题以上不会，请先回到前两章对应小节复习，再进入正式学习。</div>
+    <ol>
+      <li>如何把 <code>a + jb</code> 转换为极坐标形式？</li>
+      <li>RC 电路的时间常数如何计算？</li>
+      <li>电容的阻抗如何表示？</li>
+      <li>微分方程中的初始条件有什么作用？</li>
+      <li>KVL 如何建立电路的微分方程？</li>
+    </ol>
+  </section>
+
+  <section id="roadmap">
+    <h2>🗓️ 六周学习路线</h2>
+    <div class="week"><div class="week-title">第 1 周 · 信号基础<span class="badge">分类与绘图</span></div><div class="week-body"><p>学习连续/离散、周期/非周期、能量/功率、奇偶和因果信号；掌握阶跃、冲激、斜坡及信号平移缩放。</p><ul class="checklist"><li>完成信号分类表</li><li>绘制阶跃、冲激、矩形脉冲和指数信号</li><li>写出一个信号的奇部与偶部</li></ul></div></div>
+    <div class="week"><div class="week-title">第 2 周 · 系统性质<span class="badge">输入与输出</span></div><div class="week-body"><p>从输入—系统—输出框图出发，判断线性、时不变、因果、稳定和记忆性，认识 LTI 系统。</p><ul class="checklist"><li>完成 10 个系统性质判断</li><li>为每个判断写出一行理由</li><li>解释 BIBO 稳定性的工程含义</li></ul></div></div>
+    <div class="week"><div class="week-title">第 3 周 · 卷积<span class="badge">LTI 核心</span></div><div class="week-body"><p>掌握翻转—平移—相乘—积分/求和的计算流程，理解冲激响应决定 LTI 系统输出。</p><ul class="checklist"><li>完成 6 道离散卷积题</li><li>完成 3 道连续卷积题</li><li>解释 RC 阶跃响应与冲激响应的关系</li></ul></div></div>
+    <div class="week"><div class="week-title">第 4 周 · 傅里叶分析<span class="badge">频谱与采样</span></div><div class="week-body"><p>学习傅里叶级数、傅里叶变换、幅频/相频、带宽、采样定理和混叠。</p><ul class="checklist"><li>分析一个方波或锯齿波的频谱</li><li>比较不同谐波对时域波形的影响</li><li>完成一次采样与混叠实验</li></ul></div></div>
+    <div class="week"><div class="week-title">第 5 周 · 拉普拉斯与传递函数<span class="badge">时域建模</span></div><div class="week-body"><p>用拉普拉斯变换把微分方程变成代数方程，推导 RC、RL 和 RLC 电路的传递函数。</p><ul class="checklist"><li>推导 RC 低通传递函数</li><li>计算单位阶跃响应</li><li>标出极点并解释其意义</li></ul></div></div>
+    <div class="week"><div class="week-title">第 6 周 · 频率响应与综合项目<span class="badge">验证与表达</span></div><div class="week-body"><p>绘制波特图，理解一阶/二阶系统的阻尼和稳定性，完成“输入信号—滤波系统—输出分析”项目。</p><ul class="checklist"><li>绘制 RC 滤波器幅频、相频曲线</li><li>完成一个综合仿真报告</li><li>参加章节自测并整理错题</li></ul></div></div>
+  </section>
+
+  <section id="signals">
+    <h2>1️⃣ 信号基础与分类</h2>
+    <p>信号是随时间、空间或其他自变量变化、用于表达信息的物理量。电压和电流波形就是电气工程中最常见的信号。</p>
+    <table><tr><th>分类角度</th><th>类型</th><th>判断要点</th><th>工程例子</th></tr><tr><td>时间变量</td><td>连续 / 离散</td><td>时间是否连续取值</td><td>示波器波形 / ADC 采样序列</td></tr><tr><td>重复性</td><td>周期 / 非周期</td><td>是否存在满足 x(t+T)=x(t) 的 T</td><td>工频正弦 / 启动暂态</td></tr><tr><td>能量分布</td><td>能量 / 功率</td><td>总能量有限或平均功率有限</td><td>脉冲 / 连续正弦</td></tr><tr><td>可预测性</td><td>确定 / 随机</td><td>能否由规则唯一预测</td><td>时钟信号 / 热噪声</td></tr></table>
+    <div class="formula"><small>基本信号</small><code>u(t)：单位阶跃；δ(t)：单位冲激；r(t)=t·u(t)：单位斜坡</code><br><code>du(t)/dt = δ(t)</code></div>
+    <div class="diagram">输入信号 x(t) ──► [  系统 H  ] ──► 输出信号 y(t)
+                 参数、初始状态和边界条件决定响应</div>
+    <div class="card"><h3>例题：信号的奇偶分解</h3><p>任意信号都可以写成：</p><div class="formula"><code>x_even(t) = [x(t)+x(−t)]/2</code><br><code>x_odd(t)  = [x(t)−x(−t)]/2</code></div><p>这样做的好处是可以分别利用偶函数和奇函数的对称性简化积分与频谱计算。</p></div>
+    <div class="pitfall"><h4>⚠️ 常见误区</h4><p><b>把“离散”理解成“数字”。</b>离散时间信号仍可能取连续幅值；经过量化后才成为数字信号。</p><p><b>把冲激当成很窄的普通脉冲。</b>冲激是面积为 1 的理想化极限，计算时要关注面积而不是峰值。</p></div>
+  </section>
+
+  <section id="systems">
+    <h2>2️⃣ 系统及其基本性质</h2>
+    <p>系统把输入映射为输出。判断系统性质时，应先写出输入替换后的表达式，再逐项验证，不能只凭波形直觉。</p>
+    <div class="grid"><div class="card"><h3>线性</h3><p>同时满足齐次性和可加性：输入放大多少，输出也放大多少；多个输入的响应可以相加。</p></div><div class="card"><h3>时不变</h3><p>若输入延迟 <code>t₀</code>，输出只延迟同样的 <code>t₀</code>，系统规则本身不随时间改变。</p></div><div class="card"><h3>因果</h3><p>当前输出不依赖未来输入。实时电路和实时控制器通常必须满足因果性。</p></div><div class="card"><h3>稳定</h3><p>BIBO 稳定：有界输入产生有界输出。连续 LTI 系统中，冲激响应绝对可积是重要判据。</p></div></div>
+    <div class="card"><h3>判断示例</h3><p>系统 <code>y(t)=3x(t)+2</code> 不是线性的，因为零输入时输出为 2；系统 <code>y(t)=x(t−2)</code> 是线性且时不变的，但它需要过去输入，因此是因果的。</p></div>
+    <div class="note green"><strong>工程连接：</strong>RC 电路在固定参数下可近似为 LTI 系统。知道它的冲激响应，就能用卷积预测任意输入波形的输出。</div>
+  </section>
+
+  <section id="convolution">
+    <h2>3️⃣ 卷积与冲激响应</h2>
+    <p>卷积把“输入波形”和“系统对单位冲激的响应”组合起来，是 LTI 系统分析的核心。</p>
+    <div class="formula"><small>连续时间卷积</small><code>y(t)=x(t)*h(t)=∫ x(τ)h(t−τ)dτ</code><br><small>离散时间卷积</small><code>y[n]=Σ x[k]h[n−k]</code></div>
+    <div class="diagram">四步图形法：
+    ① 将 h(τ) 关于纵轴翻转为 h(−τ)
+    ② 向右平移 t，得到 h(t−τ)
+    ③ 与 x(τ) 相乘，找到重叠区间
+    ④ 对重叠部分积分（离散情形则求和）</div>
+    <div class="card"><h3>离散卷积小例子</h3><p>令 <code>x[0]=1,x[1]=2</code>，<code>h[0]=1,h[1]=1</code>，则：</p><div class="formula"><code>y[0]=1</code><br><code>y[1]=1×1+2×1=3</code><br><code>y[2]=2×1=2</code><br><code>y=[1,3,2]</code></div><p>输出长度为两个有限序列长度之和减一。</p></div>
+    <div class="tip"><strong>记忆方法：</strong>冲激响应是系统的“指纹”。输入可以拆成许多移位冲激，系统对每个冲激的响应相加，就得到卷积。</div>
+  </section>
+
+  <section id="fourier">
+    <h2>4️⃣ 傅里叶级数、变换与采样</h2>
+    <p>傅里叶思想是把时域波形拆成不同频率的正弦分量，从而用频率角度观察滤波、谐波和带宽。</p>
+    <div class="formula"><small>傅里叶变换</small><code>X(ω)=∫ x(t)e^(−jωt)dt</code><br><small>逆变换</small><code>x(t)=(1/2π)∫ X(ω)e^(jωt)dω</code></div>
+    <div class="grid"><div class="card"><h3>幅频特性</h3><p>表示不同频率分量被系统放大或衰减多少，决定滤波器的选择性。</p></div><div class="card"><h3>相频特性</h3><p>表示不同频率分量产生的相位延迟。相位失真可能改变脉冲和边沿形状。</p></div><div class="card"><h3>带宽</h3><p>系统能有效通过的频率范围。低通滤波器通常以截止频率定义带宽。</p></div></div>
+    <div class="formula"><small>采样定理</small><code>f_s &gt; 2f_max</code><br><span>采样频率必须高于信号最高频率的两倍，才能避免理想条件下的混叠。</span></div>
+    <div class="pitfall"><h4>⚠️ 混叠不是“噪声变大”</h4><p>混叠是高频成分折叠到低频，导致采样后的频谱出现错误分量；一旦采样不足，通常无法仅靠后处理恢复原始信号。工程上会在 ADC 前加入抗混叠低通滤波器。</p></div>
+  </section>
+
+  <section id="laplace">
+    <h2>5️⃣ 拉普拉斯变换与传递函数</h2>
+    <p>拉普拉斯变换把微分关系转换为 <code>s</code> 域中的代数关系，特别适合分析暂态、初始条件、极点和系统稳定性。</p>
+    <div class="formula"><small>双边/单边工程表达</small><code>X(s)=∫₀∞ x(t)e^(−st)dt</code><br><code>H(s)=Y(s)/X(s)</code>（零初始条件下）</div>
+    <div class="card"><h3>RC 低通滤波器推导</h3><ol><li>对输出电容电压列 KVL：<code>u_i=Ri+u_o</code>。</li><li>使用电容关系：<code>i=C·du_o/dt</code>。</li><li>得到微分方程：<code>RC·du_o/dt+u_o=u_i</code>。</li><li>变换到 <code>s</code> 域：<code>(RCs+1)U_o=U_i</code>。</li><li>因此传递函数：<div class="formula"><code>H(s)=U_o/U_i=1/(RCs+1)</code></div></li></ol><p>极点为 <code>s=−1/(RC)</code>，位于左半平面，因此该一阶系统稳定。</p></div>
+    <div class="formula"><small>一阶与二阶标准形式</small><code>H₁(s)=1/(τs+1)</code><br><code>H₂(s)=ωₙ²/(s²+2ζωₙs+ωₙ²)</code></div>
+    <div class="note blue"><strong>变换选择：</strong>傅里叶变换偏向稳态频谱；拉普拉斯变换同时容纳暂态和稳定性；Z 变换用于离散系统（下一阶段再深入）。</div>
+  </section>
+
+  <section id="frequency">
+    <h2>6️⃣ 频率响应与系统稳定性</h2>
+    <p>将传递函数中的 <code>s</code> 取为 <code>jω</code>，即可得到正弦稳态下的频率响应 <code>H(jω)</code>。</p>
+    <div class="grid"><div class="card"><h3>一阶系统</h3><p>RC 低通在低频段增益接近 1，高频段以约 −20 dB/dec 衰减；截止角频率为 <code>ω_c=1/RC</code>。</p></div><div class="card"><h3>二阶系统</h3><p>自然频率 <code>ωₙ</code> 决定响应速度，阻尼比 <code>ζ</code> 决定超调、振荡和稳定时间。</p></div><div class="card"><h3>稳定性</h3><p>连续 LTI 系统稳定的基本要求是全部极点位于左半平面；右半平面极点会产生发散响应。</p></div></div>
+    <div class="formula"><small>波特图常用量</small><code>增益(dB)=20log₁₀|H(jω)|</code><br><code>相位=∠H(jω)</code></div>
+    <table><tr><th>阻尼比 ζ</th><th>响应特征</th><th>工程观察</th></tr><tr><td>ζ&gt;1</td><td>过阻尼</td><td>无振荡但响应较慢</td></tr><tr><td>ζ=1</td><td>临界阻尼</td><td>无振荡且速度较快</td></tr><tr><td>0&lt;ζ&lt;1</td><td>欠阻尼</td><td>有超调和衰减振荡</td></tr><tr><td>ζ=0</td><td>无阻尼</td><td>持续振荡，理想情况下不稳定</td></tr></table>
+  </section>
+
+  <section id="experiments">
+    <h2>🧪 实验任务</h2>
+    <div class="grid"><div class="card"><h3>实验一：RC 低通滤波器</h3><p>输入低频、高频和含噪正弦信号，记录输入/输出波形、幅值、相位和截止频率。</p><ul><li>写出理论 <code>H(s)</code></li><li>计算 <code>f_c=1/(2πRC)</code></li><li>对比理论与仿真误差</li></ul></div><div class="card"><h3>实验二：采样与混叠</h3><p>以不同采样频率采样同一正弦波，比较满足和不满足奈奎斯特条件时的时域与频谱。</p><ul><li>标出混叠频率</li><li>解释抗混叠滤波器的作用</li><li>说明为何后处理无法可靠补救</li></ul></div><div class="card"><h3>拓展：二阶响应</h3><p>改变阻尼比，观察上升时间、超调量和稳定时间，连接极点位置与波形表现。</p></div></div>
+  </section>
+
+  <section id="project">
+    <h2>🏗️ 综合项目：输入信号—滤波系统—输出分析</h2>
+    <div class="project"><h3>项目要求</h3><ol><li>生成一个含噪周期信号，记录采样率和信号频率。</li><li>设计 RC 低通或高通滤波器，给出 R、C 参数。</li><li>从 KVL 推导微分方程和传递函数。</li><li>绘制理论频率响应、时域响应和仿真结果。</li><li>比较滤波前后的波形与频谱，解释误差来源。</li><li>提交 2–4 页报告：目标、模型、推导、图表、结论。</li></ol></div>
+    <table><tr><th>评价项</th><th>分值</th></tr><tr><td>电路模型与假设</td><td>20</td></tr><tr><td>微分方程与传递函数</td><td>35</td></tr><tr><td>时域/频域分析</td><td>30</td></tr><tr><td>仿真对比与工程表达</td><td>15</td></tr></table>
+  </section>
+
+  <section id="quiz">
+    <h2>🧠 综合自测</h2>
+    <div class="quiz" id="quiz-ch3-1"><div class="quiz-title">第 1 题：系统性质</div><p>系统 <code>y(t)=x(t−2)</code> 属于哪一类？</p><span class="quiz-option" data-quiz="quiz-ch3-1" data-correct="1">A. 线性、时不变、因果</span><span class="quiz-option" data-quiz="quiz-ch3-1" data-correct="0">B. 非线性、时变、因果</span><span class="quiz-option" data-quiz="quiz-ch3-1" data-correct="0">C. 线性、时变、非因果</span><div class="answer" id="quiz-ch3-1-answer">✅ 选 A。延迟操作保持线性和时不变性，只依赖过去输入，因此是因果系统。</div></div>
+    <div class="quiz" id="quiz-ch3-2"><div class="quiz-title">第 2 题：离散卷积</div><p><code>x=[1,2]</code>、<code>h=[1,1]</code> 的卷积结果是？</p><span class="quiz-option" data-quiz="quiz-ch3-2" data-correct="0">A. [1,2]</span><span class="quiz-option" data-quiz="quiz-ch3-2" data-correct="1">B. [1,3,2]</span><span class="quiz-option" data-quiz="quiz-ch3-2" data-correct="0">C. [2,3,1]</span><div class="answer" id="quiz-ch3-2-answer">✅ 选 B。逐项求和得到 y[0]=1、y[1]=3、y[2]=2。</div></div>
+    <div class="quiz" id="quiz-ch3-3"><div class="quiz-title">第 3 题：采样定理</div><p>信号最高频率为 5 kHz，理想采样频率至少应满足：</p><span class="quiz-option" data-quiz="quiz-ch3-3" data-correct="0">A. 5 kHz</span><span class="quiz-option" data-quiz="quiz-ch3-3" data-correct="1">B. 大于 10 kHz</span><span class="quiz-option" data-quiz="quiz-ch3-3" data-correct="0">C. 任何频率都可以</span><div class="answer" id="quiz-ch3-3-answer">✅ 选 B。奈奎斯特条件为 f_s &gt; 2f_max，因此需要大于 10 kHz。</div></div>
+    <div class="quiz" id="quiz-ch3-4"><div class="quiz-title">第 4 题：RC 传递函数</div><p>RC 低通滤波器的传递函数是：</p><span class="quiz-option" data-quiz="quiz-ch3-4" data-correct="1">A. 1/(RCs+1)</span><span class="quiz-option" data-quiz="quiz-ch3-4" data-correct="0">B. RCs+1</span><span class="quiz-option" data-quiz="quiz-ch3-4" data-correct="0">C. RC/(s+1)</span><div class="answer" id="quiz-ch3-4-answer">✅ 选 A。输出取电容电压时，H(s)=1/(RCs+1)，极点位于 −1/(RC)。</div></div>
+    <div class="quiz" id="quiz-ch3-5"><div class="quiz-title">第 5 题：稳定性</div><p>连续系统的极点全部位于左半平面，通常意味着：</p><span class="quiz-option" data-quiz="quiz-ch3-5" data-correct="1">A. 系统渐近稳定</span><span class="quiz-option" data-quiz="quiz-ch3-5" data-correct="0">B. 系统一定发散</span><span class="quiz-option" data-quiz="quiz-ch3-5" data-correct="0">C. 系统没有频率响应</span><div class="answer" id="quiz-ch3-5-answer">✅ 选 A。左半平面极点对应衰减指数项，是连续 LTI 系统稳定的重要条件。</div></div>
+  </section>
+
+  <section id="acceptance">
+    <h2>✅ 章节验收标准</h2>
+    <ul class="checklist"><li>完成至少 12 道手算题，其中卷积不少于 3 道</li><li>完成 RC 滤波器和采样混叠两个实验</li><li>能独立写出 RC 低通滤波器的 <code>H(s)</code></li><li>能从波特图读出截止频率和相位变化</li><li>能解释极点位置与稳定性的关系</li><li>能区分傅里叶、拉普拉斯和 Z 变换的应用场景</li><li>综合测验 20 题中至少答对 16 题</li></ul>
+    <div class="note green"><strong>达标后：</strong>可进入数字信号处理、控制系统或通信基础；如果卷积、拉普拉斯和极点仍不熟，建议先根据错题回到对应周次复习。</div>
+  </section>
+
+  <section id="glossary"><h2>📖 术语速查</h2><table><tr><th>术语</th><th>含义</th></tr><tr><td>冲激响应 h(t)</td><td>系统对单位冲激输入的输出，是 LTI 系统的“指纹”。</td></tr><tr><td>频谱</td><td>信号在不同频率上的幅值和相位分布。</td></tr><tr><td>传递函数 H(s)</td><td>零初始条件下输出与输入的拉普拉斯变换之比。</td></tr><tr><td>极点</td><td>使传递函数分母为零的 s 值，决定自然响应和稳定性。</td></tr><tr><td>带宽</td><td>系统有效通过的频率范围。</td></tr></table></section>
+
+  <footer class="footer"><p>第三章：信号与系统基础学习计划 · 电气工程师自学路径</p><p>下一步方向：数字信号处理、控制系统或通信基础</p></footer>
+</main>
+<script>
+document.querySelectorAll('.quiz-option').forEach(function(option){
+  option.setAttribute('role','button'); option.setAttribute('tabindex','0');
+  option.addEventListener('keydown',function(event){if(event.key==='Enter'||event.key===' '){event.preventDefault();option.click();}});
+  option.addEventListener('click',function(){
+    var quiz=option.dataset.quiz, answer=document.getElementById(quiz+'-answer'), correct=option.dataset.correct==='1';
+    option.parentElement.querySelectorAll('.quiz-option').forEach(function(item){item.classList.remove('correct','wrong');item.style.pointerEvents='none';});
+    option.classList.add(correct?'correct':'wrong');
+    if(!correct){var right=option.parentElement.querySelector('[data-correct="1"]');if(right){right.classList.add('correct');}}
+    if(answer){answer.classList.add('show');}
+  });
+});
+var topButton=document.getElementById('backTop');
+window.addEventListener('scroll',function(){topButton.classList.toggle('show',window.scrollY>400);});
+topButton.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+document.getElementById('printPlan').addEventListener('click',function(){window.print();});
+</script>
+</body>
+</html>
