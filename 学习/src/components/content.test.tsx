@@ -42,6 +42,7 @@ describe('PrintButton', () => {
 describe('BackToTop', () => {
   it('scrolls to top when activated', () => {
     const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 300 })
     render(<BackToTop />)
     fireEvent.click(screen.getByRole('button', { name: /回到顶部/ }))
     expect(scrollTo).toHaveBeenCalled()

@@ -15,5 +15,7 @@ describe('StudyLayout', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('navigation', { name: '学习路线' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: '测试内容' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /打印/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /回到顶部/ })).not.toBeInTheDocument()
   })
 })
