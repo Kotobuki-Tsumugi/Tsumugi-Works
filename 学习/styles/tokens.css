@@ -1,0 +1,15 @@
+:root {
+  color-scheme: light;
+  --color-paper: #f6f1e8;
+  --color-surface: #fffdf8;
+  --color-ink: #292621;
+  --color-muted: #756e64;
+  --color-primary: #bd633d;
+  --color-border: #dfd6c8;
+  --radius-md: 12px;
+  --shadow-soft: 0 8px 24px rgb(71 53 37 / 8%);
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+}
