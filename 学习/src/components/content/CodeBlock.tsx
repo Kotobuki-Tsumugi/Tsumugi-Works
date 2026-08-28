@@ -1,7 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function CodeBlock({ code, language, title }: { code: string; language?: string; title?: string }) {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  useEffect(() => {
+    if (status === 'idle') return
+    const timer = window.setTimeout(() => setStatus('idle'), 2000)
+    return () => window.clearTimeout(timer)
+  }, [status])
   const copy = async () => {
     try {
       if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable')

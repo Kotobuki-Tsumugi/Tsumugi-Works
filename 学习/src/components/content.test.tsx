@@ -1,6 +1,17 @@
 import { describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen } from '@testing-library/react'
-import { CodeBlock, Quiz, PrintButton, BackToTop } from './content'
+import { act, fireEvent, render, screen } from '@testing-library/react'
+import { Checklist, CodeBlock, Quiz, PrintButton, BackToTop } from './content'
+
+describe('Checklist', () => {
+  it('reconciles checked state when item count changes', () => {
+    const { rerender } = render(<Checklist items={['A', 'B']} />)
+    fireEvent.click(screen.getByLabelText('A'))
+    rerender(<Checklist items={['A']} />)
+    expect(screen.getByLabelText('A')).toBeChecked()
+    rerender(<Checklist items={['A', 'B', 'C']} />)
+    expect(screen.getByLabelText('C')).not.toBeChecked()
+  })
+})
 
 describe('Quiz', () => {
   it('disables options and shows explanation after selecting an answer', () => {
@@ -27,6 +38,22 @@ describe('CodeBlock', () => {
     fireEvent.click(screen.getByRole('button', { name: /复制代码/ }))
     await vi.waitFor(() => expect(writeText).toHaveBeenCalledWith('const x = 1'))
     expect(screen.getByText('已复制')).toBeInTheDocument()
+  })
+
+  it('clears copy status after two seconds', async () => {
+    vi.useFakeTimers()
+    try {
+      const writeText = vi.fn().mockResolvedValue(undefined)
+      Object.assign(navigator, { clipboard: { writeText } })
+      render(<CodeBlock code="const y = 2" language="ts" />)
+      fireEvent.click(screen.getByRole('button', { name: /复制代码/ }))
+      await act(async () => { await Promise.resolve() })
+      expect(screen.getByText('已复制')).toBeInTheDocument()
+      act(() => { vi.advanceTimersByTime(2000) })
+      expect(screen.getByText('复制代码')).toBeInTheDocument()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })
 

@@ -76,3 +76,8 @@ h1 { margin: .25rem 0 var(--space-2); font-size: clamp(2rem, 5vw, 3.5rem); }
 .mobile-nav-close { position:absolute; top:.5rem; right:.75rem; z-index:1; border:0; background:none; font-size:1.5rem; }
 @media (max-width: 700px) { .study-main { display: block; } .study-sidebar { min-height: auto; border-right: 0; border-bottom: 1px solid var(--color-border); padding: var(--space-2) var(--space-3); } .study-sidebar nav { display: flex; overflow-x: auto; } .study-content { padding: var(--space-3); } }
 @media (max-width: 700px) { .study-main > .study-sidebar { display:none; } .mobile-menu-button { display:block; } .study-header { align-items:center; } .lesson-layout { grid-template-columns:1fr; } .lesson-outline { position:static; border-bottom:1px solid var(--color-border); padding-bottom:var(--space-2); } }
+@media print {
+  .study-header, .study-sidebar, .study-actions, .back-to-top, .mobile-nav-overlay { display: none !important; }
+  .study-main { display: block; max-width: none; }
+  .study-content { padding: 0; }
+}
