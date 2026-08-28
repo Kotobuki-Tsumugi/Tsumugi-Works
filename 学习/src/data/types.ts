@@ -7,11 +7,24 @@ export type Lesson = {
   anchors: LessonAnchor[]
 }
 
+export type RouteId = 'engineering' | 'programming'
+
+/** A learning path that groups related courses in the navigation. */
+export type Route = {
+  id: RouteId
+  title: string
+  description: string
+  icon: string
+  courses: Course[]
+}
+
 export type Course = {
   id: string
   title: string
   description: string
-  route: 'engineering' | 'programming'
+  route: RouteId
+  /** Original static page migrated into this course. */
+  sourcePath: string
   icon: string
   level: string
   duration: string
@@ -19,4 +32,9 @@ export type Course = {
   lessons: Lesson[]
 }
 
-export type Catalog = { courses: Course[] }
+export type Catalog = {
+  /** Flat list retained for lookups and adjacent-course navigation. */
+  courses: Course[]
+  /** Grouped learning paths used by home and sidebar navigation. */
+  routes: Route[]
+}
