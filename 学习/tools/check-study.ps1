@@ -3,6 +3,17 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+# 兼容旧入口：根目录内容中心负责 SQLite 单次索引与检查。
+$drmeRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+Push-Location $drmeRoot
+try {
+  bun run check:content
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+} finally {
+  Pop-Location
+}
+
 $voidTags = @("area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr")
 $ignoredTags = @("math", "mrow", "mfrac", "msup", "msub", "msqrt", "mi", "mn", "mo", "mtext", "mtable", "mtr", "mtd", "munder", "mover", "munderover", "mfenced", "mstyle", "menclose", "ms")
 $files = Get-ChildItem -LiteralPath $Root -Recurse -Filter *.html | Sort-Object FullName
