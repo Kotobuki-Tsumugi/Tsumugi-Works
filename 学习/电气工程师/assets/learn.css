@@ -1,0 +1,136 @@
+/* 统一学习中心（learn.js）：今天视图「今日复习」卡 + 全屏弹层；弹层外壳复用 .vocab / .vx-* */
+
+/* ---------- 今日复习卡 ---------- */
+.lx-sums{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.lx-sum{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-sm);background:var(--glass);border:1px solid var(--line)}
+.lx-sum.done{opacity:.72}
+.lx-sic{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:10px;background:var(--accent-soft);color:var(--accent)}
+.lx-sum.done .lx-sic{background:var(--good-bg);color:var(--good)}
+.lx-sname{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.lx-sname b{font-size:14px}
+.lx-sname small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lx-cardf{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:var(--s4);font-size:12.5px}
+.lx-cardf .grow{flex:1}
+.lx-home{padding:var(--s5) 0;width:min(900px,100%);margin:0 auto}
+
+/* ---------- 弹层外壳 ---------- */
+.lx .vx-h{padding:10px 20px}
+.lx-tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:3px;border-radius:12px;background:var(--glass);border:1px solid var(--line)}
+.lx-tabs::-webkit-scrollbar{display:none}
+.lx-tabs button{all:unset;cursor:pointer;position:relative;display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:9px;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.lx-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.lx-tabs button[aria-selected="true"]{background:var(--glass-2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.lx-tabs .ic{width:16px;height:16px}
+.lx-badge{font-style:normal;font-size:10.5px;font-weight:700;min-width:16px;padding:0 4px;border-radius:99px;background:var(--accent);color:#fff;text-align:center;line-height:16px}
+.lx-badge[hidden]{display:none}
+.lx-body{flex:1;overflow-y:auto;padding:var(--s5) 20px;outline:0;display:flex;flex-direction:column;align-items:center;gap:var(--s4)}
+.lx-body > *{width:min(900px,100%)}
+.lx-body > .lx-card,.lx-body > .vx-grades{width:min(680px,100%)}
+.lx-body > .vx-done{margin:auto}
+.lx-body > .b-vocab{margin:auto 0}
+.lx-loading{text-align:center;margin:auto}
+.lx-src{font-size:12px}
+
+/* ---------- 公式卡 / 错题卡 ---------- */
+.lx-card{position:relative;display:flex;flex-direction:column;gap:10px;padding:40px 28px 24px;border-radius:24px;background:var(--glass);border:1px solid var(--line-2);box-shadow:var(--shadow);min-height:260px}
+.lx-card:not(.flipped){cursor:pointer;justify-content:center;align-items:center;text-align:center}
+.lx-card.flipped{animation:vxFlip .28s ease}
+.lx-where{margin:0;font-size:12.5px;color:var(--ink-3)}
+.lx-title{margin:0;font-size:clamp(20px,3.4vw,26px);line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:inherit}
+.lx-card:not(.flipped) .lx-title{justify-content:center}
+.lx-back{border-top:1px dashed var(--line-2);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.lx-formula{overflow-x:auto;overflow-y:hidden;padding:4px 0;font-size:1.08em}
+.lx-row{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;font-size:14.5px;line-height:1.6}
+.lx-row > b{font-size:12px;color:var(--accent);padding-top:3px}
+.lx-row > div{min-width:0}
+.lx-ex{border:1px solid var(--line);border-radius:var(--r-sm);padding:6px 12px;font-size:14px;line-height:1.6}
+.lx-ex summary{cursor:pointer;color:var(--ink-2);font-size:13px}
+.lx-ex > div{padding-top:6px}
+.lx-note{margin:0;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--warn)}
+.lx-q:not(.flipped){text-align:left;align-items:stretch}
+.lx-qbody{font-size:15px;line-height:1.75;overflow-wrap:anywhere}
+.lx-qbody p,.lx-ans p{margin:.3em 0}
+.lx-qbody img,.lx-ans img{max-width:100%;height:auto;background:#fff;border-radius:6px;padding:4px}
+.lx-qbody table,.lx-ans table{border-collapse:collapse;margin:6px 0}
+.lx-qbody td,.lx-qbody th,.lx-ans td,.lx-ans th{border:1px solid var(--line-2);padding:3px 8px}
+.p-dm{margin:.4em 0}
+.lx .katex-display,.p-dm{overflow-x:auto;overflow-y:hidden;padding:3px 0}
+.p-miss{color:var(--warn);font-size:12.5px}
+.lx-ans{border-top:1px dashed var(--line-2);padding-top:10px;font-size:14.5px;line-height:1.75;overflow-wrap:anywhere}
+.lx-ans > p:first-child b{color:var(--good);margin-right:6px}
+.lx-card .vx-flip{align-self:center;margin-top:10px}
+
+/* ---------- 真题 ---------- */
+.lx-seg{align-self:flex-start;width:auto !important}
+.lx-seg button{display:inline-flex;align-items:center;gap:6px}
+.lx-years{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.lx-year{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:var(--r-sm);background:var(--glass);border:1px solid var(--line)}
+.lx-year:hover{border-color:var(--line-2)}
+.lx-year:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lx-year b{font-size:20px;font-variant-numeric:tabular-nums}
+.lx-year span{font-size:12.5px;color:var(--ink-2)}
+.lx-year small{font-size:11.5px}
+.lx-year.started{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.lx-ptop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lx-ptop h3{margin:0;font-size:17px;display:flex;align-items:center;gap:8px}
+.lx-ptop h3 small{font-size:13px;font-weight:500}
+.lx-ptop .grow{flex:1}
+.lx-clock{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;padding:3px 10px;border-radius:8px;background:var(--glass-2)}
+.lx-clock.over{color:var(--bad);background:var(--bad-bg)}
+.lx-score{margin:0;font-size:13.5px;color:var(--ink-2)}
+.lx-score b{color:var(--ink)}
+.lx-qs{display:flex;flex-direction:column;gap:12px}
+.lx-qa{padding:14px 16px;border-radius:var(--r-sm);background:var(--glass);border:1px solid var(--line);border-left:3px solid var(--line-2);scroll-margin-top:12px}
+.lx-qa.g3{border-left-color:var(--good)} .lx-qa.g2{border-left-color:var(--warn)} .lx-qa.g1{border-left-color:var(--bad)}
+.lx-qa > header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;margin-bottom:6px}
+.lx-qa > header .grow{flex:1}
+.lx-qa select{font:inherit;font-size:12px;color:var(--ink-2);background:var(--glass);border:1px solid var(--line);border-radius:8px;padding:2px 4px;max-width:150px}
+.lx-pick{display:flex;gap:6px;margin:8px 0 2px}
+.lx-pick .btn{min-width:38px}
+.lx-pick .btn.good,.lx-g .btn.on.good{background:var(--good-bg);color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent)}
+.lx-pick .btn.bad,.lx-g .btn.on.bad{background:var(--bad-bg);color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.lx-g .btn.on.warn{background:var(--warn-bg);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.lx-qact{display:flex;align-items:center;gap:8px;margin-top:8px}
+.lx-qact .grow{flex:1}
+.lx-g{display:inline-flex;gap:4px}
+.lx-noteedit{display:flex;align-items:center;gap:6px;margin-top:8px;color:var(--warn)}
+.lx-noteedit input,.lx-wlist input{flex:1;min-width:0;font:inherit;font-size:13px;color:var(--ink);background:var(--glass);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.lx-qa .lx-ans{margin-top:10px}
+.lx-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lx-chips .chip{cursor:pointer;font:inherit;font-size:12.5px;display:inline-flex;align-items:center;gap:5px}
+.lx-chips .chip small{color:var(--ink-3)}
+.lx-chips .chip[aria-pressed="true"]{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 50%,transparent);color:var(--accent)}
+.lx-filter{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px}
+.lx-filter .muted{margin-left:6px}
+.lx-more{align-self:center;width:auto !important}
+
+/* ---------- 错题本 / 卡组总览 ---------- */
+.lx-wlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.lx-wlist li{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,240px) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:var(--r-sm);background:var(--glass);border:1px solid var(--line)}
+.lx-wmain{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lx-wmain:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lx-wmain b{font-size:14px}
+.lx-wmain span{font-size:12px}
+.lx-wmain em{font-style:normal;color:var(--warn)}
+.lx-wq{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lx-stats{padding:4px 0}
+.lx-chs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.lx-chs li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:9px 12px;border-radius:var(--r-sm);background:var(--glass);border:1px solid var(--line);font-size:13.5px}
+.lx-chs li .grow{flex:1}
+.lx-chs li .muted{font-size:12px}
+.lx-chs li .bar{flex-basis:100%;height:4px}
+.lx-chs li.lock{opacity:.55}
+.lx-unlock{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;margin:0}
+
+@media (max-width:720px){
+  .lx .vx-h h2 span,.lx .vx-h h2{font-size:16px}
+  .lx-tabs{order:3;flex-basis:100%}
+  .lx-tabs span{display:none}
+  .lx-tabs button{padding:6px 10px}
+  .lx-body{padding:var(--s4) 12px}
+  .lx-card{padding:36px 16px 18px}
+  .lx-wlist li{grid-template-columns:minmax(0,1fr) auto}
+  .lx-wlist li input{grid-column:1/-1;grid-row:2}
+  .lx-row{grid-template-columns:1fr;gap:2px}
+}
+@media print{ .lx{display:none !important} }

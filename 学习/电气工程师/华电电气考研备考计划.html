@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0f1a">
+<title>华电电气考研</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<script src="assets/boot.js"></script>
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/views.css">
+<link rel="stylesheet" href="assets/learn.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo"><i data-ic="bolt"></i></span><span>华电电气考研<small>085801 · 2027-12 初试</small></span></div>
+  <nav class="seg" role="tablist" aria-label="视图">
+    <button type="button" role="tab" data-view="today" aria-controls="view-today"><i data-ic="sun"></i>今天</button>
+    <button type="button" role="tab" data-view="route" aria-controls="view-route"><i data-ic="map"></i>路线</button>
+    <button type="button" role="tab" data-view="check" aria-controls="view-check"><i data-ic="list"></i>打卡</button>
+    <button type="button" role="tab" data-view="docs" aria-controls="view-docs"><i data-ic="book"></i>资料</button>
+  </nav>
+  <div class="tools">
+    <span class="sim" id="sim" hidden></span>
+    <button class="btn search" type="button" id="open-palette" aria-label="命令面板（Ctrl K）" aria-haspopup="dialog"><i data-ic="search"></i><span class="hide-sm">搜索</span><kbd class="hide-sm">Ctrl K</kbd></button>
+    <button class="btn icon" type="button" id="open-settings" title="设置（,）" aria-label="设置" aria-haspopup="dialog"><i data-ic="gear"></i></button>
+    <button class="btn icon hide-sm" type="button" id="print" title="打印 / 导出 PDF" aria-label="打印"><i data-ic="print"></i></button>
+  </div>
+</header>
+
+<main>
+  <section class="view" id="view-today" role="tabpanel" aria-label="今天" hidden></section>
+  <section class="view" id="view-route" role="tabpanel" aria-label="路线" hidden></section>
+  <section class="view" id="view-check" role="tabpanel" aria-label="打卡" hidden></section>
+  <section class="view" id="view-docs" role="tabpanel" aria-label="资料" hidden></section>
+</main>
+
+<dialog id="drawer" class="drawer"></dialog>
+<dialog id="palette" class="palette" aria-label="命令面板"></dialog>
+<dialog id="settings" class="settings" aria-label="设置"></dialog>
+<dialog id="learn" class="vocab lx" aria-label="学习中心"></dialog>
+<dialog id="vocab" class="vocab" aria-label="背词"></dialog>
+<dialog id="confirm" class="modal"></dialog>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<noscript><p style="padding:24px">本页需要启用 JavaScript。</p></noscript>
+<script src="assets/common.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/vocab-data.js"></script>
+<script src="assets/vocab.js"></script>
+<script src="assets/deck-math2.js"></script>
+<script src="assets/deck-ee831.js"></script>
+<script src="assets/learn.js"></script>
+<script src="assets/views.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/extras.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "华电电气考研备考计划",
+  "short_name": "华电考研",
+  "description": "华北电力大学电气工程（085801）非全日制考研：倒计时、双周学习路径、打卡与资料",
+  "lang": "zh-CN",
+  "start_url": "华电电气考研备考计划.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0f1a",
+  "theme_color": "#0b0f1a",
+  "icons": [
+    {"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
+    {"src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "今天", "url": "华电电气考研备考计划.html#today"},
+    {"name": "定位本块", "url": "华电电气考研备考计划.html#route/now"},
+    {"name": "打卡", "url": "华电电气考研备考计划.html#check"}
+  ]
+}
