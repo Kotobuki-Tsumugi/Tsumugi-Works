@@ -1,0 +1,12 @@
+# Obsidian 本地配置（可能包含同步凭据）
+.obsidian/
+# Drme 回收站
+.trash/
+# 学习资料的构建缓存（可重新生成）
+.cache/
+*.tmp
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
